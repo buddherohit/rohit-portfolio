@@ -1,34 +1,40 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from "react";
 
-const DecryptText = ({ values = ['Empty'], delay = 3000 }) => {
-  const [result, setResult] = useState(values[0] || '');
+const DecryptText = ({
+  values = ["Empty"],
+  delay = 3000,
+  speed = 30,
+  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+}) => {
+  const [result, setResult] = useState(values[0] || "");
   const intervalRef = useRef(null);
   const decryptIntervalRef = useRef(null);
 
+  const textValues = useMemo(() => values, [values]);
+
   useEffect(() => {
-    if (values.length <= 1) {
-      setResult(values[0] || '');
+    if (textValues.length <= 1) {
+      setResult(textValues[0] || "");
       return;
     }
 
-    let i = 1;
-    
+    let index = 1;
+
     const startCycle = () => {
-      const targetText = values[i];
-      
-      // Clear any existing decrypt animation
+      const targetText = textValues[index];
+
       if (decryptIntervalRef.current) {
         clearInterval(decryptIntervalRef.current);
       }
-      
-      // Decrypt animation
+
       let decryptIndex = 0;
-      const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-      
+
       decryptIntervalRef.current = setInterval(() => {
         if (decryptIndex < targetText.length) {
-          const partial = targetText.substring(0, decryptIndex) + 
-            randomChars[Math.floor(Math.random() * randomChars.length)];
+          const partial =
+            targetText.substring(0, decryptIndex) +
+            characters[Math.floor(Math.random() * characters.length)];
+
           setResult(partial);
           decryptIndex++;
         } else {
@@ -36,28 +42,21 @@ const DecryptText = ({ values = ['Empty'], delay = 3000 }) => {
           clearInterval(decryptIntervalRef.current);
           decryptIntervalRef.current = null;
         }
-      }, 30);
+      }, speed);
 
-      i = i === values.length - 1 ? 0 : i + 1;
+      index = index === textValues.length - 1 ? 0 : index + 1;
     };
 
-    // Start immediately
     startCycle();
-    
-    // Then cycle through
     intervalRef.current = setInterval(startCycle, delay);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-      if (decryptIntervalRef.current) {
-        clearInterval(decryptIntervalRef.current);
-      }
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (decryptIntervalRef.current) clearInterval(decryptIntervalRef.current);
     };
-  }, [values, delay]);
+  }, [textValues, delay, speed, characters]);
 
-  return <>{result}</>;
+  return <span>{result}</span>;
 };
 
 export default DecryptText;

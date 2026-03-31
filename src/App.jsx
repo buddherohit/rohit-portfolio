@@ -32,6 +32,7 @@ const Certificates = lazy(() => import("./pages/Certificates"));
 const Skills = lazy(() => import("./pages/Skills"));
 const Experience = lazy(() => import("./pages/Experience"));
 const Projects = lazy(() => import("./pages/Projects"));
+const Achievements = lazy(() => import("./pages/Achievements"));
 const Contact = lazy(() => import("./pages/Contact"));
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
   // Initialize Lenis smooth scroll with optimized settings
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 0.8,
+      duration: 0.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -141,16 +142,16 @@ function App() {
 
       {/* Side Elements (Social Icons & Email) */}
       <SideElements
-        email="tanmaywarthe02@gmail.com"
+        email="rohitbuddhe564@gmail.com"
         socialLinks={[
-          { icon: Github, href: 'https://github.com/TanmayWarthe', label: 'GitHub' },
-          { icon: Linkedin, href: 'https://www.linkedin.com/in/tanmay-warthe/', label: 'LinkedIn' },
-          { icon: LeetCodeIcon, href: 'https://leetcode.com/u/_tanmaaay/', label: 'LeetCode', isCustom: true },
-          { icon: Twitter, href: 'https://x.com/_tanmay_warthe', label: 'Twitter' },
-          { icon: Instagram, href: 'https://instagram.com/_tanmaaay', label: 'Instagram' },
+          { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
+          { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
+          { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
+          { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
+          { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
         ]}
         onIconClick={(label) => console.log(`Clicked ${label}`)}
-        onEmailClick={() => window.location.href = 'mailto:tanmaywarthe02@gmail.com'}
+        onEmailClick={() => window.location.href = 'mailto:rohitbuddhe564@gmail.com'}
       />
 
       {/* Main Content - Single Continuous Flow */}
@@ -196,6 +197,13 @@ function App() {
           </Suspense>
         </div>
 
+        {/* Achievements Section */}
+        <div id="achievements">
+          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
+            <Achievements />
+          </Suspense>
+        </div>
+
         {/* Certificates Section
         <div id="certificates">
           <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
@@ -212,11 +220,11 @@ function App() {
         {/* Mobile Social Icons (bottom of last section, not sticky) */}
         <SideElementsMobileIcons
           socialLinks={[
-            { icon: Github, href: 'https://github.com/TanmayWarthe', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/tanmay-warthe/', label: 'LinkedIn' },
-            { icon: LeetCodeIcon, href: 'https://leetcode.com/u/_tanmaaay/', label: 'LeetCode', isCustom: true },
-            { icon: Twitter, href: 'https://x.com/_tanmay_warthe', label: 'Twitter' },
-            { icon: Instagram, href: 'https://instagram.com/_tanmaaay', label: 'Instagram' },
+            { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
+            { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
+            { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
+            { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
           ]}
           onIconClick={(label) => console.log(`Clicked ${label}`)}
         />

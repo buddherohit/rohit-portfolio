@@ -5,8 +5,8 @@ export default function SideElementsMobileIcons({ socialLinks, onIconClick }) {
     return (
         <div
             className="lg:hidden w-full flex justify-center items-end pb-6 gap-5"
-            style={{ pointerEvents: 'auto', background: 'transparent' }}
-        >
+        >            style={{ pointerEvents: 'auto', background: 'transparent' }}
+
             {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (

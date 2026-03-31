@@ -38,7 +38,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Good day, I'm <span className="font-semibold">Tanmay Warthe</span>,
+          Hello, I'm <span className="font-semibold">Rohit Buddhe</span>
         </motion.h1>
 
         {/* Role - Red Color with DecryptText Animation */}
@@ -66,8 +66,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          A Computer Technology student at Yeshwantrao Chavan College of Engineering, passionate about building scalable, high-performance applications. I explore Cloud & DevOps while integrating AI-powered features into practical projects to create impactful software solutions.
-        </motion.p>
+Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpur, with a strong passion for software development and problem solving. Skilled in Java, and Data Structures & Algorithms, I focus on building scalable and efficient applications. I have developed projects including Women Safety System, Student Learning Platform, and Smart Hostel Management System. I am continuously learning modern technologies and seeking opportunities to contribute to impactful software solutions.        </motion.p>
 
         {/* Contact Button - Red */}
         <motion.div

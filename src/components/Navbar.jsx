@@ -16,14 +16,13 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+window.addEventListener('scroll', handleScroll, { passive: true });    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Detect active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "about", "education", "experience", "skills", "projects", "contact"];
+      const sections = ["hero", "about", "education", "experience", "skills", "projects", "achievements", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -31,7 +30,7 @@ export default function Navbar() {
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-          
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
@@ -82,6 +81,7 @@ export default function Navbar() {
     { id: "experience", label: "EXPERIENCE", icon: Briefcase },
     { id: "skills", label: "SKILLS", icon: Code },
     { id: "projects", label: "PROJECTS", icon: FolderGit },
+    { id: "achievements", label: "ACHIEVEMENTS", icon: Award },
     // { id: "certificates", label: "CERTIFICATES", icon: Award },
     { id: "contact", label: "CONTACT", icon: Mail },
   ], []);
@@ -98,7 +98,7 @@ export default function Navbar() {
         <AnimatePresence>
           {!isScrolled && (
             <motion.a
-              href="https://drive.google.com/file/d/1Nrc2UKcraLPZ2ZUA6wqCdou9XylISHR-/view?usp=sharing"
+              href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 border-2 border-red-600 text-red-700 rounded-lg font-medium text-sm hover:bg-red-50 transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-white shadow-md"
@@ -205,13 +205,13 @@ export default function Navbar() {
                       className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out"
                     >
                       <div className="bg-white text-red-600 text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border border-red-200">
-                        Get Resume
+                        Download Resume
                       </div>
                       <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white"></div>
                     </div>
 
                     <a
-                      href="/dist/Tanmay_Resume.pdf"
+                      href="/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block"
@@ -261,17 +261,15 @@ export default function Navbar() {
                     <div
                       className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out"
                     >
-                      <div className={`text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border ${
-                        isActive 
-                          ? 'bg-amber-400 text-gray-900 border-amber-500' 
+                      <div className={`text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border ${isActive
+                          ? 'bg-amber-400 text-gray-900 border-amber-500'
                           : 'bg-white text-gray-800 border-gray-200'
-                      }`}>
+                        }`}>
                         {item.label}
                       </div>
                       {/* Arrow pointing to icon */}
-                      <div className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${
-                        isActive ? 'border-l-amber-400' : 'border-l-white'
-                      }`}></div>
+                      <div className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${isActive ? 'border-l-amber-400' : 'border-l-white'
+                        }`}></div>
                     </div>
 
                     <div
@@ -284,6 +282,8 @@ export default function Navbar() {
                             duration: 0.8,
                             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                           });
+                        } else if (element) {
+                          element.scrollIntoView({ behavior: "smooth" });
                         }
                         handleItemClick(item);
                       }}
@@ -291,11 +291,10 @@ export default function Navbar() {
                     >
                       {/* Circular Icon Button */}
                       <motion.div
-                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 ${
-                          isActive
+                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 ${isActive
                             ? 'bg-amber-400 border-amber-500 text-gray-900'
                             : 'bg-white border-red-600 text-red-600'
-                        }`}
+                          }`}
                         whileHover={{
                           scale: 1.15,
                           rotate: 360,

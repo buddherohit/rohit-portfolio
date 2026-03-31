@@ -225,7 +225,7 @@ export default function Contact() {
         subject: sanitizedSubject,
         message: sanitizedMessage,
         message_html: sanitizedMessage.replace(/\n/g, '<br>'),
-        to_name: "Tanmay Warthe",
+        to_name: "Rohit Buddhe",
         reply_to: sanitizedEmail,
         reply_email: sanitizedEmail,
         date: new Date().toLocaleString('en-US', {
@@ -301,8 +301,8 @@ export default function Contact() {
         </svg>
       ),
       label: "Email",
-      value: "tanmaywarthe02@gmail.com",
-      href: "mailto:tanmaywarthe02@gmail.com"
+      value: "rohitbuddhe564@gmail.com",
+      href: "mailto:rohitbuddhe564@gmail.com"
     },
     {
       icon: (
@@ -311,8 +311,8 @@ export default function Contact() {
         </svg>
       ),
       label: "Phone",
-      value: "+91 8468853407",
-      href: "tel:+918468853407"
+      value: "+91 9322070756",
+      href: "tel:+919322070756"
     },
     {
       icon: (

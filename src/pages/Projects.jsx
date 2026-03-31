@@ -3,177 +3,103 @@ import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
 
 // Import project images
-// import neuroPharmaImg from "../assets/projects/neuropharma.png";
-// import sentientImg from "../assets/projects/sentient.png";
-// import holoSpaceImg from "../assets/projects/holospace.jpg";
-import quickMedsImg from "../assets/projects/quickmeds.png";
-import personalLearningImg from "../assets/projects/personalLearningImg.png";
-import bloodConnectImg from "../assets/projects/bloodConnectImg.png";
+import womenSafetyImg from "../assets/projects/womenSafety.png";
+import studentPlatformImg from "../assets/projects/studentPlatform.png";
+import hostelManagementImg from "../assets/projects/hostelManagement.png";
 
 const projectsData = [
-  {
-    image: quickMedsImg,
-    category: "HealthTech & E-Commerce",
-    title: "QuickMeds - Smart Online Pharmacy Platform",
-    description:
-      "A comprehensive digital pharmacy solution featuring secure OTP-based authentication, real-time inventory management, and intelligent product categorization. Built with Django REST Framework and modern JavaScript, it includes a dynamic cart system with instant price calculations, Razorpay payment integration, and an advanced admin dashboard for order tracking. Implements two-factor email verification for enhanced security and provides seamless prescription management with automated expiry notifications.",
-    tags: [
-      "Python",
-      "Django",
-      "JavaScript",
-      "PostgreSQL",
-      "Razorpay",
-      "Bootstrap",
-      "SMTP",
-    ],
-    href: "https://github.com/TanmayWarthe/QuickMeds-An-Online-Pharamacy",
-    demoUrl: "https://quickmedsonlinepharmacy.onrender.com/",
-  },
-  {
-    image: personalLearningImg, 
-    category: "EdTech & Personal Growth",
-    title: "Personal Learning Platform",
-    description:
-      "A full-stack platform empowering users to master new skills at their own pace. Features include user authentication, personalized dashboards, course and video management, progress tracking, and learning streaks. Built with Next.js, Node.js, and PostgreSQL, it offers a modern UI, secure login, and seamless integration between frontend and backend. Users can import playlists, monitor their achievements, and enjoy a tailored learning journey.",
-    tags: [
-      "Next.js",
-      "React",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "JWT",
-    ],
-    href: "https://github.com/TanmayWarthe/personal-learning-platform",
-    demoUrl: "https://self-learning-hub.vercel.app/",
-  },
-  {
-  image: bloodConnectImg,
-  category: "HealthTech & Emergency Services",
-  title: "BloodConnect - AI-Powered Blood Donation Platform",
-  description:
-    "A comprehensive full-stack platform revolutionizing blood donation and emergency blood request management. Seamlessly connects blood donors, hospitals, and patients through intelligent matching and real-time coordination. Features include AI-powered demand prediction, interactive donor-hospital mapping, multi-role dashboards (Admin, Hospital, Donor, Patient), blood inventory tracking, appointment scheduling, and emergency notifications. Built with Spring Boot, React, and PostgreSQL, it leverages Google Gemini AI for smart insights, secure JWT authentication, and location-based services via Leaflet maps. The platform enables life-saving connections with predictive analytics for blood shortages, donor availability matching, and efficient resource planning.",
-  tags: [
-    "React",
-    "Spring Boot",
-    "Java",
-    "PostgreSQL",
-    "Tailwind CSS",
-    "JWT",
-    "Leaflet Maps",
-    "Google Gemini AI",
-    "MySQL",
-    "REST API",
-  ],
-  href: "https://github.com/TanmayWarthe/BloodConnect",
-  demoUrl: "https://bloodconnect.vercel.app/",
+{
+image: womenSafetyImg,
+category: "Safety & Emergency",
+title: "Women Safety System",
+description:
+"A smart women safety application designed to enhance personal security. The system provides emergency alerts, real-time location tracking, and quick contact notification to ensure user safety. The application allows users to send SOS alerts instantly and share live location with trusted contacts during emergency situations.",
+tags: [
+"Java",
+"Android",
+"GPS",
+"Firebase",
+"Location Tracking",
+],
+href: "https://github.com/buddherohit",
+demoUrl: "#",
 },
-  // {
-  //     image: neuroPharmaImg,
-  //     category: 'HealthTech & AI',
-  //     title: 'NeuroPharma - AI Drug Discovery Pipeline',
-  //     description: 'A revolutionary platform accelerating drug discovery using Graph Neural Networks (GNNs) to predict molecular properties and drug-target interactions. It features a real-time 3D molecular viewer, automated literature mining from PubMed using NLP, and a secure cloud infrastructure for processing terabytes of genomic data. Reduced preliminary screening time by 40% in simulation tests.',
-  //     tags: ['Python', 'PyTorch', 'React Three Fiber', 'AWS SageMaker', 'FastAPI', 'BioPython'],
-  //     href: '#',
-  //     demoUrl: '#'
-  // },
-  // {
-  //     image: sentientImg,
-  //     category: 'FinTech & Autonomous Agents',
-  //     title: 'Sentient - Autonomous Financial Analyst',
-  //     description: 'An autonomous multi-agent system capable of performing deep fundamental analysis of stock markets. "Sentient" aggregates real-time news, analyzes sentiment from social media, and processes financial reports to generate investment memos. Built with a microservices architecture, it utilizes vector databases for long-term memory and runs on a custom-tuned LLM for domain-specific financial reasoning.',
-  //     tags: ['LangChain', 'Pinecone', 'Next.js', 'Docker', 'Kubernetes', 'Celery'],
-  //     href: '#',
-  //     demoUrl: '#'
-  // },
-  // {
-  //     image: holoSpaceImg,
-  //     category: 'WebXR & Collaboration',
-  //     title: 'HoloSpace - Immersive 3D Workspace',
-  //     description: 'A browser-based spatial collaboration tool that brings remote teams together in a 3D virtual office. Leveraging WebRTC for low-latency voice/video and WebGL for rendering, it allows users to manipulate 3D objects, share screens on virtual monitors, and whiteboard in real-time. Pushes the boundaries of what is possible in a web browser without external plugins.',
-  //     tags: ['Three.js', 'WebRTC', 'Socket.io', 'TypeScript', 'WebGL', 'Node.js'],
-  //     href: '#',
-  //     demoUrl: '#'
-  // }
+
+{
+image: studentPlatformImg,
+category: "EdTech Platform",
+title: "Student Learning Platform",
+description:
+"A digital learning platform designed to provide educational resources, course materials, and structured learning modules for students. The platform allows users to access study content, track learning progress, and improve academic performance through interactive learning.",
+tags: [
+"Java",
+"React",
+"Node.js",
+"MongoDB",
+"Web Development",
+],
+href: "https://github.com/buddherohit",
+demoUrl: "#",
+},
+
+{
+image: hostelManagementImg,
+category: "Management System",
+title: "Smart Hostel Management System",
+description:
+"A smart hostel management system designed to manage hostel operations efficiently. Features include student registration, room allocation, attendance tracking, complaint management, and admin dashboard for better management and monitoring.",
+tags: [
+"Java",
+"MySQL",
+"Spring Boot",
+"React",
+"Full Stack",
+],
+href: "https://github.com/buddherohit",
+demoUrl: "#",
+},
 ];
 
 export default function Projects() {
-  return (
-    <motion.section
-      id="projects"
-      className="relative isolate bg-gradient-to-b from-white via-gray-50 to-white py-16 sm:py-20 overflow-hidden"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: 0.15 } },
-      }}
-    >
-      {/* Background Elements */}
-      <motion.div
-        className="absolute top-0 left-0 -translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-red-100/40 rounded-full blur-3xl -z-10"
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2 }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 translate-y-1/4 translate-x-1/4 w-96 h-96 bg-gray-200/50 rounded-full blur-3xl -z-10"
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.2 }}
-      />
+return (
+<motion.section
+id="projects"
+className="relative isolate bg-gradient-to-b from-white via-gray-50 to-white py-16 sm:py-20 overflow-hidden"
+initial="hidden"
+whileInView="show"
+viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
+variants={{
+hidden: {},
+show: { transition: { staggerChildren: 0.15 } },
+}}
+>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="mb-12 sm:mb-16"
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            show: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.6, ease: "easeOut" },
-            },
-          }}
-        >
-          <motion.span
-            className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-red-600 uppercase bg-red-50 rounded-full border border-red-100"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Portfolio • Work • Projects
-          </motion.span>
-          <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Things I've Worked On
-          </motion.h2>
-          <motion.p
-            className="text-lg text-gray-600 max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Here are some of my featured projects showcasing expertise in AI,
-            web development, and cloud technologies.
-          </motion.p>
-        </motion.div>
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="space-y-12">
-          {projectsData.map((project, index) => (
-            <ProjectCard key={index} index={index} {...project} />
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  );
+<motion.div className="mb-12 sm:mb-16">
+<span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-red-600 uppercase bg-red-50 rounded-full border border-red-100">
+Portfolio • Work • Projects
+</span>
+
+<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+My Projects
+</h2>
+
+<p className="text-lg text-gray-600 max-w-2xl">
+Here are some of my projects showcasing my skills in software development,
+problem solving and real world applications.
+</p>
+
+</motion.div>
+
+<div className="space-y-12">
+{projectsData.map((project, index) => (
+<ProjectCard key={index} index={index} {...project} />
+))}
+</div>
+
+</div>
+
+</motion.section>
+);
 }
