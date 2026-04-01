@@ -4,7 +4,6 @@ A modern, responsive, and high-performance developer portfolio built using **Rea
 This portfolio showcases my **projects, skills, experience, achievements, and certifications**.
 
 ---
-
 # 🌐 Live Website
 
 🔗 **Portfolio:** https://rohitbuddhe.vercel.app
