@@ -185,7 +185,6 @@ Deploy using:
 If you like this portfolio, please give it a ⭐ on GitHub.
 
 ---
-
 # 📄 License
 
 This project is open source and available under the **MIT License**
