@@ -238,7 +238,7 @@ export default function Contact() {
         })
       };
 
-      const emailPromise = emailjs.send(serviceId, templateId, templateParams);
+      const emailPromise = emailjs.send(serviceId, templateId, templateParams, { publicKey });
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error("Request timeout. Please try again.")), 10000)
       );
@@ -261,22 +261,23 @@ export default function Contact() {
 
       let userMessage = "";
 
-      if (error.message) {
+      if (error && error.text) {
+        userMessage = `EmailJS Error: ${error.text}. `;
+        const lowerText = error.text.toLowerCase();
+        if (lowerText.includes("template")) {
+          userMessage += "Please check your VITE_EMAILJS_TEMPLATE_ID in your .env file.";
+        } else if (lowerText.includes("service")) {
+          userMessage += "Please check your VITE_EMAILJS_SERVICE_ID in your .env file.";
+        } else if (lowerText.includes("public key") || lowerText.includes("user") || lowerText.includes("auth")) {
+          userMessage += "Please check your VITE_EMAILJS_PUBLIC_KEY in your .env file.";
+        } else {
+          userMessage += "Please verify your EmailJS configuration.";
+        }
+      } else if (error && error.message) {
         if (error.message.includes("VITE_EMAILJS")) {
           userMessage = error.message;
         } else if (error.message.includes("timeout")) {
           userMessage = "The request took too long. Please check your connection and try again.";
-        } else if (error.text) {
-          userMessage = `EmailJS Error: ${error.text}. `;
-          if (error.text.includes("Invalid template ID")) {
-            userMessage += "Please check your VITE_EMAILJS_TEMPLATE_ID in your .env file.";
-          } else if (error.text.includes("Invalid service ID")) {
-            userMessage += "Please check your VITE_EMAILJS_SERVICE_ID in your .env file.";
-          } else if (error.text.includes("Invalid public key")) {
-            userMessage += "Please check your VITE_EMAILJS_PUBLIC_KEY in your .env file.";
-          } else {
-            userMessage += "Please verify your EmailJS configuration.";
-          }
         } else {
           userMessage = error.message;
         }
