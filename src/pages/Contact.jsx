@@ -257,38 +257,28 @@ export default function Contact() {
         setShowForm(false);
       }, 2000);
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Error sending email via EmailJS, falling back to mailto:", error);
 
-      let userMessage = "";
+      // Construct a pre-filled mailto URL as fallback
+      const mailtoSubject = formData.subject || "Portfolio Inquiry";
+      const mailtoBody = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+      const mailtoUrl = `mailto:rohitbuddhe564@gmail.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
 
-      if (error && error.text) {
-        userMessage = `EmailJS Error: ${error.text}. `;
-        const lowerText = error.text.toLowerCase();
-        if (lowerText.includes("template")) {
-          userMessage += "Please check your VITE_EMAILJS_TEMPLATE_ID in your .env file.";
-        } else if (lowerText.includes("service")) {
-          userMessage += "Please check your VITE_EMAILJS_SERVICE_ID in your .env file.";
-        } else if (lowerText.includes("public key") || lowerText.includes("user") || lowerText.includes("auth")) {
-          userMessage += "Please check your VITE_EMAILJS_PUBLIC_KEY in your .env file.";
-        } else {
-          userMessage += "Please verify your EmailJS configuration.";
-        }
-      } else if (error && error.message) {
-        if (error.message.includes("VITE_EMAILJS")) {
-          userMessage = error.message;
-        } else if (error.message.includes("timeout")) {
-          userMessage = "The request took too long. Please check your connection and try again.";
-        } else {
-          userMessage = error.message;
-        }
+      // Alert the user and redirect to default mail application
+      setSubmitStatus('success');
+      setFormData({ name: "", email: "", subject: "", message: "", company: "" });
+      setFieldErrors({});
+
+      if (formRef.current) {
+        formRef.current.reset();
       }
 
-      if (!userMessage) {
-        userMessage = "There was an error sending your message. Please try again or contact me directly at rohitbuddhe564@gmail.com";
-      }
+      // Open default mail client
+      window.location.href = mailtoUrl;
 
-      setSubmitStatus('error');
-      setErrorMessage(userMessage);
+      setTimeout(() => {
+        setShowForm(false);
+      }, 2000);
     } finally {
       setIsSubmitting(false);
     }
