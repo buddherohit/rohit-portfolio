@@ -283,7 +283,7 @@ export default function Contact() {
       }
 
       if (!userMessage) {
-        userMessage = "There was an error sending your message. Please try again or contact me directly at rohitbuddhe5642@gmail.com";
+        userMessage = "There was an error sending your message. Please try again or contact me directly at rohitbuddhe564@gmail.com";
       }
 
       setSubmitStatus('error');
@@ -301,8 +301,8 @@ export default function Contact() {
         </svg>
       ),
       label: "Email",
-      value: "rohitbuddhe5642@gmail.com",
-      href: "mailto:rohitbuddhe5642@gmail.com"
+      value: "rohitbuddhe564@gmail.com",
+      href: "mailto:rohitbuddhe564@gmail.com"
     },
     {
       icon: (

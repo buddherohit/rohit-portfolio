@@ -142,7 +142,7 @@ function App() {
 
       {/* Side Elements (Social Icons & Email) */}
       <SideElements
-        email="rohitbuddhe5642@gmail.com"
+        email="rohitbuddhe564@gmail.com"
         socialLinks={[
           { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
           { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
@@ -151,7 +151,7 @@ function App() {
           { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
         ]}
         onIconClick={(label) => console.log(`Clicked ${label}`)}
-        onEmailClick={() => window.location.href = 'mailto:rohitbuddhe5642@gmail.com'}
+        onEmailClick={() => window.location.href = 'mailto:rohitbuddhe564@gmail.com'}
       />
 
       {/* Main Content - Single Continuous Flow */}
