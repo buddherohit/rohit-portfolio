@@ -174,7 +174,7 @@ Deploy using:
 
 # 📬 Contact Me
 
-📧 Email: [rohitbuddhe564@gmail.com](mailto:rohitbuddhe564@gmail.com)
+📧 Email: [rohitbuddhe5642@gmail.com](mailto:rohitbuddhe5642@gmail.com)
 💼 LinkedIn: https://linkedin.com/in/rohitbuddhe
 🐙 GitHub: https://github.com/buddherohit
 
