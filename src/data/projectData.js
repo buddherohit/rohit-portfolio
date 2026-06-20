@@ -307,7 +307,7 @@ export const projectsDetails = {
     techStack: ["React", "Node.js", "Python", "LangChain", "Gemini API", "Pinecone DB", "Tailwind CSS"],
     githubUrl: "https://github.com/buddherohit/DiplomaGPT",
     demoUrl: "https://diplomagpt-ai.vercel.app/",
-    image: null,
+    image: "/src/assets/projects/diplomaGPT.png",
     
     problem: "MSBTE diploma students spend hours studying from textbooks that don't match the specific exam patterns. Model answer papers are available as static PDFs, making it tedious to find solutions for specific recurring exam questions.",
     solution: "We built a specialized RAG bot. We parsed and vectorized 5 years of MSBTE model solution PDFs. When a student inputs a question, the vector engine fetches matching solved solutions and the Gemini API compiles a step-by-step answer matching MSBTE grading formats.",

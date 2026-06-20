@@ -16,16 +16,16 @@ export default function ProjectDetail() {
   // If project doesn't exist, render a premium 404 page
   if (!project) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-4 py-20 text-center">
+      <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center px-4 py-20 text-center">
         <SEO title="Project Not Found" description="The requested project case study could not be found." />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden"
+          className="max-w-md p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl relative overflow-hidden"
         >
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-500/10 rounded-full blur-3xl" />
-          <h2 className="text-4xl font-extrabold text-slate-100 mb-4">Case Study Offline</h2>
-          <p className="text-slate-400 mb-8 leading-relaxed">
+          <h2 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 mb-4">Case Study Offline</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
             The project case study you are looking for has been archived or does not exist. Let's head back to the profile dashboard.
           </p>
           <button
@@ -59,7 +59,7 @@ export default function ProjectDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-red-500/30 selection:text-red-200">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-red-500/30 selection:text-red-600 dark:selection:text-red-200">
       <SEO 
         title={`${project.title} Case Study`}
         description={project.tagline}
@@ -69,7 +69,7 @@ export default function ProjectDetail() {
       />
 
       {/* Hero Header */}
-      <section className="relative pt-28 pb-16 overflow-hidden border-b border-slate-900 bg-gradient-to-b from-slate-900/40 via-slate-950 to-slate-950">
+      <section className="relative pt-28 pb-16 overflow-hidden border-b border-slate-200 dark:border-slate-900 bg-gradient-to-b from-slate-100/60 dark:from-slate-900/40 via-white dark:via-slate-950 to-white dark:to-slate-950">
         <div className="absolute top-20 left-1/4 w-80 h-80 bg-red-600/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -77,7 +77,7 @@ export default function ProjectDetail() {
           <Link
             to="/#projects"
             state={{ scrollTo: "projects" }}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 hover:text-amber-400 transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors mb-8 group"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to projects
@@ -91,13 +91,13 @@ export default function ProjectDetail() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest text-red-400 uppercase bg-red-950/30 rounded-full border border-red-900/50">
+              <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest text-red-600 dark:text-red-400 uppercase bg-red-100 dark:bg-red-950/30 rounded-full border border-red-300 dark:border-red-900/50">
                 {project.category}
               </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 {project.title}
               </h1>
-              <p className="text-lg sm:text-xl text-slate-350 leading-relaxed font-medium">
+              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                 {project.tagline}
               </p>
 
@@ -106,7 +106,7 @@ export default function ProjectDetail() {
                 {project.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 bg-slate-900/60 border border-slate-800 rounded-lg text-xs font-semibold text-slate-300 hover:border-amber-500/30 hover:text-amber-400 transition-colors"
+                    className="px-3 py-1 bg-slate-100 dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:border-amber-500/30 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
                   >
                     {tech}
                   </span>
@@ -129,7 +129,7 @@ export default function ProjectDetail() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 font-bold rounded-xl transition duration-300 flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 bg-slate-100 dark:bg-slate-900/80 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 font-bold rounded-xl transition duration-300 flex items-center gap-2 cursor-pointer"
                 >
                   <Github size={18} /> View Repository
                 </a>
@@ -145,7 +145,7 @@ export default function ProjectDetail() {
               onClick={() => { if (project.image) setLightboxOpen(true); }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600 to-amber-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition duration-500" />
-              <div className="relative rounded-2xl border border-slate-800/80 overflow-hidden shadow-2xl bg-slate-950 aspect-video flex items-center justify-center">
+              <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-2xl bg-slate-100 dark:bg-slate-950 aspect-video flex items-center justify-center">
                 {project.image ? (
                   <>
                     <img
@@ -183,15 +183,15 @@ export default function ProjectDetail() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="p-8 sm:p-10 rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between"
+              className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between"
             >
               <div className="absolute -top-10 -left-10 w-32 h-32 bg-red-650/5 rounded-full blur-2xl" />
               <div className="space-y-4">
                 <span className="p-3 bg-red-950/50 border border-red-900/50 rounded-2xl inline-block text-red-400">
                   <Zap size={22} />
                 </span>
-                <h3 className="text-2xl font-bold text-white">The Challenge</h3>
-                <p className="text-slate-350 leading-relaxed text-base">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">The Challenge</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
                   {project.problem}
                 </p>
               </div>
@@ -203,15 +203,15 @@ export default function ProjectDetail() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="p-8 sm:p-10 rounded-3xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between"
+              className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between"
             >
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl" />
               <div className="space-y-4">
                 <span className="p-3 bg-amber-950/30 border border-amber-900/30 rounded-2xl inline-block text-amber-400">
                   <CheckCircle size={22} />
                 </span>
-                <h3 className="text-2xl font-bold text-white">The Engineered Solution</h3>
-                <p className="text-slate-350 leading-relaxed text-base">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">The Engineered Solution</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
                   {project.solution}
                 </p>
               </div>
@@ -221,8 +221,8 @@ export default function ProjectDetail() {
           {/* Key Features Grid */}
           <div className="space-y-10">
             <div>
-              <h2 className="text-3xl font-extrabold text-white mb-2">Core Platform Capabilities</h2>
-              <p className="text-slate-400">Interactive mechanics built to address high-friction features</p>
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Core Platform Capabilities</h2>
+              <p className="text-slate-500 dark:text-slate-400">Interactive mechanics built to address high-friction features</p>
             </div>
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -233,16 +233,16 @@ export default function ProjectDetail() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="p-6 rounded-2xl bg-slate-900/60 border border-slate-850 hover:border-red-500/30 hover:bg-slate-900 transition-all duration-300 relative group flex flex-col justify-between"
+                  className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-850 hover:border-red-400/50 dark:hover:border-red-500/30 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-300 relative group flex flex-col justify-between"
                 >
                   <div className="space-y-3">
                     <span className="text-xs font-bold text-red-400 bg-red-950/50 border border-red-900/50 px-2.5 py-0.5 rounded-full">
                       Feature 0{idx + 1}
                     </span>
-                    <h4 className="font-bold text-lg text-slate-100 group-hover:text-white transition-colors">
+                    <h4 className="font-bold text-lg text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                       {feature.title}
                     </h4>
-                    <p className="text-sm text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -254,66 +254,66 @@ export default function ProjectDetail() {
           {/* System Architecture */}
           <div className="space-y-10">
             <div>
-              <h2 className="text-3xl font-extrabold text-white mb-2">System Architecture</h2>
-              <p className="text-slate-400">Robust layers optimized for throughput and scale</p>
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">System Architecture</h2>
+              <p className="text-slate-500 dark:text-slate-400">Robust layers optimized for throughput and scale</p>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Frontend Card */}
-              <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="p-2 bg-blue-950/50 border border-blue-900/50 rounded-xl text-blue-400">
                       <Cpu size={18} />
                     </span>
-                    <h4 className="font-bold text-slate-200">Frontend Layer</h4>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200">Frontend Layer</h4>
                   </div>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {project.architecture.frontend}
                   </p>
                 </div>
               </div>
 
               {/* Backend Card */}
-              <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="p-2 bg-red-950/50 border border-red-900/50 rounded-xl text-red-400">
                       <Layers size={18} />
                     </span>
-                    <h4 className="font-bold text-slate-200">Backend API Gateway</h4>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200">Backend API Gateway</h4>
                   </div>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {project.architecture.backend}
                   </p>
                 </div>
               </div>
 
               {/* Database Card */}
-              <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="p-2 bg-green-950/50 border border-green-900/50 rounded-xl text-green-400">
                       <Database size={18} />
                     </span>
-                    <h4 className="font-bold text-slate-200">Persistence Store</h4>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200">Persistence Store</h4>
                   </div>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {project.architecture.database}
                   </p>
                 </div>
               </div>
 
               {/* Deployment Card */}
-              <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="p-2 bg-purple-950/50 border border-purple-900/50 rounded-xl text-purple-400">
                       <Globe size={18} />
                     </span>
-                    <h4 className="font-bold text-slate-200">Infrastructure</h4>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200">Infrastructure</h4>
                   </div>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {project.architecture.deployment}
                   </p>
                 </div>
@@ -322,25 +322,25 @@ export default function ProjectDetail() {
           </div>
 
           {/* Database Schema Design */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-900/30 border border-slate-800/80 relative overflow-hidden space-y-8">
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800/80 relative overflow-hidden space-y-8">
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2">Relational Document Schema Design</h3>
-              <p className="text-slate-450 text-sm">Visualizing collection schemas and database index models</p>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Relational Document Schema Design</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">Visualizing collection schemas and database index models</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 pt-4">
               {project.databaseDesign.entities.map((entity) => (
-                <div key={entity.name} className="p-5 rounded-2xl bg-slate-950/60 border border-slate-850 hover:border-slate-800 transition duration-300">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span className="font-bold text-slate-200">{entity.name}</span>
+                <div key={entity.name} className="p-5 rounded-2xl bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-850 hover:border-slate-300 dark:hover:border-slate-800 transition duration-300">
+                  <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2 mb-3">
+                    <span className="font-bold text-slate-800 dark:text-slate-200">{entity.name}</span>
                     <span className="text-[10px] uppercase font-bold tracking-wider text-amber-500">Collection</span>
                   </div>
                   <ul className="space-y-1.5">
                     {entity.fields.map((field) => (
-                      <li key={field} className="text-xs font-mono text-slate-400 flex items-center justify-between">
+                      <li key={field} className="text-xs font-mono text-slate-600 dark:text-slate-400 flex items-center justify-between">
                         <span>{field.split(" ")[0]}</span>
-                        <span className="text-[10px] text-slate-500">{field.includes("(") || field.includes(" ") ? field.split(" ").slice(1).join(" ") : "field"}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-500">{field.includes("(") || field.includes(" ") ? field.split(" ").slice(1).join(" ") : "field"}</span>
                       </li>
                     ))}
                   </ul>
@@ -348,7 +348,7 @@ export default function ProjectDetail() {
               ))}
             </div>
 
-            <p className="text-xs text-slate-400 italic">
+            <p className="text-xs text-slate-500 dark:text-slate-400 italic">
               *Schema Description: {project.databaseDesign.description}
             </p>
           </div>
@@ -356,21 +356,21 @@ export default function ProjectDetail() {
           {/* Technical Challenges (Tabs layout) */}
           <div className="space-y-10">
             <div>
-              <h2 className="text-3xl font-extrabold text-white mb-2">Technical Bottlenecks & Resolutions</h2>
-              <p className="text-slate-400">Engineering challenges solved through systematic debugging</p>
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Technical Bottlenecks & Resolutions</h2>
+              <p className="text-slate-500 dark:text-slate-400">Engineering challenges solved through systematic debugging</p>
             </div>
 
-            <div className="border border-slate-800 rounded-3xl overflow-hidden bg-slate-900/20 backdrop-blur-sm">
+            <div className="border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900/20 backdrop-blur-sm">
               {/* Tab headers */}
-              <div className="flex border-b border-slate-850 overflow-x-auto bg-slate-900/60">
+              <div className="flex border-b border-slate-200 dark:border-slate-850 overflow-x-auto bg-slate-100 dark:bg-slate-900/60">
                 {project.challenges.map((challenge, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx)}
                     className={`px-6 py-4 text-sm font-semibold transition-all cursor-pointer border-b-2 flex-shrink-0 ${
                       activeTab === idx
-                        ? "border-red-500 text-white bg-slate-950/40"
-                        : "border-transparent text-slate-400 hover:text-slate-200"
+                        ? "border-red-500 text-slate-900 dark:text-white bg-white dark:bg-slate-950/40"
+                        : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
                     }`}
                   >
                     Challenge {idx + 1}: {challenge.title}
@@ -381,18 +381,18 @@ export default function ProjectDetail() {
               {/* Tab Content */}
               <div className="p-8 sm:p-10 space-y-6">
                 <div>
-                  <h4 className="text-xs uppercase font-bold tracking-wider text-red-400 mb-2">The Bottleneck</h4>
-                  <p className="text-slate-200 text-lg font-medium">{project.challenges[activeTab].title}</p>
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-red-600 dark:text-red-400 mb-2">The Bottleneck</h4>
+                  <p className="text-slate-800 dark:text-slate-200 text-lg font-medium">{project.challenges[activeTab].title}</p>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-8 pt-4 border-t border-slate-850">
+                <div className="grid md:grid-cols-2 gap-8 pt-4 border-t border-slate-200 dark:border-slate-850">
                   <div>
                     <h5 className="text-xs uppercase font-bold tracking-wider text-slate-500 mb-2">Our Initial Approach</h5>
-                    <p className="text-slate-350 text-sm leading-relaxed">{project.challenges[activeTab].approach}</p>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{project.challenges[activeTab].approach}</p>
                   </div>
                   <div>
-                    <h5 className="text-xs uppercase font-bold tracking-wider text-amber-500 mb-2">Optimized Resolution</h5>
-                    <p className="text-slate-300 text-sm leading-relaxed">{project.challenges[activeTab].solution}</p>
+                    <h5 className="text-xs uppercase font-bold tracking-wider text-amber-600 dark:text-amber-500 mb-2">Optimized Resolution</h5>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{project.challenges[activeTab].solution}</p>
                   </div>
                 </div>
               </div>
@@ -404,17 +404,17 @@ export default function ProjectDetail() {
             {/* Metrics */}
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">Impact Analytics</h3>
-                <p className="text-slate-450 text-sm">Key performance indicators tracked post-deployment</p>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Impact Analytics</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">Key performance indicators tracked post-deployment</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 {project.metrics.map((metric) => (
-                  <div key={metric.label} className="p-5 rounded-2xl bg-slate-900/60 border border-slate-850 flex flex-col justify-between">
+                  <div key={metric.label} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-850 flex flex-col justify-between">
                     <span className="text-3xl font-extrabold text-white tracking-tight bg-gradient-to-r from-red-400 to-amber-500 bg-clip-text text-transparent">
                       {metric.value}
                     </span>
-                    <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider pt-2">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider pt-2">
                       {metric.label}
                     </span>
                   </div>
@@ -423,15 +423,15 @@ export default function ProjectDetail() {
             </div>
 
             {/* Takeaway Learning Card */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+            <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-50 dark:from-slate-900 to-white dark:to-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
               
               <div className="space-y-4 z-10">
                 <span className="p-3 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-2xl inline-block">
                   <Award size={22} />
                 </span>
-                <h3 className="text-2xl font-bold text-white">Personal Growth & Takeaways</h3>
-                <p className="text-slate-350 leading-relaxed text-base">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Personal Growth & Takeaways</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-base">
                   {project.learnings}
                 </p>
               </div>
@@ -439,21 +439,21 @@ export default function ProjectDetail() {
           </div>
 
           {/* Related/Footer Navigation */}
-          <div className="pt-16 border-t border-slate-900 space-y-8">
-            <h3 className="text-2xl font-bold text-white">Other Case Studies</h3>
+          <div className="pt-16 border-t border-slate-200 dark:border-slate-900 space-y-8">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Other Case Studies</h3>
             
             <div className="grid md:grid-cols-2 gap-6">
               {relatedProjects.map((p) => (
                 <Link
                   key={p.slug}
                   to={`/projects/${p.slug}`}
-                  className="p-6 rounded-2xl bg-slate-900/30 border border-slate-850 hover:border-red-500/30 hover:bg-slate-900/50 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
+                  className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-850 hover:border-red-400/40 dark:hover:border-red-500/30 hover:bg-slate-100 dark:hover:bg-slate-900/50 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-red-650/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
                   <div className="space-y-2 z-10">
                     <span className="text-xs uppercase tracking-wider text-red-400 font-bold">{p.category}</span>
-                    <h4 className="text-xl font-bold text-slate-100 group-hover:text-white transition-colors">{p.title}</h4>
-                    <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">{p.tagline}</p>
+                    <h4 className="text-xl font-bold text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{p.title}</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">{p.tagline}</p>
                   </div>
                   <div className="flex items-center gap-2 text-xs font-bold text-amber-400 pt-4 z-10">
                     Read Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
