@@ -24,13 +24,33 @@ transition: { duration: 0.5, ease: "easeOut" }
 const EXPERIENCE_DATA = useMemo(() => [
 
 {
-period: "Present",
+period: "Jun 2026 - Present",
 duration: "Current",
+title: "AIML Intern",
+company: "Eduskills Academy",
+location: "Remote",
+description:
+"Working as an AIML Intern, gaining practical experience in artificial intelligence, machine learning algorithms, and data analysis.",
+highlights: [
+"Gaining hands-on experience in AI and Machine Learning technologies",
+"Implementing machine learning algorithms and data models",
+"Participating in technical training and projects",
+"Developing problem-solving capabilities in AI/ML domains"
+],
+skills: ["Python", "Machine Learning", "AI", "Data Analysis", "Problem Solving"],
+icon: Briefcase,
+color: "from-green-500 to-emerald-500",
+certificateUrl: "",
+},
+
+{
+period: "Apr 2026 - Jun 2026",
+duration: "3 mos",
 title: "Software Development Intern",
 company: "Cognifyz Technologies Pvt Ltd",
 location: "Nagpur, Maharashtra",
 description:
-"Currently working as a Software Development Intern gaining hands-on experience in real-world software development and modern technologies.",
+"Worked as a Software Development Intern gaining hands-on experience in real-world software development and modern technologies.",
 highlights: [
 "Working on real-world development projects",
 "Improving problem solving skills",
@@ -39,7 +59,7 @@ highlights: [
 ],
 skills: ["Java", "Web Development", "Git", "Problem Solving"],
 icon: Briefcase,
-color: "from-green-500 to-emerald-500",
+color: "from-violet-600 to-indigo-600",
 certificateUrl: "",
 },
 
