@@ -21,7 +21,7 @@ html.academic * {
   color: #111111 !important;
   border-radius: 0 !important;
   font-family: 'EB Garamond', 'Georgia', serif !important;
-  -webkit-text-fill-color: unset !important;
+  -webkit-text-fill-color: currentcolor !important;
 }
 
 /* Restore standard cursor for Academic Mode */
