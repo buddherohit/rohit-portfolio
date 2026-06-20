@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const motionDesign = motion;
 const FramerAnimatePresence = AnimatePresence;
-import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye } from "lucide-react";
+import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye, GraduationCap as AcademicCapIcon, Monitor } from "lucide-react";
 import ResumeModal from "./ResumeModal";
 
 export default function Navbar() {
@@ -25,6 +25,13 @@ export default function Navbar() {
     return "light";
   });
 
+  const [portfolioMode, setPortfolioMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("portfolioMode") || "developer";
+    }
+    return "developer";
+  });
+
   useEffect(() => {
     const root = window.document.documentElement;
     if (theme === "dark") {
@@ -35,6 +42,33 @@ export default function Navbar() {
       localStorage.setItem("theme", "light");
     }
   }, [theme]);
+
+  // Apply academic class immediately on mount (from saved localStorage)
+  useEffect(() => {
+    const savedMode = localStorage.getItem("portfolioMode");
+    if (savedMode === "academic") {
+      window.document.documentElement.classList.add("academic");
+      window.document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (portfolioMode === "academic") {
+      root.classList.add("academic");
+      root.classList.remove("dark");
+      localStorage.setItem("portfolioMode", "academic");
+      localStorage.setItem("theme", "light");
+      setTheme("light");
+    } else {
+      root.classList.remove("academic");
+      localStorage.setItem("portfolioMode", "developer");
+    }
+  }, [portfolioMode]);
+
+  const toggleMode = useCallback(() => {
+    setPortfolioMode((prev) => (prev === "developer" ? "academic" : "developer"));
+  }, []);
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -154,11 +188,32 @@ export default function Navbar() {
           )}
         </FramerAnimatePresence>
 
+        {/* Academic / Developer Mode Toggle */}
+        <motionDesign.button
+          onClick={toggleMode}
+          className="relative p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Toggle Academic/Developer mode"
+          title={portfolioMode === "developer" ? "Switch to Academic Mode 📄" : "Switch to Developer Mode 💻"}
+        >
+          {portfolioMode === "developer" ? (
+            <span className="text-base leading-none" role="img" aria-label="Academic mode">📄</span>
+          ) : (
+            <Monitor size={18} className="text-slate-700" />
+          )}
+          {/* Tooltip */}
+          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+            {portfolioMode === "developer" ? "Academic Mode" : "Developer Mode"}
+          </span>
+        </motionDesign.button>
+
         {/* Dark Mode Toggle Button */}
         <motionDesign.button
           onClick={toggleTheme}
-          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-red-650 dark:text-amber-400 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center"
-          whileHover={{ scale: 1.05 }}
+          disabled={portfolioMode === "academic"}
+          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-red-700 dark:text-amber-400 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+          whileHover={{ scale: portfolioMode === "academic" ? 1 : 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Toggle dark mode"
         >

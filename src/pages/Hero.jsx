@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import DecryptText from "../components/DecryptText";
 import GooeyCursor from "../components/GooeyCursor";
+import LocationTimeCard from "../components/LocationTimeCard";
 
 function Hero() {
 
@@ -22,8 +23,6 @@ function Hero() {
       {/* Smooth transition wave to About section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-slate-950/50 -z-5" />
 
-      {/* Social Media Icons - Left Edge (removed, will use SideElements component) */}
-
       {/* Main Content - Left Side */}
       <motion.div
         className="flex-1 max-w-2xl z-10"
@@ -38,7 +37,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Hello, I'm <span className="font-semibold">Rohit Buddhe</span>
+          Hello, I&apos;m <span className="font-semibold">Rohit Buddhe</span>
         </motion.h1>
 
         {/* Role - Red Color with DecryptText Animation */}
@@ -66,10 +65,12 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpur, with a strong passion for software development and problem solving. Skilled in Java, and Data Structures & Algorithms, I focus on building scalable and efficient applications. I have developed projects including Women Safety System, Student Learning Platform, and Smart Hostel Management System. I am continuously learning modern technologies and seeking opportunities to contribute to impactful software solutions.        </motion.p>
+          Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpur, with a strong passion for software development and problem solving. Skilled in Java, and Data Structures &amp; Algorithms, I focus on building scalable and efficient applications. I have developed projects including Women Safety System, Student Learning Platform, and Smart Hostel Management System. I am continuously learning modern technologies and seeking opportunities to contribute to impactful software solutions.
+        </motion.p>
 
-        {/* Contact Button - Red */}
+        {/* CTA Row — Contact Button + Live Location Card */}
         <motion.div
+          className="flex flex-wrap items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
@@ -89,11 +90,12 @@ Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpu
           >
             Contact me!
           </button>
+
+          {/* 📍 Live Location & Time — compact inline */}
+          <LocationTimeCard compact />
         </motion.div>
       </motion.div>
 
-
-      {/* Mobile Social Icons and Contact Button (handled by SideElements) */}
     </motion.section>
   );
 }

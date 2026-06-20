@@ -1,12 +1,250 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
 
-/* Dark mode global styles */
+/* =============================================
+   ACADEMIC MODE — Complete Paper Aesthetic
+   Inspired by: research papers, academic journals
+   ============================================= */
+
+/* 1. Root background — parchment paper */
+html.academic,
+html.academic body,
+html.academic #root {
+  background-color: #f2ede3 !important;
+  color: #111111 !important;
+}
+
+/* 2. ALL text → dark (fix white-on-white invisible text) */
+html.academic * {
+  color: #111111 !important;
+  border-radius: 0 !important;
+  font-family: 'EB Garamond', 'Georgia', serif !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+/* 3. Muted secondary text */
+html.academic [class*="text-slate-4"],
+html.academic [class*="text-slate-5"],
+html.academic [class*="text-slate-6"],
+html.academic [class*="text-gray-4"],
+html.academic [class*="text-gray-5"],
+html.academic [class*="text-gray-6"] {
+  color: #555555 !important;
+}
+
+/* 4. Strip colored text accents → monochrome */
+html.academic [class*="text-red"],
+html.academic [class*="text-amber"],
+html.academic [class*="text-blue"],
+html.academic [class*="text-green"],
+html.academic [class*="text-purple"],
+html.academic [class*="text-yellow"],
+html.academic [class*="text-orange"],
+html.academic [class*="text-pink"],
+html.academic [class*="text-cyan"],
+html.academic [class*="text-indigo"],
+html.academic [class*="text-white"],
+html.academic [class*="text-slate-1"],
+html.academic [class*="text-slate-2"],
+html.academic [class*="text-slate-3"] {
+  color: #111111 !important;
+}
+
+/* 5. Gradient text → plain black */
+html.academic [style*="background-clip"],
+html.academic [class*="bg-clip-text"] {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+/* 6. ALL backgrounds → paper shades */
+html.academic div,
+html.academic section,
+html.academic article,
+html.academic main,
+html.academic nav,
+html.academic header,
+html.academic footer,
+html.academic aside {
+  background-color: #f2ede3 !important;
+  background-image: none !important;
+  background: #f2ede3 !important;
+}
+
+/* 6b. Slightly lighter card surface */
+html.academic [class*="bg-white"],
+html.academic [class*="bg-slate"],
+html.academic [class*="bg-gray"],
+html.academic [class*="bg-zinc"] {
+  background-color: #faf6ee !important;
+  background: #faf6ee !important;
+}
+
+/* 7. ALL colored backgrounds → paper */
+html.academic [class*="bg-red"],
+html.academic [class*="bg-amber"],
+html.academic [class*="bg-blue"],
+html.academic [class*="bg-green"],
+html.academic [class*="bg-purple"],
+html.academic [class*="bg-gradient"] {
+  background: #f2ede3 !important;
+  background-image: none !important;
+  background-color: #f2ede3 !important;
+}
+
+/* 8. Borders → dark */
+html.academic [class*="border"] {
+  border-color: #bbbbbb !important;
+}
+
+/* 9. Prominent borders (visible cards) */
+html.academic [class*="border-slate-8"],
+html.academic [class*="border-slate-7"],
+html.academic [class*="border-slate-6"],
+html.academic [class*="border-gray-2"],
+html.academic [class*="border-gray-3"] {
+  border-color: #999999 !important;
+}
+
+/* 10. Decorative blobs / glow orbs — HIDE these (not content!) */
+html.academic .blur-3xl,
+html.academic .blur-2xl,
+html.academic .blur-xl {
+  display: none !important;
+}
+
+/* 11. Backdrop blur → solid paper */
+html.academic [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 12. Box shadows → offset paper shadow */
+html.academic [class*="shadow"] {
+  box-shadow: 2px 2px 0 #888888 !important;
+}
+
+/* No shadow on decorative only elements */
+html.academic [class*="shadow-red"],
+html.academic [class*="shadow-amber"],
+html.academic [class*="shadow-blue"] {
+  box-shadow: 2px 2px 0 #888888 !important;
+}
+
+/* 13. SVG Icons — force monochrome/dark */
+html.academic svg {
+  color: #111111 !important;
+}
+html.academic svg path,
+html.academic svg circle,
+html.academic svg rect,
+html.academic svg line,
+html.academic svg polyline,
+html.academic svg polygon,
+html.academic svg ellipse {
+  stroke: #111111 !important;
+  fill: none;
+}
+/* Icons that are filled (social icons, badges) */
+html.academic svg[fill]:not([fill="none"]) path {
+  fill: #111111 !important;
+  stroke: none !important;
+}
+
+/* 14. Grayscale images */
+html.academic img:not(.no-grayscale) {
+  filter: grayscale(100%) contrast(1.1) brightness(0.92) !important;
+}
+
+/* 15. Buttons — paper style */
+html.academic button {
+  background-color: #f2ede3 !important;
+  color: #111111 !important;
+  border: 1.5px solid #333333 !important;
+  box-shadow: 2px 2px 0 #333333 !important;
+}
+
+html.academic button:hover {
+  background-color: #e8e0d0 !important;
+}
+
+/* Primary CTA buttons → inverted (dark bg, light text) */
+html.academic [class*="bg-red-6"] button,
+html.academic button[class*="bg-red-6"],
+html.academic button.contact-btn {
+  background-color: #111111 !important;
+  color: #f2ede3 !important;
+  border: 1.5px solid #111111 !important;
+}
+
+/* 16. Input fields */
+html.academic input,
+html.academic textarea,
+html.academic select {
+  background-color: #faf6ee !important;
+  color: #111111 !important;
+  border: 1.5px solid #333333 !important;
+  box-shadow: none !important;
+}
+html.academic input::placeholder,
+html.academic textarea::placeholder {
+  color: #888888 !important;
+}
+
+/* 17. Navbar */
+html.academic nav,
+html.academic header {
+  background-color: #f2ede3 !important;
+  border-bottom: 1.5px solid #333333 !important;
+  box-shadow: none !important;
+}
+
+/* 18. Mobile menu overlay */
+html.academic [class*="fixed"][class*="inset"] {
+  background-color: #f2ede3 !important;
+}
+
+/* 19. Hide FireBall canvas cursor */
+html.academic canvas {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 20. Status dots / badge colors → monochrome */
+html.academic [class*="bg-green-5"],
+html.academic [class*="bg-green-4"],
+html.academic [class*="bg-green-3"] {
+  background-color: #444444 !important;
+}
+
+/* 21. Progress bars, badges, tags */
+html.academic [class*="rounded-full"] {
+  background-color: #e8e0d0 !important;
+  border: 1px solid #888888 !important;
+}
+
+/* 22. Marquee ticker in Academic mode */
+html.academic .marquee__track {
+  filter: grayscale(1);
+}
+
+/* Smooth transitions — only non-animation props */
+html body,
+html section,
+html nav,
+html div {
+  transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* =============================================
+   DARK MODE
+   ============================================= */
 .dark body {
-  background-color: #030712 !important; /* bg-slate-950 */
-  color: #f3f4f6 !important; /* text-gray-100 */
+  background-color: #030712 !important;
+  color: #f3f4f6 !important;
 }
 
 /* Custom dark mode tech gradients and grids */
@@ -21,6 +259,9 @@
   background-image: linear-gradient(rgba(245, 158, 11, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.02) 1px, transparent 1px) !important;
 }
 
+/* =============================================
+   GLOBAL BASE STYLES
+   ============================================= */
 
 /* Hide default cursor globally - only show custom FireBall cursor */
 * {
@@ -130,12 +371,10 @@ a {
 
 /* Simple float and slow spin animations */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-6px);
   }
@@ -149,7 +388,6 @@ a {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -160,12 +398,10 @@ a {
 }
 
 @keyframes glow {
-
   0%,
   100% {
     opacity: 0.7;
   }
-
   50% {
     opacity: 1;
   }
@@ -178,26 +414,20 @@ a {
 /* Hide horizontal scrollbar for custom tickers */
 .no-scrollbar {
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  /* Chrome, Safari */
   display: none;
 }
 
 /* Hide scrollbar utility class */
 .scrollbar-hide {
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  /* Chrome, Safari */
   display: none;
 }
 
@@ -254,7 +484,6 @@ a {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
@@ -288,15 +517,12 @@ a {
   0% {
     transform: translate(0px, 0px) scale(1);
   }
-
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
-
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
-
   100% {
     transform: translate(0px, 0px) scale(1);
   }

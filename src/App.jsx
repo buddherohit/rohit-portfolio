@@ -29,6 +29,7 @@ const Home = lazy(() => import("./pages/Home"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const BlogList = lazy(() => import("./pages/BlogList"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const AskRohitAI = lazy(() => import("./components/AskRohitAI"));
 
 // Helper Scroll Controller for routing & scroll resets
 function ScrollToTopAndSection() {
@@ -199,6 +200,11 @@ function AppContent() {
           </Routes>
         </Suspense>
       </main>
+
+      {/* 🤖 Ask Rohit AI — Global Floating Widget (lazy loaded) */}
+      <Suspense fallback={null}>
+        <AskRohitAI />
+      </Suspense>
     </div>
   );
 }
