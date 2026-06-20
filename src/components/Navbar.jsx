@@ -405,10 +405,10 @@ export default function Navbar() {
                     >
                       {/* Circular Icon Button */}
                       <motionDesign.div
-                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 ${isActive
-                            ? 'bg-amber-400 border-amber-500 text-gray-900'
+                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 nav-item-btn ${isActive
+                            ? 'is-active bg-amber-400 border-amber-500 text-gray-900'
                             : 'bg-white dark:bg-slate-900 border-red-650 dark:border-amber-500 text-red-650 dark:text-amber-405'
-                          }`}
+                          }` }
                         whileHover={{
                           scale: 1.15,
                           rotate: item.isRoute ? 0 : 360,

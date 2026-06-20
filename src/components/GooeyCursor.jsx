@@ -32,7 +32,7 @@ export default function GooeyCursor() {
     }, [mouseX, mouseY]);
 
     return (
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden gooey-cursor-container">
             {/* SVG Filter for Gooey Effect */}
             <svg className="absolute w-0 h-0">
                 <filter id="goo">

@@ -122,7 +122,7 @@ export default function About() {
                 >
 
                   {/* Timeline Dot */}
-                  <div className="absolute -left-[38px] top-8 w-6 h-6 bg-white dark:bg-slate-950 border-4 border-red-500 rounded-full shadow-md" />
+                  <div className="absolute -left-[38px] top-8 w-6 h-6 bg-white dark:bg-slate-950 border-4 border-red-500 rounded-full shadow-md timeline-dot" />
 
                   {/* Card */}
                   <motion.div

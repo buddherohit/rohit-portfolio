@@ -304,6 +304,7 @@ export function FireBall({
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
+        className="custom-cursor"
         style={{
           position: "fixed",
           width: `${cursorSize}px`,

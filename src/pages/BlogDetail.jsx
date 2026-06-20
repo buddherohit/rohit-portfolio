@@ -226,9 +226,9 @@ export default function BlogDetail() {
       />
 
       {/* Reading Progress Indicator */}
-      <div className="fixed top-0 left-0 w-full h-[3px] bg-slate-900 z-[201] pointer-events-none">
+      <div className="fixed top-0 left-0 w-full h-[3px] bg-slate-900 z-[201] pointer-events-none progress-bar-track">
         <div 
-          className="h-full bg-gradient-to-r from-red-650 to-amber-500 transition-all duration-75"
+          className="h-full bg-gradient-to-r from-red-650 to-amber-500 transition-all duration-75 progress-bar-fill"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>

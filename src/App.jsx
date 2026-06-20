@@ -163,6 +163,7 @@ function AppContent() {
         cursorShadowColor="rgba(59, 130, 246, 0.4)"
         fullScreen={true}
         style={{ zIndex: 9999, pointerEvents: "none" }}
+        className="fireball-container pointer-events-none"
       />
 
       {/* Navbar */}

@@ -98,7 +98,7 @@ export default function Education() {
               >
                 {/* Timeline Dot */}
                 <div className="absolute left-1.5 sm:left-[26px] top-6 z-20">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white dark:bg-slate-950 border-4 border-red-500 rounded-full shadow-md" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white dark:bg-slate-950 border-4 border-red-500 rounded-full shadow-md timeline-dot" />
                 </div>
 
                 {/* Content Card */}
@@ -155,9 +155,9 @@ export default function Education() {
                           </span>
                           <span>{edu.progress}%</span>
                         </div>
-                        <div className="h-1.5 w-full bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-1.5 w-full bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden progress-bar-track">
                           <motion.div
-                            className={`h-full rounded-full bg-gradient-to-r ${edu.color}`}
+                            className={`h-full rounded-full bg-gradient-to-r progress-bar-fill ${edu.color}`}
                             initial={{ width: 0 }}
                             whileInView={{ width: `${edu.progress}%` }}
                             viewport={{ once: true }}

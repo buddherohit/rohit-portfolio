@@ -24,6 +24,26 @@ html.academic * {
   -webkit-text-fill-color: unset !important;
 }
 
+/* Restore standard cursor for Academic Mode */
+html.academic,
+html.academic * {
+  cursor: auto !important;
+}
+html.academic a,
+html.academic button,
+html.academic [role="button"],
+html.academic select,
+html.academic input[type="submit"],
+html.academic .cursor-pointer {
+  cursor: pointer !important;
+}
+html.academic .custom-cursor {
+  display: none !important;
+}
+html.academic .gooey-cursor-container {
+  display: none !important;
+}
+
 /* 3. Muted secondary text */
 html.academic [class*="text-slate-4"],
 html.academic [class*="text-slate-5"],
@@ -84,12 +104,12 @@ html.academic [class*="bg-zinc"] {
 }
 
 /* 7. ALL colored backgrounds → paper */
-html.academic [class*="bg-red"],
-html.academic [class*="bg-amber"],
-html.academic [class*="bg-blue"],
-html.academic [class*="bg-green"],
-html.academic [class*="bg-purple"],
-html.academic [class*="bg-gradient"] {
+html.academic [class*="bg-red"]:not(.progress-bar-fill),
+html.academic [class*="bg-amber"]:not(.progress-bar-fill),
+html.academic [class*="bg-blue"]:not(.progress-bar-fill),
+html.academic [class*="bg-green"]:not(.progress-bar-fill),
+html.academic [class*="bg-purple"]:not(.progress-bar-fill),
+html.academic [class*="bg-gradient"]:not(.progress-bar-fill) {
   background: #f2ede3 !important;
   background-image: none !important;
   background-color: #f2ede3 !important;
@@ -138,20 +158,13 @@ html.academic [class*="shadow-blue"] {
 html.academic svg {
   color: #111111 !important;
 }
-html.academic svg path,
-html.academic svg circle,
-html.academic svg rect,
-html.academic svg line,
-html.academic svg polyline,
-html.academic svg polygon,
-html.academic svg ellipse {
-  stroke: #111111 !important;
-  fill: none;
-}
-/* Icons that are filled (social icons, badges) */
-html.academic svg[fill]:not([fill="none"]) path {
+html.academic svg [fill]:not([fill="none"]),
+html.academic svg *[fill]:not([fill="none"]) {
   fill: #111111 !important;
-  stroke: none !important;
+}
+html.academic svg [stroke]:not([stroke="none"]),
+html.academic svg *[stroke]:not([stroke="none"]) {
+  stroke: #111111 !important;
 }
 
 /* 14. Grayscale images */
@@ -203,7 +216,7 @@ html.academic header {
 }
 
 /* 18. Mobile menu overlay */
-html.academic [class*="fixed"][class*="inset"] {
+html.academic [class*="fixed"][class*="inset"]:not(.fireball-container):not(.pointer-events-none) {
   background-color: #f2ede3 !important;
 }
 
@@ -221,9 +234,40 @@ html.academic [class*="bg-green-3"] {
 }
 
 /* 21. Progress bars, badges, tags */
-html.academic [class*="rounded-full"] {
+html.academic [class*="rounded-full"]:not(.progress-bar-fill):not(.progress-bar-track):not(.timeline-dot):not(.nav-item-btn) {
   background-color: #e8e0d0 !important;
   border: 1px solid #888888 !important;
+}
+
+/* Custom styles for components in Academic Mode */
+html.academic .progress-bar-track {
+  background-color: #faf6ee !important;
+  background: #faf6ee !important;
+  border: 1px solid #bbbbbb !important;
+}
+
+html.academic .progress-bar-fill {
+  background-color: #111111 !important;
+  background: #111111 !important;
+  background-image: none !important;
+}
+
+html.academic .timeline-dot {
+  background-color: #111111 !important;
+  background: #111111 !important;
+  border: 4px solid #333333 !important;
+}
+
+html.academic .nav-item-btn {
+  background-color: #faf6ee !important;
+  border: 1.5px solid #333333 !important;
+  box-shadow: 2px 2px 0 #333333 !important;
+}
+
+html.academic .nav-item-btn.is-active {
+  background-color: #111111 !important;
+  color: #faf6ee !important;
+  border: 1.5px solid #111111 !important;
 }
 
 /* 22. Marquee ticker in Academic mode */
@@ -237,6 +281,24 @@ html section,
 html nav,
 html div {
   transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Explicit transparency overrides for layout/visual wrappers to prevent white/parchment overlays */
+html.academic .fireball-container,
+html.academic div.fireball-container,
+html.academic .gooey-cursor-container,
+html.academic div.gooey-cursor-container,
+html.academic .custom-cursor,
+html.academic div.custom-cursor,
+html.academic .bg-transparent,
+html.academic div.bg-transparent,
+html.academic [class*="bg-transparent"],
+html.academic div[class*="bg-transparent"],
+html.academic .pointer-events-none,
+html.academic div.pointer-events-none {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
 /* =============================================
