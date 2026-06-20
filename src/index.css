@@ -277,6 +277,13 @@ html.academic .nav-item-btn.is-active {
   border: 1.5px solid #111111 !important;
 }
 
+html.academic .nav-item-btn.is-active svg,
+html.academic .nav-item-btn.is-active svg * {
+  color: #faf6ee !important;
+  fill: #faf6ee !important;
+  stroke: #faf6ee !important;
+}
+
 /* 22. Marquee ticker in Academic mode */
 html.academic .marquee__track {
   filter: grayscale(1);
