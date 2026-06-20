@@ -109,7 +109,7 @@ html.academic [class*="bg-amber"]:not(.progress-bar-fill),
 html.academic [class*="bg-blue"]:not(.progress-bar-fill),
 html.academic [class*="bg-green"]:not(.progress-bar-fill),
 html.academic [class*="bg-purple"]:not(.progress-bar-fill),
-html.academic [class*="bg-gradient"]:not(.progress-bar-fill):not(.timeline-line):not(.progress-bar-track) {
+html.academic [class*="bg-gradient"]:not(.progress-bar-fill):not(.timeline-line):not(.progress-bar-track):not(.contact-btn) {
   background: #f2ede3 !important;
   background-image: none !important;
   background-color: #f2ede3 !important;
@@ -198,6 +198,13 @@ html.academic button.contact-btn {
   background-color: #111111 !important;
   color: #f2ede3 !important;
   border: 1.5px solid #111111 !important;
+}
+
+html.academic button.contact-btn svg,
+html.academic button.contact-btn svg * {
+  color: #faf6ee !important;
+  fill: #faf6ee !important;
+  stroke: #faf6ee !important;
 }
 
 /* 16. Input fields */

@@ -34,7 +34,7 @@ export default function SideElements({ email, socialLinks, onIconClick, onEmailC
             </div>
 
             {/* Right Side - Email */}
-            <div className="hidden lg:flex fixed right-6 bottom-0 z-50 flex-col items-center gap-4" style={{ position: 'fixed' }}>
+            <div className="hidden lg:flex fixed right-6 bottom-[96px] z-50 flex-col items-center gap-4" style={{ position: 'fixed' }}>
                 <motion.a
                     href={`mailto:${email}`}
                     className="text-gray-600 hover:text-red-600 transition-colors duration-300 text-sm font-medium"
@@ -44,7 +44,7 @@ export default function SideElements({ email, socialLinks, onIconClick, onEmailC
                 >
                     {email}
                 </motion.a>
-                <div className="w-px h-24 bg-gray-300"></div>
+                <div className="w-px h-4 bg-gray-300"></div>
             </div>
         </>
     );

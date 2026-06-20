@@ -1,7 +1,7 @@
 // src/components/AskRohitAI.jsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, ChevronDown, Minimize2 } from "lucide-react";
+import { X, Send, ChevronDown, Minimize2, Bot } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────────────
    KNOWLEDGE BASE
@@ -151,19 +151,18 @@ export default function AskRohitAI() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ y: -4, scale: 1.08 }}
+            whileTap={{ scale: 0.93 }}
             onClick={() => { setIsOpen(true); setIsMinimised(false); }}
-            className="fixed bottom-6 left-6 z-[200] flex items-center gap-2.5 px-4 py-2.5 bg-[#111111] text-white text-sm font-medium tracking-wide shadow-lg"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.03em" }}
+            className="fixed bottom-6 right-6 z-[200] flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-red-600 to-pink-500 dark:from-amber-500 dark:to-orange-400 text-white dark:text-slate-950 rounded-full shadow-xl shadow-red-600/30 dark:shadow-amber-500/20 cursor-pointer contact-btn border-0 outline-none hover:shadow-red-600/40 dark:hover:shadow-amber-500/35 transition-all duration-300"
             aria-label="Open AI assistant"
           >
             {/* Animated indicator */}
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-50" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+            <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 dark:bg-amber-300 opacity-75" />
+              <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-500 dark:bg-amber-400" />
             </span>
-            Ask Rohit AI
+            <Bot size={24} className="text-white dark:text-slate-950" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -177,12 +176,12 @@ export default function AskRohitAI() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
-            className="fixed bottom-6 left-6 z-[200] flex flex-col bg-white dark:bg-[#0f0f0f] border border-[#e0e0e0] dark:border-[#2a2a2a] shadow-2xl overflow-hidden"
+            className="fixed bottom-6 right-6 z-[200] flex flex-col bg-white dark:bg-[#0f0f0f] border border-[#e0e0e0] dark:border-[#2a2a2a] shadow-2xl overflow-hidden"
             style={{
               width: "min(400px, calc(100vw - 3rem))",
               height: isMinimised ? "56px" : "min(560px, calc(100vh - 5rem))",
               transition: "height 0.35s cubic-bezier(0.4,0,0.2,1)",
-              borderRadius: 0,
+              borderRadius: "16px",
             }}
           >
             {/* ── Header ─────────────────────────────────────── */}
