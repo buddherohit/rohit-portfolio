@@ -104,15 +104,22 @@ html.academic [class*="bg-zinc"] {
 }
 
 /* 7. ALL colored backgrounds → paper */
-html.academic [class*="bg-red"]:not(.progress-bar-fill),
+html.academic [class*="bg-red"]:not(.progress-bar-fill):not(.contact-btn):not([class*="bg-red-6"]):not([class*="bg-red-7"]),
 html.academic [class*="bg-amber"]:not(.progress-bar-fill),
 html.academic [class*="bg-blue"]:not(.progress-bar-fill),
 html.academic [class*="bg-green"]:not(.progress-bar-fill),
 html.academic [class*="bg-purple"]:not(.progress-bar-fill),
-html.academic [class*="bg-gradient"]:not(.progress-bar-fill) {
+html.academic [class*="bg-gradient"]:not(.progress-bar-fill):not(.timeline-line):not(.progress-bar-track) {
   background: #f2ede3 !important;
   background-image: none !important;
   background-color: #f2ede3 !important;
+}
+
+/* 7b. Timeline line → dark */
+html.academic .timeline-line {
+  background: #bbbbbb !important;
+  background-color: #bbbbbb !important;
+  background-image: none !important;
 }
 
 /* 8. Borders → dark */

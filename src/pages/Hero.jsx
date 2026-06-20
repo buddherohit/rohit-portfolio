@@ -86,7 +86,7 @@ function Hero() {
                 });
               }
             }}
-            className="inline-block px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg cursor-pointer"
+            className="inline-block px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg cursor-pointer contact-btn"
           >
             Contact me!
           </button>
