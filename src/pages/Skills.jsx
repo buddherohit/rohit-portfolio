@@ -95,15 +95,15 @@ export default function Skills() {
             {/* Background blobs - Optimized with CSS only animation */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
                 <div
-                    className="absolute top-20 left-20 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl mix-blend-multiply animate-blob"
+                    className="absolute top-20 left-20 w-72 h-72 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob"
                     style={{ willChange: "transform" }}
                 />
                 <div
-                    className="absolute top-20 right-20 w-72 h-72 bg-purple-100/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-2000"
+                    className="absolute top-20 right-20 w-72 h-72 bg-purple-100/30 dark:bg-purple-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob animation-delay-2000"
                     style={{ willChange: "transform" }}
                 />
                 <div
-                    className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-100/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-4000"
+                    className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-100/30 dark:bg-pink-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob animation-delay-4000"
                     style={{ willChange: "transform" }}
                 />
             </div>
@@ -116,12 +116,12 @@ export default function Skills() {
                     viewport={{ once: true, margin: "0px 0px -80px 0px" }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4 tracking-tight">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
                             Expertise
                         </span>
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                         A curated stack of modern technologies I use to build scalable applications.
                     </p>
                 </motion.div>
@@ -140,19 +140,19 @@ export default function Skills() {
                             viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
                             className="h-full"
                         >
-                            <div className="group relative bg-white/80 backdrop-blur-md rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 flex flex-col h-full overflow-hidden hover:-translate-y-2">
+                            <div className="group relative bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 flex flex-col h-full overflow-hidden hover:-translate-y-2">
                                 {/* Glass overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-blue-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-blue-50/30 dark:from-slate-900/50 dark:to-blue-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                                 {/* Card Header */}
                                 <div className="mb-8 relative z-10">
                                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
                                         <Icon className="w-7 h-7 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-450 transition-colors">
                                         {category.title}
                                     </h3>
-                                    <p className="text-gray-500 leading-relaxed">{category.description}</p>
+                                    <p className="text-gray-500 dark:text-slate-400 leading-relaxed">{category.description}</p>
                                 </div>
 
                                 {/* Skills List */}
@@ -160,7 +160,7 @@ export default function Skills() {
                                     {category.skills.map((skill, skillIdx) => (
                                         <div
                                             key={skillIdx}
-                                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 hover:bg-white border border-gray-100 hover:border-blue-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-default group/skill"
+                                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 hover:bg-white dark:bg-slate-950/50 dark:hover:bg-slate-900 border border-gray-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 shadow-sm hover:shadow-md transition-all duration-300 cursor-default group/skill"
                                         >
                                             <img
                                                 src={skill.icon}
@@ -169,7 +169,7 @@ export default function Skills() {
                                                 loading="lazy"
                                                 decoding="async"
                                             />
-                                            <span className="text-sm font-medium text-gray-700 group-hover/skill:text-gray-900">
+                                            <span className="text-sm font-medium text-gray-700 dark:text-slate-300 group-hover/skill:text-gray-900 dark:group-hover/skill:text-slate-100">
                                                 {skill.name}
                                             </span>
                                         </div>

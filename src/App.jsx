@@ -1,11 +1,11 @@
 import React, { Suspense, lazy, useEffect, useRef } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Github, Instagram, Twitter, Linkedin } from "lucide-react";
 import Lenis from "lenis";
 
 // Components
 import Navbar from "./components/Navbar";
 import SideElements from "./components/SideElements";
-import SideElementsMobileIcons from "./components/SideElementsMobileIcons";
 import { FireBall } from "./components/ui/FireBall";
 
 // Custom LeetCode Icon Component
@@ -24,21 +24,53 @@ const LeetCodeIcon = ({ size = 20, strokeWidth = 2 }) => (
   </svg>
 );
 
-// Pages (lazy-load heavy sections)
-import Hero from "./pages/Hero";
-const About = lazy(() => import("./pages/About"));
-const Education = lazy(() => import("./pages/Education"));
-const Certificates = lazy(() => import("./pages/Certificates"));
-const Skills = lazy(() => import("./pages/Skills"));
-const Experience = lazy(() => import("./pages/Experience"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Achievements = lazy(() => import("./pages/Achievements"));
-const Contact = lazy(() => import("./pages/Contact"));
+// Lazy-loaded Pages & Components
+const Home = lazy(() => import("./pages/Home"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const BlogList = lazy(() => import("./pages/BlogList"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 
-function App() {
+// Helper Scroll Controller for routing & scroll resets
+function ScrollToTopAndSection() {
+  const { pathname, state } = useLocation();
+
+  useEffect(() => {
+    // If we have a state indicating scroll to a homepage section, handle it
+    if (pathname === "/" && state?.scrollTo) {
+      const id = state.scrollTo;
+      
+      // Reset state in window history to prevent scrolling again on page refresh
+      window.history.replaceState({}, document.title);
+
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element && window.lenis) {
+          window.lenis.scrollTo(element, {
+            offset: -80,
+            duration: 0.8,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 150);
+    } else {
+      // Standard page change scroll reset
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [pathname, state]);
+
+  return null;
+}
+
+function AppContent() {
   const lenisRef = useRef(null);
 
-  // Initialize Lenis smooth scroll with optimized settings
+  // Initialize Lenis smooth scroll
   useEffect(() => {
     const lenis = new Lenis({
       duration: 0.7,
@@ -55,8 +87,6 @@ function App() {
     });
 
     lenisRef.current = lenis;
-
-    // Add lenis class to html element
     document.documentElement.classList.add('lenis', 'lenis-smooth');
 
     let rafId;
@@ -64,13 +94,10 @@ function App() {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
-
     rafId = requestAnimationFrame(raf);
-
-    // Expose lenis to window
     window.lenis = lenis;
 
-    // Handle anchor scrolling with Lenis
+    // Handle standard internal anchor clicks inside the page
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]');
       if (target) {
@@ -89,7 +116,7 @@ function App() {
 
     document.addEventListener('click', handleAnchorClick);
 
-    // Sync Framer Motion with Lenis scroll - Optimized
+    // Sync scroll event triggers (for GSAP, reveal transitions, etc.)
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -100,7 +127,6 @@ function App() {
         ticking = true;
       }
     };
-
     lenis.on('scroll', handleScroll);
 
     return () => {
@@ -112,8 +138,9 @@ function App() {
       document.documentElement.classList.remove('lenis', 'lenis-smooth');
     };
   }, []);
+
   return (
-    <div className="bg-white text-gray-800 min-h-screen flex flex-col">
+    <div className="bg-white dark:bg-slate-950 text-gray-800 dark:text-slate-100 min-h-screen flex flex-col relative transition-colors duration-300">
       {/* FireBall Mouse Effect */}
       <FireBall
         particleColors={["#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"]}
@@ -140,6 +167,9 @@ function App() {
       {/* Navbar */}
       <Navbar />
 
+      {/* Dynamic Scroll & Routing Controller */}
+      <ScrollToTopAndSection />
+
       {/* Side Elements (Social Icons & Email) */}
       <SideElements
         email="rohitbuddhe564@gmail.com"
@@ -154,83 +184,30 @@ function App() {
         onEmailClick={() => window.location.href = 'mailto:rohitbuddhe564@gmail.com'}
       />
 
-      {/* Main Content - Single Continuous Flow */}
+      {/* Main Multi-Page Routed Content */}
       <main className="flex-1 relative">
-        {/* Hero Section */}
-        <div id="hero">
-          <Hero />
-        </div>
-
-        {/* About Me Section */}
-        <div id="about">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <About />
-          </Suspense>
-        </div>
-
-        {/* Education Section */}
-        <div id="education">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Education />
-          </Suspense>
-        </div>
-
-
-        {/* Experience Section */}
-        <div id="experience">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Experience />
-          </Suspense>
-        </div>
-
-        {/* Skills Section */}
-        <div id="skills">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Skills />
-          </Suspense>
-        </div>
-
-        {/* Projects Section */}
-        <div id="projects">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Projects />
-          </Suspense>
-        </div>
-
-        {/* Achievements Section */}
-        <div id="achievements">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Achievements />
-          </Suspense>
-        </div>
-
-        {/* Certificates Section
-        <div id="certificates">
-          <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6"><div className="h-40 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Certificates />
-          </Suspense>
-        </div> */}
-
-        {/* Contact Section */}
-        <div id="contact">
-          <Suspense fallback={<div className="max-w-3xl mx-auto px-4 sm:px-6"><div className="h-32 animate-pulse rounded-2xl bg-gray-100" /></div>}>
-            <Contact />
-          </Suspense>
-        </div>
-        {/* Mobile Social Icons (bottom of last section, not sticky) */}
-        <SideElementsMobileIcons
-          socialLinks={[
-            { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
-            { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
-            { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
-            { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
-          ]}
-          onIconClick={(label) => console.log(`Clicked ${label}`)}
-        />
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="w-12 h-12 border-4 border-red-500 border-t-transparent dark:border-amber-500 dark:border-t-transparent rounded-full animate-spin" />
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
+          </Routes>
+        </Suspense>
       </main>
-
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 

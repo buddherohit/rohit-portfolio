@@ -8,7 +8,7 @@ function Hero() {
   return (
     <motion.section
       id="hero"
-      className="relative min-h-screen bg-gradient-to-b from-white via-white to-gray-50/30 flex items-center justify-between px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 overflow-hidden pt-20 pb-32"
+      className="relative min-h-screen bg-gradient-to-b from-white via-white to-gray-50/30 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900/30 flex items-center justify-between px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 overflow-hidden pt-20 pb-32"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -16,11 +16,11 @@ function Hero() {
       <GooeyCursor />
 
       {/* Decorative Elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-red-100/30 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '4s' }} />
-      <div className="absolute bottom-32 left-10 w-96 h-96 bg-yellow-100/20 rounded-full blur-3xl -z-10 animate-float" />
+      <div className="absolute top-20 right-10 w-72 h-72 bg-red-100/30 dark:bg-red-950/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute bottom-32 left-10 w-96 h-96 bg-yellow-100/20 dark:bg-yellow-950/5 rounded-full blur-3xl -z-10 animate-float" />
 
       {/* Smooth transition wave to About section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-50/50 -z-5" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-slate-950/50 -z-5" />
 
       {/* Social Media Icons - Left Edge (removed, will use SideElements component) */}
 
@@ -33,7 +33,7 @@ function Hero() {
       >
         {/* Greeting */}
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-gray-800 mb-2"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-gray-800 dark:text-slate-100 mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -61,7 +61,7 @@ function Hero() {
 
         {/* Description */}
         <motion.p
-          className="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed max-w-xl"
+          className="text-base sm:text-lg text-gray-600 dark:text-slate-300 mb-6 leading-relaxed max-w-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}

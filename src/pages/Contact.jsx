@@ -321,10 +321,10 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center py-20 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center py-20 overflow-hidden"
     >
       {/* Optimized Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.015] pointer-events-none">
+      <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025] pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0 0 0) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
@@ -335,7 +335,7 @@ export default function Contact() {
       {!prefersReducedMotion && (
         <>
           <motion.div
-            className="absolute top-1/4 -left-20 w-72 h-72 bg-red-100/20 rounded-full blur-3xl"
+            className="absolute top-1/4 -left-20 w-72 h-72 bg-red-100/20 dark:bg-red-950/10 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.2, 0.3, 0.2],
@@ -347,7 +347,7 @@ export default function Contact() {
             }}
           />
           <motion.div
-            className="absolute bottom-1/4 -right-20 w-72 h-72 bg-pink-100/20 rounded-full blur-3xl"
+            className="absolute bottom-1/4 -right-20 w-72 h-72 bg-pink-100/20 dark:bg-pink-950/10 rounded-full blur-3xl"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.3, 0.2, 0.3],
@@ -376,7 +376,7 @@ export default function Contact() {
               {/* Small Label */}
               <motion.p
                 variants={itemVariants}
-                className="text-xs text-gray-500 uppercase tracking-widest font-medium"
+                className="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-widest font-medium"
               >
                 Get in touch
               </motion.p>
@@ -401,26 +401,26 @@ export default function Contact() {
               {/* Description - SMALLER */}
               <motion.p
                 variants={itemVariants}
-                className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed px-4"
+                className="text-base sm:text-lg text-gray-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed px-4"
               >
                 I'm open for new opportunities – especially ambitious or large projects. However, my inbox is always open. Whether you have a{" "}
-                <span className="text-red-600 font-semibold">question</span> or just want to say{" "}
-                <span className="text-red-600 font-semibold">hi</span>, I'll try my best to get back to you!
+                <span className="text-red-600 dark:text-red-400 font-semibold">question</span> or just want to say{" "}
+                <span className="text-red-600 dark:text-red-400 font-semibold">hi</span>, I'll try my best to get back to you!
               </motion.p>
 
               {/* CTA Button */}
               <motion.div variants={itemVariants}>
                 <motion.button
                   onClick={() => setShowForm(true)}
-                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-gray-900 bg-white text-gray-900 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-gray-900 dark:border-slate-800 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Background fill on hover */}
-                  <div className="absolute inset-0 bg-gray-900 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                  <div className="absolute inset-0 bg-gray-900 dark:bg-red-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
 
                   {/* Button content */}
-                  <span className="relative z-10 flex items-center gap-2 text-gray-900 group-hover:text-white transition-colors duration-300">
+                  <span className="relative z-10 flex items-center gap-2 text-gray-900 dark:text-slate-100 group-hover:text-white transition-colors duration-300">
                     <span className="font-bold">Say Hello</span>
                     <motion.svg
                       className="w-5 h-5"
@@ -451,7 +451,7 @@ export default function Contact() {
                     {method.href ? (
                       <a
                         href={method.href}
-                        className="group flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-red-500 hover:shadow-md transition-all duration-300"
+                        className="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-800 rounded-lg hover:border-red-500 dark:hover:border-red-500 hover:shadow-md transition-all duration-300"
                       >
                         <motion.div
                           className="text-gray-400 group-hover:text-red-600 transition-colors"
@@ -459,14 +459,14 @@ export default function Contact() {
                         >
                           {method.icon}
                         </motion.div>
-                        <span className="text-sm font-medium text-gray-700 group-hover:text-red-600 transition-colors">
+                        <span className="text-sm font-medium text-gray-700 dark:text-slate-350 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                           {method.value}
                         </span>
                       </a>
                     ) : (
-                      <div className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-200 rounded-lg">
+                      <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border-2 border-gray-200 dark:border-slate-800 rounded-lg">
                         <div className="text-gray-400">{method.icon}</div>
-                        <span className="text-sm font-medium text-gray-700">{method.value}</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-slate-300">{method.value}</span>
                       </div>
                     )}
                   </motion.div>
@@ -485,7 +485,7 @@ export default function Contact() {
               {/* Back Button */}
               <motion.button
                 onClick={() => setShowForm(false)}
-                className="mb-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="mb-6 flex items-center gap-2 text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100 transition-colors cursor-pointer"
                 whileHover={{ x: -5 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -497,13 +497,13 @@ export default function Contact() {
 
               {/* Form Card */}
               <motion.div
-                className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 sm:p-8"
+                className="bg-white dark:bg-slate-900/90 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-800/80 p-6 sm:p-8"
                 initial={{ y: 20 }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h3>
-                <p className="text-gray-600 mb-6">Fill out the form below and I'll get back to you soon.</p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Send a Message</h3>
+                <p className="text-gray-600 dark:text-slate-400 mb-6">Fill out the form below and I'll get back to you soon.</p>
 
                 {/* Success/Error Messages */}
                 <AnimatePresence mode="wait">
@@ -512,7 +512,7 @@ export default function Contact() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3"
+                      className="mb-6 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900/50 rounded-lg flex items-start gap-3"
                     >
                       <motion.div
                         className="flex-shrink-0 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center"
@@ -525,8 +525,8 @@ export default function Contact() {
                         </svg>
                       </motion.div>
                       <div>
-                        <p className="text-green-800 font-semibold text-sm">Message sent successfully!</p>
-                        <p className="text-green-700 text-xs mt-1">Thank you for reaching out. I'll respond within 24 hours.</p>
+                        <p className="text-green-800 dark:text-green-400 font-semibold text-sm">Message sent successfully!</p>
+                        <p className="text-green-700 dark:text-green-300 text-xs mt-1">Thank you for reaching out. I'll respond within 24 hours.</p>
                       </div>
                     </motion.div>
                   )}
@@ -536,7 +536,7 @@ export default function Contact() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+                      className="mb-6 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-3"
                     >
                       <motion.div
                         className="flex-shrink-0 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center"
@@ -549,8 +549,8 @@ export default function Contact() {
                         </svg>
                       </motion.div>
                       <div>
-                        <p className="text-red-800 font-semibold text-sm">Failed to send message</p>
-                        <p className="text-red-700 text-xs mt-1">{errorMessage || "Please try again later."}</p>
+                        <p className="text-red-800 dark:text-red-400 font-semibold text-sm">Failed to send message</p>
+                        <p className="text-red-700 dark:text-red-300 text-xs mt-1">{errorMessage || "Please try again later."}</p>
                       </div>
                     </motion.div>
                   )}
@@ -572,7 +572,7 @@ export default function Contact() {
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                         Your Name *
                       </label>
                       <input
@@ -582,19 +582,19 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:bg-white focus:outline-none transition-all ${fieldErrors.name
+                        className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.name
                           ? 'border-red-500 focus:border-red-500'
-                          : 'border-gray-200 focus:border-red-500'
+                          : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
                           }`}
                         placeholder="Enter your name"
                       />
                       {fieldErrors.name && (
-                        <p className="mt-2 text-xs text-red-600">{fieldErrors.name}</p>
+                        <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.name}</p>
                       )}
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                         Email Address *
                       </label>
                       <input
@@ -604,20 +604,20 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:bg-white focus:outline-none transition-all ${fieldErrors.email
+                        className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.email
                           ? 'border-red-500 focus:border-red-500'
-                          : 'border-gray-200 focus:border-red-500'
+                          : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
                           }`}
                         placeholder="Enter your email"
                       />
                       {fieldErrors.email && (
-                        <p className="mt-2 text-xs text-red-600">{fieldErrors.email}</p>
+                        <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.email}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                       Subject *
                     </label>
                     <input
@@ -627,27 +627,27 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:bg-white focus:outline-none transition-all ${fieldErrors.subject
+                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.subject
                         ? 'border-red-500 focus:border-red-500'
-                        : 'border-gray-200 focus:border-red-500'
+                        : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
                         }`}
                       placeholder="What's this about?"
                     />
                     {fieldErrors.subject && (
-                      <p className="mt-2 text-xs text-red-600">{fieldErrors.subject}</p>
+                      <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.subject}</p>
                     )}
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label htmlFor="message" className="block text-sm font-semibold text-gray-700">
+                      <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
                         Message *
                       </label>
                       <span className={`text-xs ${formData.message.length > 2000
-                        ? 'text-red-600'
+                        ? 'text-red-650 dark:text-red-450'
                         : formData.message.length > 1800
-                          ? 'text-yellow-600'
-                          : 'text-gray-400'
+                          ? 'text-yellow-600 dark:text-amber-500'
+                          : 'text-gray-400 dark:text-slate-550'
                         }`}>
                         {formData.message.length}/2000
                       </span>
@@ -660,21 +660,21 @@ export default function Contact() {
                       required
                       rows={5}
                       maxLength={2000}
-                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:bg-white focus:outline-none transition-all resize-none ${fieldErrors.message
+                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all resize-none ${fieldErrors.message
                         ? 'border-red-500 focus:border-red-500'
-                        : 'border-gray-200 focus:border-red-500'
+                        : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
                         }`}
                       placeholder="Tell me about your project or inquiry..."
                     />
                     {fieldErrors.message && (
-                      <p className="mt-2 text-xs text-red-600">{fieldErrors.message}</p>
+                      <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.message}</p>
                     )}
                   </div>
 
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-red-600/30 hover:shadow-xl hover:shadow-red-600/40 overflow-hidden group"
+                    className="relative w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-red-600/30 hover:shadow-xl hover:shadow-red-600/40 overflow-hidden group cursor-pointer"
                     whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   >

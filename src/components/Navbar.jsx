@@ -1,14 +1,44 @@
 // src/components/Navbar.jsx
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail } from "lucide-react";
+const motionDesign = motion;
+const FramerAnimatePresence = AnimatePresence;
+import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye } from "lucide-react";
+import ResumeModal from "./ResumeModal";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "light";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  }, []);
 
   // Detect scroll position
   useEffect(() => {
@@ -16,13 +46,23 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 100);
     };
 
-window.addEventListener('scroll', handleScroll, { passive: true });    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Detect active section on scroll
+  // Detect active section on scroll (only if on landing/home page)
   useEffect(() => {
+    if (location.pathname !== "/") {
+      if (location.pathname.startsWith("/blog")) {
+        setActiveSection("blog");
+      } else if (location.pathname.startsWith("/projects/")) {
+        setActiveSection("projects");
+      }
+      return;
+    }
+
     const handleScroll = () => {
-      const sections = ["hero", "about", "education", "experience", "skills", "projects", "achievements", "contact"];
+      const sections = ["hero", "about", "education", "experience", "skills", "projects", "achievements", "certificates", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -42,7 +82,7 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -75,15 +115,16 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
   }, [isOpen]);
 
   const navItems = useMemo(() => [
-    { id: "hero", label: "HOME", icon: Home },
-    { id: "about", label: "ABOUT", icon: User },
-    { id: "education", label: "EDUCATION", icon: GraduationCap },
-    { id: "experience", label: "EXPERIENCE", icon: Briefcase },
-    { id: "skills", label: "SKILLS", icon: Code },
-    { id: "projects", label: "PROJECTS", icon: FolderGit },
-    { id: "achievements", label: "ACHIEVEMENTS", icon: Award },
-    // { id: "certificates", label: "CERTIFICATES", icon: Award },
-    { id: "contact", label: "CONTACT", icon: Mail },
+    { id: "hero", label: "HOME", icon: Home, isRoute: false },
+    { id: "about", label: "ABOUT", icon: User, isRoute: false },
+    { id: "education", label: "EDUCATION", icon: GraduationCap, isRoute: false },
+    { id: "experience", label: "EXPERIENCE", icon: Briefcase, isRoute: false },
+    { id: "skills", label: "SKILLS", icon: Code, isRoute: false },
+    { id: "projects", label: "PROJECTS", icon: FolderGit, isRoute: false },
+    { id: "blog", label: "BLOG", icon: BookOpen, isRoute: true, path: "/blog" },
+    { id: "achievements", label: "ACHIEVEMENTS", icon: Award, isRoute: false },
+    { id: "certificates", label: "CERTIFICATES", icon: Award, isRoute: false },
+    { id: "contact", label: "CONTACT", icon: Mail, isRoute: false },
   ], []);
 
   const handleItemClick = useCallback(() => {
@@ -95,48 +136,57 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
       {/* Floating Right Side Buttons */}
       <div className="fixed top-4 right-4 md:top-6 md:right-6 z-[102] flex items-center gap-3">
         {/* Get my Resume Button - Only show when NOT scrolled */}
-        <AnimatePresence>
+        <FramerAnimatePresence>
           {!isScrolled && (
-            <motion.a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 border-2 border-red-600 text-red-700 rounded-lg font-medium text-sm hover:bg-red-50 transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-white shadow-md"
+            <motionDesign.button
+              onClick={() => setIsResumeOpen(true)}
+              className="px-4 py-2 border-2 border-red-650 dark:border-amber-500 text-red-750 dark:text-amber-400 rounded-lg font-medium text-sm hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-white dark:bg-slate-900 shadow-md cursor-pointer"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20, transition: { duration: 0.3 } }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Download className="w-4 h-4 flex-shrink-0" />
-              <span className="hidden sm:inline">Get my Resume</span>
+              <Eye className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">View Resume</span>
               <span className="sm:hidden">Resume</span>
-            </motion.a>
+            </motionDesign.button>
           )}
-        </AnimatePresence>
+        </FramerAnimatePresence>
+
+        {/* Dark Mode Toggle Button */}
+        <motionDesign.button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-red-650 dark:text-amber-400 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Toggle dark mode"
+        >
+          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+        </motionDesign.button>
 
         {/* Hamburger Menu Button */}
-        <motion.button
+        <motionDesign.button
           ref={hamburgerRef}
           onClick={() => setIsOpen(!isOpen)}
-          className="menu-button relative p-2 rounded-lg hover:bg-gray-100 transition-colors bg-white shadow-md"
+          className="menu-button relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 shadow-md text-red-700 dark:text-amber-500 cursor-pointer"
           whileTap={{ scale: 0.9 }}
           aria-label="Toggle menu"
           aria-expanded={isOpen}
         >
-          <AnimatePresence mode="wait">
+          <FramerAnimatePresence mode="wait">
             {isOpen ? (
-              <motion.div
+              <motionDesign.div
                 key="close"
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X size={24} className="text-red-700" />
-              </motion.div>
+                <X size={24} className="text-red-700 dark:text-amber-400" />
+              </motionDesign.div>
             ) : (
-              <motion.div
+              <motionDesign.div
                 key="menu"
                 initial={{ rotate: 90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
@@ -144,21 +194,21 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
                 transition={{ duration: 0.2 }}
                 className="flex flex-col gap-1.5"
               >
-                <div className="h-0.5 bg-red-700 rounded-full w-5" />
-                <div className="h-0.5 bg-red-700 rounded-full w-4" />
-                <div className="h-0.5 bg-red-700 rounded-full w-5" />
-              </motion.div>
+                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-5" />
+                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-4" />
+                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-5" />
+              </motionDesign.div>
             )}
-          </AnimatePresence>
-        </motion.button>
+          </FramerAnimatePresence>
+        </motionDesign.button>
       </div>
 
       {/* Vertical Navigation Menu */}
-      <AnimatePresence>
+      <FramerAnimatePresence>
         {isOpen && (
           <>
             {/* Backdrop */}
-            <motion.div
+            <motionDesign.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -167,7 +217,7 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
             />
 
             {/* Vertical Menu Container */}
-            <motion.div
+            <motionDesign.div
               ref={menuRef}
               className="fixed top-16 right-4 md:top-20 md:right-6 z-[100] pointer-events-auto"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -176,9 +226,9 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {/* Resume Button in Menu - Only show when scrolled */}
-              <AnimatePresence>
+              <FramerAnimatePresence>
                 {isScrolled && (
-                  <motion.div
+                  <motionDesign.div
                     className="relative group mb-3 flex items-center justify-end"
                     initial={{ opacity: 0, x: 30, scale: 0.8 }}
                     animate={{
@@ -204,20 +254,21 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
                     <div
                       className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out"
                     >
-                      <div className="bg-white text-red-600 text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border border-red-200">
-                        Download Resume
+                      <div className="bg-white dark:bg-slate-800 text-red-650 dark:text-amber-450 text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border border-red-200 dark:border-slate-700">
+                        View Resume
                       </div>
-                      <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white"></div>
+                      <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white dark:border-l-slate-800"></div>
                     </div>
 
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
+                    <button
+                      onClick={() => {
+                        setIsResumeOpen(true);
+                        setIsOpen(false);
+                      }}
+                      className="block cursor-pointer bg-transparent border-0 p-0"
                     >
-                      <motion.div
-                        className="w-11 h-11 rounded-full bg-red-600 border-2 border-red-600 flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all duration-150"
+                      <motionDesign.div
+                        className="w-11 h-11 rounded-full bg-red-650 dark:bg-amber-500 border-2 border-red-650 dark:border-amber-500 flex items-center justify-center text-white dark:text-slate-950 shadow-md hover:shadow-lg transition-all duration-150"
                         initial={{ scale: 0 }}
                         animate={{
                           scale: 1,
@@ -233,25 +284,25 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
                         }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <Download size={18} />
-                      </motion.div>
-                    </a>
-                  </motion.div>
+                        <Eye size={18} />
+                      </motionDesign.div>
+                    </button>
+                  </motionDesign.div>
                 )}
-              </AnimatePresence>
+              </FramerAnimatePresence>
 
               {navItems.map((item, i) => {
                 const IconComponent = item.icon;
                 const isActive = activeSection === item.id;
                 return (
-                  <motion.div
+                  <motionDesign.div
                     key={item.id}
                     className="relative group mb-3 last:mb-0 flex items-center justify-end"
                     initial={{ opacity: 0, x: -20, scale: 0.5 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: -20, scale: 0.5 }}
                     transition={{
-                      delay: i * 0.08,
+                      delay: i * 0.06,
                       duration: 0.4,
                       type: "spring",
                       stiffness: 200
@@ -263,41 +314,49 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
                     >
                       <div className={`text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border ${isActive
                           ? 'bg-amber-400 text-gray-900 border-amber-500'
-                          : 'bg-white text-gray-800 border-gray-200'
+                          : 'bg-white dark:bg-slate-800 text-gray-800 dark:text-slate-100 border-gray-200 dark:border-slate-700'
                         }`}>
                         {item.label}
                       </div>
                       {/* Arrow pointing to icon */}
-                      <div className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${isActive ? 'border-l-amber-400' : 'border-l-white'
+                      <div className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${isActive ? 'border-l-amber-400' : 'border-l-white dark:border-l-slate-800'
                         }`}></div>
                     </div>
 
                     <div
                       onClick={(e) => {
                         e.preventDefault();
-                        const element = document.getElementById(item.id);
-                        if (element && window.lenis) {
-                          window.lenis.scrollTo(element, {
-                            offset: -80,
-                            duration: 0.8,
-                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                          });
-                        } else if (element) {
-                          element.scrollIntoView({ behavior: "smooth" });
+                        handleItemClick();
+                        if (item.isRoute) {
+                          navigate(item.path);
+                        } else {
+                          if (location.pathname === "/") {
+                            const element = document.getElementById(item.id);
+                            if (element && window.lenis) {
+                              window.lenis.scrollTo(element, {
+                                offset: -80,
+                                duration: 0.8,
+                                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                              });
+                            } else if (element) {
+                              element.scrollIntoView({ behavior: "smooth" });
+                            }
+                          } else {
+                            navigate("/", { state: { scrollTo: item.id } });
+                          }
                         }
-                        handleItemClick(item);
                       }}
                       className="cursor-pointer block"
                     >
                       {/* Circular Icon Button */}
-                      <motion.div
+                      <motionDesign.div
                         className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 ${isActive
                             ? 'bg-amber-400 border-amber-500 text-gray-900'
-                            : 'bg-white border-red-600 text-red-600'
+                            : 'bg-white dark:bg-slate-900 border-red-650 dark:border-amber-500 text-red-650 dark:text-amber-405'
                           }`}
                         whileHover={{
                           scale: 1.15,
-                          rotate: 360,
+                          rotate: item.isRoute ? 0 : 360,
                           backgroundColor: isActive ? "#fbbf24" : "#DC2626",
                           color: isActive ? "#111827" : "#FFFFFF",
                         }}
@@ -305,15 +364,18 @@ window.addEventListener('scroll', handleScroll, { passive: true });    return ()
                         transition={{ duration: 0.15, ease: "easeOut" }}
                       >
                         <IconComponent size={18} />
-                      </motion.div>
+                      </motionDesign.div>
                     </div>
-                  </motion.div>
+                  </motionDesign.div>
                 );
               })}
-            </motion.div>
+            </motionDesign.div>
           </>
         )}
-      </AnimatePresence>
+      </FramerAnimatePresence>
+
+      {/* Resume Preview Modal */}
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </>
   );
 }

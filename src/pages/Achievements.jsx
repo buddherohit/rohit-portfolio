@@ -113,7 +113,7 @@ export default function Achievements() {
   return (
     <section
       id="achievements"
-      className="relative bg-gradient-to-b from-white via-gray-50 to-white py-20"
+      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-900/30 py-20"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Header */}
@@ -121,10 +121,10 @@ export default function Achievements() {
           <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-red-500/20">
             <Trophy className="w-7 h-7 text-white" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-red-600">
+          <h2 className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-500">
             Achievements
           </h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 dark:text-slate-400 mt-2">
             Milestones and accomplishments in my journey
           </p>
         </div>
@@ -132,7 +132,7 @@ export default function Achievements() {
         {/* Timeline */}
         <div className="relative space-y-8">
           {/* Vertical Line */}
-          <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-200 hidden sm:block" />
+          <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-slate-800 hidden sm:block" />
 
           {ACHIEVEMENTS_DATA.map((item, index) => {
             const Icon = item.icon;
@@ -146,32 +146,32 @@ export default function Achievements() {
                 className="relative sm:pl-16"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-[20px] top-6 w-3 h-3 bg-red-500 rounded-full ring-4 ring-white shadow transition-all duration-300 hidden sm:block" />
+                <div className="absolute left-[20px] top-6 w-3 h-3 bg-red-500 rounded-full ring-4 ring-white dark:ring-slate-950 shadow transition-all duration-300 hidden sm:block" />
 
                 {/* Card */}
-                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-white dark:bg-slate-900/60 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row gap-5">
                     <div className={`shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-md`}>
                       <Icon className="w-7 h-7" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-1">
                         {item.title}
                       </h3>
-                      <p className="text-red-600 font-medium mb-1">
+                      <p className="text-red-600 dark:text-red-400 font-medium mb-1">
                         {item.organization}
                       </p>
-                      <p className="text-gray-500 text-sm mb-4">
+                      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">
                         {item.location}
                       </p>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
+                      <p className="text-gray-600 dark:text-slate-300 mb-4 leading-relaxed">
                         {item.description}
                       </p>
 
                       {/* Highlights */}
                       <ul className="grid sm:grid-cols-2 gap-2 mb-4">
                         {item.highlights.map((point, idx) => (
-                          <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
+                          <li key={idx} className="text-sm text-gray-700 dark:text-slate-300 flex items-start gap-2">
                             <span className="text-red-400 mt-0.5">•</span>
                             {point}
                           </li>
@@ -183,7 +183,7 @@ export default function Achievements() {
                         {item.skills.map((skill, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1.5 text-xs bg-gray-50 border border-gray-100 font-semibold text-gray-700 rounded-lg shadow-sm"
+                            className="px-3 py-1.5 text-xs bg-gray-50 dark:bg-slate-950 border border-gray-100 dark:border-slate-850 font-semibold text-gray-700 dark:text-slate-300 rounded-lg shadow-sm"
                           >
                             {skill}
                           </span>

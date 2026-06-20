@@ -45,7 +45,7 @@ export default function About() {
   return (
     <motion.section
       id="about"
-      className="relative isolate bg-gradient-to-b from-gray-50 via-white to-white py-20 sm:py-24"
+      className="relative isolate bg-gradient-to-b from-gray-50 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950 py-20 sm:py-24"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
@@ -58,18 +58,18 @@ export default function About() {
           className="max-w-3xl mx-auto text-center mb-16"
         >
 
-          <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-widest text-red-600 uppercase bg-red-50 rounded-full">
+          <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-widest text-red-600 uppercase bg-red-50 dark:bg-red-950/20 rounded-full">
             About Me
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-slate-100 mt-4">
             Building scalable solutions with 
             <span className="text-red-600"> passion </span>
             and 
             <span className="text-blue-600"> precision</span>
           </h2>
 
-          <p className="text-lg text-gray-600 mt-4">
+          <p className="text-lg text-gray-600 dark:text-slate-400 mt-4">
             Passionate about software development and building impactful applications
           </p>
 
@@ -83,9 +83,9 @@ export default function About() {
             className="lg:col-span-7 space-y-8"
           >
 
-            <div className="space-y-5 text-gray-600">
+            <div className="space-y-5 text-gray-600 dark:text-slate-300">
 
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
                 Hi, I'm Rohit Buddhe 👋
               </h3>
 
@@ -107,139 +107,139 @@ export default function About() {
 
             </div>
 
-           {/* Skills Timeline */}
-<div className="relative border-l-2 border-gray-200 space-y-10 pl-8">
+            {/* Skills Timeline */}
+            <div className="relative border-l-2 border-gray-200 dark:border-slate-800 space-y-10 pl-8">
 
-{pillars.map((pillar, index) => (
+              {pillars.map((pillar, index) => (
 
-<motion.div
-key={pillar.title}
-className="relative group"
-initial={{ opacity: 0, y: 40 }}
-whileInView={{ opacity: 1, y: 0 }}
-viewport={{ once: true }}
-transition={{ duration: 0.5, delay: index * 0.1 }}
->
+                <motion.div
+                  key={pillar.title}
+                  className="relative group"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
 
-{/* Timeline Dot */}
-<div className="absolute -left-[38px] top-8 w-6 h-6 bg-white border-4 border-red-500 rounded-full shadow-md" />
+                  {/* Timeline Dot */}
+                  <div className="absolute -left-[38px] top-8 w-6 h-6 bg-white dark:bg-slate-950 border-4 border-red-500 rounded-full shadow-md" />
 
-{/* Card */}
-<motion.div
-className="bg-white p-8 rounded-2xl border shadow-md hover:shadow-2xl transition duration-300 cursor-pointer"
-whileHover={{ y: -6, scale: 1.01 }}
->
+                  {/* Card */}
+                  <motion.div
+                    className="bg-white dark:bg-slate-900/60 p-8 rounded-2xl border border-gray-200 dark:border-slate-800 shadow-md hover:shadow-2xl transition duration-300 cursor-pointer"
+                    whileHover={{ y: -6, scale: 1.01 }}
+                  >
 
-{/* Heading */}
-<h4 className="text-2xl font-bold text-gray-900 group-hover:text-red-600 transition duration-300 mb-3">
-{pillar.title}
-</h4>
+                    {/* Heading */}
+                    <h4 className="text-2xl font-bold text-gray-900 dark:text-slate-100 group-hover:text-red-600 transition duration-300 mb-3">
+                      {pillar.title}
+                    </h4>
 
-{/* Description */}
-<p className="text-gray-600 leading-relaxed text-base">
-{pillar.copy}
-</p>
+                    {/* Description */}
+                    <p className="text-gray-600 dark:text-slate-300 leading-relaxed text-base">
+                      {pillar.copy}
+                    </p>
 
-</motion.div>
+                  </motion.div>
 
-</motion.div>
+                </motion.div>
 
-))}
+              ))}
 
-</div>
+            </div>
 
           </motion.div>
 
           {/* Right */}
-<motion.div
-  variants={heroVariants}
-  className="lg:col-span-5 flex flex-col items-center lg:items-end"
->
+          <motion.div
+            variants={heroVariants}
+            className="lg:col-span-5 flex flex-col items-center lg:items-end"
+          >
 
-  <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md">
 
-    {/* Floating Red Glow */}
-    <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-200 rounded-full blur-3xl opacity-40 animate-pulse" />
-    <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200 rounded-full blur-3xl opacity-30 animate-pulse" />
+              {/* Floating Red Glow */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-200 dark:bg-red-950/20 rounded-full blur-3xl opacity-40 animate-pulse" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200 dark:bg-blue-950/15 rounded-full blur-3xl opacity-30 animate-pulse" />
 
-    <motion.div
-      className="relative flex flex-col items-center text-center bg-white/80 backdrop-blur-md rounded-3xl p-10 border border-gray-100 shadow-xl hover:shadow-2xl transition duration-500"
-      whileHover={{ y: -8 }}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
+              <motion.div
+                className="relative flex flex-col items-center text-center bg-white/80 dark:bg-slate-900/70 backdrop-blur-md rounded-3xl p-10 border border-gray-100 dark:border-slate-800/80 shadow-xl hover:shadow-2xl transition duration-500"
+                whileHover={{ y: -8 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
 
-      {/* Profile Image */}
-      <div className="relative w-48 h-48 mb-6">
+                {/* Profile Image */}
+                <div className="relative w-48 h-48 mb-6">
 
-        {/* Red Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-300 rounded-3xl blur-xl opacity-20 animate-pulse" />
+                  {/* Red Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-300 rounded-3xl blur-xl opacity-20 dark:opacity-10 animate-pulse" />
 
-        {/* Floating Ring */}
-        <motion.div
-          className="absolute inset-0 border-2 border-red-400 rounded-3xl"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
+                  {/* Floating Ring */}
+                  <motion.div
+                    className="absolute inset-0 border-2 border-red-400 dark:border-red-500 rounded-3xl"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
 
-        <img
-          src={profileImg}
-          alt="Rohit Buddhe"
-          className="relative w-full h-full object-cover rounded-3xl shadow-lg"
-        />
+                  <img
+                    src={profileImg}
+                    alt="Rohit Buddhe"
+                    className="relative w-full h-full object-cover rounded-3xl shadow-lg"
+                  />
 
-      </div>
+                </div>
 
-      {/* Name */}
-      <motion.h3 
-        className="text-2xl font-bold text-gray-900 mb-1"
-        whileHover={{ scale: 1.05 }}
-      >
-        Rohit Buddhe
-      </motion.h3>
+                {/* Name */}
+                <motion.h3 
+                  className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-1"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  Rohit Buddhe
+                </motion.h3>
 
-      {/* Title */}
-      <p className="text-gray-500 font-medium mb-6">
-        Software Developer
-      </p>
+                {/* Title */}
+                <p className="text-gray-500 dark:text-slate-400 font-medium mb-6">
+                  Software Developer
+                </p>
 
-      {/* Info Cards */}
-      <div className="grid grid-cols-2 gap-4 w-full">
+                {/* Info Cards */}
+                <div className="grid grid-cols-2 gap-4 w-full">
 
-        <motion.div
-          className="p-4 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-md transition"
-          whileHover={{ scale: 1.05 }}
-        >
-          <p className="text-xs uppercase text-gray-500 font-semibold">
-            Focus
-          </p>
+                  <motion.div
+                    className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 hover:shadow-md transition"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <p className="text-xs uppercase text-gray-500 dark:text-slate-400 font-semibold">
+                      Focus
+                    </p>
 
-          <p className="text-lg font-semibold text-gray-900">
-            Java + DSA
-          </p>
-        </motion.div>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-slate-200">
+                      Java + DSA
+                    </p>
+                  </motion.div>
 
-        <motion.div
-          className="p-4 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-md transition"
-          whileHover={{ scale: 1.05 }}
-        >
-          <p className="text-xs uppercase text-gray-500 font-semibold">
-            Location
-          </p>
+                  <motion.div
+                    className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 hover:shadow-md transition"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <p className="text-xs uppercase text-gray-500 dark:text-slate-400 font-semibold">
+                      Location
+                    </p>
 
-          <p className="text-lg font-semibold text-gray-900">
-            Nagpur
-          </p>
-        </motion.div>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-slate-200">
+                      Nagpur
+                    </p>
+                  </motion.div>
 
-      </div>
+                </div>
 
-    </motion.div>
+              </motion.div>
 
-  </div>
+            </div>
 
-</motion.div>
+          </motion.div>
         </div>
       </div>
     </motion.section>
