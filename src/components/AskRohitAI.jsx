@@ -176,7 +176,7 @@ export default function AskRohitAI() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
-            className="fixed bottom-6 right-6 z-[200] flex flex-col bg-white dark:bg-[#0f0f0f] border border-[#e0e0e0] dark:border-[#2a2a2a] shadow-2xl overflow-hidden"
+            className="ask-rohit-ai-chat fixed bottom-6 right-6 z-[200] flex flex-col bg-white dark:bg-[#0f0f0f] border border-[#e0e0e0] dark:border-[#2a2a2a] shadow-2xl overflow-hidden"
             style={{
               width: "min(400px, calc(100vw - 3rem))",
               height: isMinimised ? "56px" : "min(560px, calc(100vh - 5rem))",

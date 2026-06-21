@@ -140,11 +140,14 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('nav-menu-open');
     } else {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('nav-menu-open');
     }
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('nav-menu-open');
     };
   }, [isOpen]);
 

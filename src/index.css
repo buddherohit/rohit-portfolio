@@ -622,3 +622,12 @@ a {
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+
+/* Hide/shift Rohit AI elements when navigation menu is open to prevent overlapping */
+body.nav-menu-open .contact-btn,
+body.nav-menu-open .ask-rohit-ai-chat {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.9) !important;
+  transition: all 0.3s ease-in-out !important;
+}
