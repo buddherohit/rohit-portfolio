@@ -623,9 +623,10 @@ a {
   animation-delay: 4s;
 }
 
-/* Hide/shift Rohit AI elements when navigation menu is open to prevent overlapping */
+/* Hide/shift Rohit AI elements and side elements when navigation menu is open to prevent overlapping */
 body.nav-menu-open .contact-btn,
-body.nav-menu-open .ask-rohit-ai-chat {
+body.nav-menu-open .ask-rohit-ai-chat,
+body.nav-menu-open .side-email-container {
   opacity: 0 !important;
   pointer-events: none !important;
   transform: translateY(20px) scale(0.9) !important;
