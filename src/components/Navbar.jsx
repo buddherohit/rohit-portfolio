@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const motionDesign = motion;
 const FramerAnimatePresence = AnimatePresence;
-import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye, GraduationCap as AcademicCapIcon, Monitor } from "lucide-react";
+import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye, GraduationCap as AcademicCapIcon, Monitor, Rocket } from "lucide-react";
 import ResumeModal from "./ResumeModal";
 
 export default function Navbar() {
@@ -158,6 +158,7 @@ export default function Navbar() {
     { id: "experience", label: "EXPERIENCE", icon: Briefcase, isRoute: false },
     { id: "skills", label: "SKILLS", icon: Code, isRoute: false },
     { id: "projects", label: "PROJECTS", icon: FolderGit, isRoute: false },
+    { id: "placement-kit", label: "PLACEMENT KIT", icon: Rocket, isRoute: true, path: "/placement-kit" },
     { id: "blog", label: "BLOG", icon: BookOpen, isRoute: true, path: "/blog" },
     { id: "achievements", label: "ACHIEVEMENTS", icon: Award, isRoute: false },
     { id: "certificates", label: "CERTIFICATES", icon: Award, isRoute: false },

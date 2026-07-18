@@ -30,6 +30,7 @@ const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const BlogList = lazy(() => import("./pages/BlogList"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const AskRohitAI = lazy(() => import("./components/AskRohitAI"));
+const PlacementKit = lazy(() => import("./pages/PlacementKit"));
 
 // Helper Scroll Controller for routing & scroll resets
 function ScrollToTopAndSection() {
@@ -198,6 +199,7 @@ function AppContent() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/placement-kit" element={<PlacementKit />} />
           </Routes>
         </Suspense>
       </main>

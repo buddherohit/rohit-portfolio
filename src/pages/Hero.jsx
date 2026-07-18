@@ -30,19 +30,29 @@ function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        {/* Greeting */}
+        {/* Greeting Badge */}
+        <motion.div
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 dark:bg-red-950/20 border border-red-200/50 dark:border-red-900/35 text-red-600 dark:text-red-400 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <span className="animate-bounce">👋</span> Hello, I&apos;m
+        </motion.div>
+
+        {/* Main Title (Name) */}
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-gray-800 dark:text-slate-100 mb-2"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-display text-gray-900 dark:text-slate-100 mb-4 leading-none"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Hello, I&apos;m <span className="font-semibold">Rohit Buddhe</span>
+          Rohit <span className="bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 bg-clip-text text-transparent dark:from-red-500 dark:via-orange-400 dark:to-yellow-400">Buddhe</span>
         </motion.h1>
 
         {/* Role - Red Color with DecryptText Animation */}
         <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-red-600 mb-4 min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-red-600 dark:text-red-400 mb-6 min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
