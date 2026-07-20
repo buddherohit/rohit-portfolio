@@ -11,7 +11,8 @@
     "build:prod": "vite build --mode production",
     "deploy:netlify": "npm run build && netlify deploy --prod --dir=dist",
     "deploy:vercel": "npm run build && vercel --prod",
-    "deploy:github": "npm run build && gh-pages -d dist"
+    "deploy:github": "npm run build && gh-pages -d dist",
+    "server": "npm start --prefix server"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

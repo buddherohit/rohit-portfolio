@@ -2,6 +2,8 @@ import React, { Suspense, lazy, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Github, Instagram, Twitter, Linkedin } from "lucide-react";
 import Lenis from "lenis";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -30,7 +32,12 @@ const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const BlogList = lazy(() => import("./pages/BlogList"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const AskRohitAI = lazy(() => import("./components/AskRohitAI"));
+const AskPlacementAI = lazy(() => import("./components/AskPlacementAI"));
 const PlacementKit = lazy(() => import("./pages/PlacementKit"));
+const DsaHub = lazy(() => import("./pages/DsaHub"));
+const DevelopmentHub = lazy(() => import("./pages/DevelopmentHub"));
+const InterviewHub = lazy(() => import("./pages/InterviewHub"));
+const CompanyHub = lazy(() => import("./pages/CompanyHub"));
 
 // Helper Scroll Controller for routing & scroll resets
 function ScrollToTopAndSection() {
@@ -70,7 +77,10 @@ function ScrollToTopAndSection() {
 }
 
 function AppContent() {
+  const { user } = useAuth();
   const lenisRef = useRef(null);
+  const location = useLocation();
+  const isPlacementRoute = location.pathname.startsWith("/placement-kit");
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -200,13 +210,17 @@ function AppContent() {
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/placement-kit" element={<PlacementKit />} />
+            <Route path="/placement-kit/dsa" element={<ProtectedRoute><DsaHub /></ProtectedRoute>} />
+            <Route path="/placement-kit/development" element={<ProtectedRoute><DevelopmentHub /></ProtectedRoute>} />
+            <Route path="/placement-kit/interview" element={<ProtectedRoute><InterviewHub /></ProtectedRoute>} />
+            <Route path="/placement-kit/company" element={<ProtectedRoute><CompanyHub /></ProtectedRoute>} />
           </Routes>
         </Suspense>
       </main>
 
-      {/* 🤖 Ask Rohit AI — Global Floating Widget (lazy loaded) */}
+      {/* 🤖 Chat Assistants — Floating Widgets (lazy loaded) */}
       <Suspense fallback={null}>
-        <AskRohitAI />
+        {isPlacementRoute ? (user && user.placementKitUnlocked ? <AskPlacementAI /> : null) : <AskRohitAI />}
       </Suspense>
     </div>
   );
@@ -214,9 +228,11 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

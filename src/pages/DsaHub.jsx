@@ -11,9 +11,11 @@ import {
   Video,
   Award,
   Layers,
-  GraduationCap
+  GraduationCap,
+  Star
 } from "lucide-react";
 import { dsaTopics } from "../data/dsaData";
+import { useEffect } from "react";
 import DsaTopicModal from "../components/DsaTopicModal";
 import SEO from "../components/SEO";
 
@@ -26,6 +28,44 @@ export default function DsaHub() {
   // Modal states
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Bookmarks State
+  const [bookmarks, setBookmarks] = useState(() => {
+    try {
+      const saved = localStorage.getItem("placement_bookmarks");
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  // Track page visit on mount
+  useEffect(() => {
+    try {
+      const recent = localStorage.getItem("placement_recent_resources");
+      const list = recent ? JSON.parse(recent) : [];
+      const updated = [
+        { id: "dsa", title: "DSA Mastery Hub", path: "/placement-kit/dsa" },
+        ...list.filter(item => item.id !== "dsa")
+      ].slice(0, 4);
+      localStorage.setItem("placement_recent_resources", JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const toggleBookmark = (topicId, topicTitle, e) => {
+    e.stopPropagation(); // prevent card click
+    const isBookmarked = bookmarks.some(b => b.id === topicId);
+    let updated;
+    if (isBookmarked) {
+      updated = bookmarks.filter(b => b.id !== topicId);
+    } else {
+      updated = [...bookmarks, { id: topicId, title: topicTitle, type: "DSA Topic", path: "/placement-kit/dsa" }];
+    }
+    localStorage.setItem("placement_bookmarks", JSON.stringify(updated));
+    setBookmarks(updated);
+  };
 
   // Dynamic statistics calculations
   const stats = useMemo(() => {
@@ -237,9 +277,21 @@ export default function DsaHub() {
                       <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors duration-300">
                         {topic.title}
                       </h3>
-                      <span className={`px-2 py-0.5 text-[9px] font-bold uppercase rounded border shrink-0 ${difficultyBadgeColors[topic.difficulty] || difficultyBadgeColors.Easy}`}>
-                        {topic.difficulty}
-                      </span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={(e) => toggleBookmark(topic.id, topic.title, e)}
+                          className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                          aria-label={`Bookmark ${topic.title}`}
+                        >
+                          <Star
+                            size={14}
+                            className={bookmarks.some(b => b.id === topic.id) ? "fill-amber-500 text-amber-500" : "text-slate-400 dark:text-slate-500"}
+                          />
+                        </button>
+                        <span className={`px-2 py-0.5 text-[9px] font-bold uppercase rounded border ${difficultyBadgeColors[topic.difficulty] || difficultyBadgeColors.Easy}`}>
+                          {topic.difficulty}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Description */}
