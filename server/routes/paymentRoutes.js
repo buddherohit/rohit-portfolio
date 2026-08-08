@@ -98,24 +98,39 @@ router.post("/create-order", authMiddleware, async (req, res) => {
       return res.status(400).json({ message: "Purchase already completed. Access unlocked!" });
     }
 
-    const amount = 9900; // ₹99 in paise
+    const { amount, currency, receipt } = req.body;
+
+    // Validate amount
+    if (amount === undefined || amount === null || typeof amount !== "number") {
+      return res.status(400).json({ message: "Amount is required and must be a number" });
+    }
+    if (amount < 100) {
+      return res.status(400).json({ message: "Amount must be at least 100 paise (₹1)" });
+    }
+
+    const finalCurrency = currency || "INR";
+    const finalReceipt = receipt || `receipt_${user._id}_${Date.now()}`;
+
     const keyId = process.env.RAZORPAY_KEY_ID || "rzp_test_mockkeyid123";
     const keySecret = process.env.RAZORPAY_KEY_SECRET || "mocksecret12345";
     const isMockRzp = keyId === "rzp_test_mockkeyid123" || keySecret === "mocksecret12345";
 
-    let orderId = `order_mock_${Date.now()}`;
+    let orderId;
 
-    if (!isMockRzp) {
+    if (isMockRzp) {
+      orderId = `order_mock_${Date.now()}`;
+    } else {
       try {
         const rzp = getRazorpayInstance();
         const rzpOrder = await rzp.orders.create({
           amount,
-          currency: "INR",
-          receipt: `receipt_${user._id}_${Date.now()}`,
+          currency: finalCurrency,
+          receipt: finalReceipt,
         });
         orderId = rzpOrder.id;
       } catch (rzpErr) {
-        console.warn("Razorpay API call failed, falling back to mock order generation:", rzpErr.message);
+        console.error("Razorpay API call failed:", rzpErr);
+        return res.status(500).json({ message: rzpErr.message || "Failed to create order via Razorpay API" });
       }
     }
 
@@ -124,8 +139,9 @@ router.post("/create-order", authMiddleware, async (req, res) => {
 
     res.json({
       orderId,
+      order_id: orderId,
       amount,
-      currency: "INR",
+      currency: finalCurrency,
       keyId,
     });
   } catch (err) {

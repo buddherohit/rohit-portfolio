@@ -228,26 +228,6 @@ export default function Navbar() {
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
         </motionDesign.button>
 
-        {/* User Auth Button */}
-        <motionDesign.button
-          onClick={user ? logout : () => setIsAuthModalOpen(true)}
-          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center group"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label={user ? "Logout" : "Login"}
-          title={user ? `Logged in as ${user.email} (Click to Logout)` : "Login / Register"}
-        >
-          {user ? (
-            <LogOut size={18} className="text-red-650 dark:text-red-400" />
-          ) : (
-            <LogIn size={18} className="text-slate-700 dark:text-amber-500" />
-          )}
-          {/* Tooltip */}
-          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-            {user ? "Sign Out" : "Sign In / Register"}
-          </span>
-        </motionDesign.button>
-
         {/* Hamburger Menu Button */}
         <motionDesign.button
           ref={hamburgerRef}
@@ -458,6 +438,56 @@ export default function Navbar() {
                   </motionDesign.div>
                 );
               })}
+
+              {/* Sign In / Register Option inside Menu */}
+              <motionDesign.div
+                className="relative group mb-3 last:mb-0 flex items-center justify-end"
+                initial={{ opacity: 0, x: -20, scale: 0.5 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -20, scale: 0.5 }}
+                transition={{
+                  delay: navItems.length * 0.06,
+                  duration: 0.4,
+                  type: "spring",
+                  stiffness: 200
+                }}
+              >
+                {/* Label - shown on hover on left side */}
+                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
+                  <div className="text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border bg-white dark:bg-slate-800 text-gray-800 dark:text-slate-100 border-gray-200 dark:border-slate-700">
+                    {user ? "SIGN OUT" : "SIGN IN / REGISTER"}
+                  </div>
+                  {/* Arrow pointing to icon */}
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white dark:border-l-slate-800"></div>
+                </div>
+
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(false);
+                    if (user) {
+                      logout();
+                    } else {
+                      setIsAuthModalOpen(true);
+                    }
+                  }}
+                  className="cursor-pointer block"
+                >
+                  {/* Circular Icon Button */}
+                  <motionDesign.div
+                    className="w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 nav-item-btn bg-white dark:bg-slate-900 border-red-650 dark:border-amber-500 text-red-650 dark:text-amber-400"
+                    whileHover={{
+                      scale: 1.15,
+                      backgroundColor: "#DC2626",
+                      color: "#FFFFFF",
+                    }}
+                    whileTap={{ scale: 0.85 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                  >
+                    {user ? <LogOut size={18} /> : <LogIn size={18} />}
+                  </motionDesign.div>
+                </div>
+              </motionDesign.div>
             </motionDesign.div>
           </>
         )}

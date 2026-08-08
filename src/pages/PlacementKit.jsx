@@ -152,6 +152,11 @@ export default function PlacementKit() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${currentToken}`,
         },
+        body: JSON.stringify({
+          amount: 9900, // ₹99 in paise
+          currency: "INR",
+          receipt: `receipt_${currentUser._id}_${Date.now()}`
+        })
       });
 
       const orderData = await response.json();
@@ -160,7 +165,7 @@ export default function PlacementKit() {
       }
 
       const options = {
-        key: orderData.keyId,
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
         name: "Placement Success Kit Pro",
@@ -202,9 +207,21 @@ export default function PlacementKit() {
         theme: {
           color: "#EF4444",
         },
+        modal: {
+          ondismiss: function () {
+            setPaymentLoading(false);
+            triggerToast("Payment cancelled by user.");
+          }
+        }
       };
 
       const paymentObject = new window.Razorpay(options);
+      
+      paymentObject.on("payment.failed", function (response) {
+        setPaymentLoading(false);
+        triggerToast(response.error ? `Payment failed: ${response.error.description}` : "Payment failed.");
+      });
+
       paymentObject.open();
     } catch (err) {
       console.error(err);
