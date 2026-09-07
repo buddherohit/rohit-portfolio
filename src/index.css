@@ -11,6 +11,87 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* =============================================
+   CONTROLLED COLOR TOKENS & TYPOGRAPHY SYSTEM
+   60-30-10 Rule: Neutral (60%), Content (30%), Accent (10%)
+   ============================================= */
+
+:root {
+  /* Developer + Light Mode */
+  --color-heading: #111827;
+  --color-body: #374151;
+  --color-muted: #6B7280;
+  --color-accent-primary: #0891B2;
+  --color-accent-secondary: #65A30D;
+  --color-accent-purple: #7C3AED;
+  --color-link: #0891B2;
+  --color-border: #E5E7EB;
+  --color-card-bg: rgba(255, 255, 255, 0.85);
+  --color-card-border: rgba(229, 231, 235, 0.85);
+}
+
+html.dark:not(.academic) {
+  /* Developer + Dark Mode (Controlled Cosmic Palette) */
+  --color-heading: #F5F7FA;
+  --color-body: #CBD5E1;
+  --color-muted: #94A3B8;
+  --color-accent-primary: #22D3EE;
+  --color-accent-secondary: #A3E635;
+  --color-accent-purple: #A78BFA;
+  --color-link: #67E8F9;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-card-bg: rgba(15, 23, 42, 0.60);
+  --color-card-border: rgba(255, 255, 255, 0.09);
+}
+
+html.academic {
+  /* Academic Mode (Restrained Academic Palette) */
+  --color-heading: #111111;
+  --color-body: #333333;
+  --color-muted: #666666;
+  --color-accent-primary: #374151;
+  --color-accent-secondary: #4B5563;
+  --color-accent-purple: #374151;
+  --color-link: #111111;
+  --color-border: #D1D5DB;
+  --color-card-bg: #FAF6EE;
+  --color-card-border: #D1D5DB;
+}
+
+/* Typography Utilities */
+.text-heading {
+  color: var(--color-heading);
+}
+
+.text-body {
+  color: var(--color-body);
+}
+
+.text-muted {
+  color: var(--color-muted);
+}
+
+.text-accent-primary {
+  color: var(--color-accent-primary);
+}
+
+.text-accent-secondary {
+  color: var(--color-accent-secondary);
+}
+
+.text-accent-purple {
+  color: var(--color-accent-purple);
+}
+
+.text-link {
+  color: var(--color-link);
+}
+
+.card-cosmic {
+  background-color: var(--color-card-bg);
+  border-color: var(--color-card-border);
+}
+
+/* =============================================
    ACADEMIC MODE — Complete Paper Aesthetic
    Inspired by: research papers, academic journals
    ============================================= */
@@ -45,9 +126,6 @@ html.academic .cursor-pointer {
   cursor: pointer !important;
 }
 html.academic .custom-cursor {
-  display: none !important;
-}
-html.academic .gooey-cursor-container {
   display: none !important;
 }
 
@@ -314,8 +392,6 @@ html div {
 /* Explicit transparency overrides for layout/visual wrappers to prevent white/parchment overlays */
 html.academic .fireball-container,
 html.academic div.fireball-container,
-html.academic .gooey-cursor-container,
-html.academic div.gooey-cursor-container,
 html.academic .custom-cursor,
 html.academic div.custom-cursor,
 html.academic .bg-transparent,
@@ -333,29 +409,43 @@ html.academic div.pointer-events-none {
    DARK MODE
    ============================================= */
 .dark body {
-  background-color: #030712 !important;
+  background-color: transparent !important;
   color: #f3f4f6 !important;
 }
 
 /* Custom dark mode tech gradients and grids */
 .dark .bg-tech-gradient {
   background:
-    radial-gradient(80% 60% at 10% -10%, rgba(239, 68, 68, 0.08), rgba(3, 7, 18, 0) 50%),
-    radial-gradient(60% 50% at 110% 10%, rgba(245, 158, 11, 0.06), rgba(3, 7, 18, 0) 40%),
-    linear-gradient(180deg, #020617 0%, #0f172a 60%, #020617 100%) !important;
+    radial-gradient(80% 60% at 10% -10%, rgba(6, 182, 212, 0.08), rgba(3, 7, 18, 0) 50%),
+    radial-gradient(60% 50% at 110% 10%, rgba(147, 51, 234, 0.06), rgba(3, 7, 18, 0) 40%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.7) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(2, 6, 23, 0.7) 100%) !important;
 }
 
 .dark .tech-grid::before {
-  background-image: linear-gradient(rgba(245, 158, 11, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.02) 1px, transparent 1px) !important;
+  background-image: linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px) !important;
 }
 
 /* =============================================
    GLOBAL BASE STYLES
    ============================================= */
 
-/* Hide default cursor globally - only show custom FireBall cursor */
-* {
+/* Hide default cursor only in Developer + Dark (cosmic) mode where FireBall is active */
+html.dark:not(.academic) * {
   cursor: none !important;
+}
+
+/* Normal cursor for Light mode and Academic mode */
+html:not(.dark) *,
+html.academic * {
+  cursor: auto;
+}
+
+html:not(.dark) a,
+html:not(.dark) button,
+html:not(.dark) [role="button"],
+html:not(.dark) input[type="submit"],
+html:not(.dark) .cursor-pointer {
+  cursor: pointer !important;
 }
 
 /* Lenis smooth scroll optimization */
@@ -420,8 +510,10 @@ video {
   image-rendering: crisp-edges;
 }
 
-/* Remove any conflicting scroll behaviors */
+/* Root layout container sizing */
 #root {
+  min-height: 100vh;
+  width: 100%;
   isolation: isolate;
 }
 
@@ -459,6 +551,20 @@ a {
   will-change: auto;
 }
 
+/* Keyframes */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 /* Simple float and slow spin animations */
 @keyframes float {
   0%,
@@ -484,7 +590,7 @@ a {
 }
 
 .animate-spin-slower {
-  animation: spin-slower 12s linear infinite;
+  animation: spin-slower 30s linear infinite;
 }
 
 @keyframes glow {

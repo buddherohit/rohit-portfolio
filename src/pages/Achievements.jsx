@@ -113,18 +113,18 @@ export default function Achievements() {
   return (
     <section
       id="achievements"
-      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-900/30 py-20"
+      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-transparent dark:via-transparent dark:to-transparent py-20"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-red-500/20">
-            <Trophy className="w-7 h-7 text-white" />
+          <div className="w-14 h-14 bg-gradient-to-br from-[#0891B2] to-cyan-600 dark:from-[#22D3EE] dark:to-[#0891B2] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-cyan-500/20">
+            <Trophy className="w-7 h-7 text-white dark:text-slate-950" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-500">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display">
             Achievements
           </h2>
-          <p className="text-gray-600 dark:text-slate-400 mt-2">
+          <p className="text-[#6B7280] dark:text-[#94A3B8] mt-2 text-sm sm:text-base">
             Milestones and accomplishments in my journey
           </p>
         </div>
@@ -146,33 +146,33 @@ export default function Achievements() {
                 className="relative sm:pl-16"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-[20px] top-6 w-3 h-3 bg-red-500 rounded-full ring-4 ring-white dark:ring-slate-950 shadow transition-all duration-300 hidden sm:block" />
+                <div className="absolute left-[20px] top-6 w-3 h-3 bg-[#0891B2] dark:bg-[#22D3EE] rounded-full ring-4 ring-white dark:ring-slate-950 shadow transition-all duration-300 hidden sm:block" />
 
                 {/* Card */}
-                <div className="bg-white dark:bg-slate-900/60 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-white dark:bg-slate-900/60 backdrop-blur-md p-6 rounded-2xl shadow-sm hover:shadow-xl dark:shadow-none border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row gap-5">
                     <div className={`shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-md`}>
                       <Icon className="w-7 h-7" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-1">
+                      <h3 className="text-xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-1">
                         {item.title}
                       </h3>
-                      <p className="text-red-600 dark:text-red-400 font-medium mb-1">
+                      <p className="text-[#0891B2] dark:text-[#22D3EE] font-medium text-sm mb-1">
                         {item.organization}
                       </p>
-                      <p className="text-gray-500 dark:text-slate-400 text-sm mb-4">
+                      <p className="text-[#6B7280] dark:text-[#94A3B8] text-xs mb-3">
                         {item.location}
                       </p>
-                      <p className="text-gray-600 dark:text-slate-300 mb-4 leading-relaxed">
+                      <p className="text-[#374151] dark:text-[#CBD5E1] mb-4 leading-relaxed text-sm">
                         {item.description}
                       </p>
 
                       {/* Highlights */}
                       <ul className="grid sm:grid-cols-2 gap-2 mb-4">
                         {item.highlights.map((point, idx) => (
-                          <li key={idx} className="text-sm text-gray-700 dark:text-slate-300 flex items-start gap-2">
-                            <span className="text-red-400 mt-0.5">•</span>
+                          <li key={idx} className="text-sm text-[#374151] dark:text-[#CBD5E1] flex items-start gap-2">
+                            <span className="text-[#0891B2] dark:text-[#22D3EE] mt-0.5">•</span>
                             {point}
                           </li>
                         ))}
@@ -183,7 +183,7 @@ export default function Achievements() {
                         {item.skills.map((skill, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1.5 text-xs bg-gray-50 dark:bg-slate-950 border border-gray-100 dark:border-slate-850 font-semibold text-gray-700 dark:text-slate-300 rounded-lg shadow-sm"
+                            className="px-2.5 py-1 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-medium text-[#0891B2] dark:text-[#22D3EE] rounded-md shadow-xs"
                           >
                             {skill}
                           </span>

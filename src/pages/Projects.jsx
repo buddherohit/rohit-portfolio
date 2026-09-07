@@ -141,7 +141,7 @@ export default function Projects() {
   return (
     <motion.section
       id="projects"
-      className="relative isolate bg-gradient-to-b from-white via-gray-50 to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950 py-16 sm:py-20 overflow-hidden"
+      className="relative isolate bg-gradient-to-b from-white via-gray-50 to-white dark:from-transparent dark:via-transparent dark:to-transparent py-16 sm:py-20 overflow-hidden"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.1 }}
@@ -156,15 +156,15 @@ export default function Projects() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="mb-12">
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-red-600 uppercase bg-red-50 dark:bg-red-950/20 rounded-full border border-red-100 dark:border-red-950">
+          <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-widest text-[#0891B2] dark:text-[#22D3EE] uppercase bg-cyan-50 dark:bg-cyan-950/30 rounded-full border border-cyan-200/60 dark:border-cyan-500/20">
             Portfolio • Work • Projects
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-slate-100 tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display tracking-tight mb-4">
             My Projects
           </h2>
 
-          <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl">
+          <p className="text-base sm:text-lg text-[#374151] dark:text-[#CBD5E1] max-w-2xl leading-relaxed">
             Here are some of my projects showcasing my skills in AI,
             Computer Vision, Full Stack Development, Problem Solving,
             and Real-World Software Applications.
@@ -179,8 +179,8 @@ export default function Projects() {
               onClick={() => setActiveFilter(tab.value)}
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 activeFilter === tab.value
-                  ? "bg-red-600 text-white shadow-lg"
-                  : "bg-white/80 dark:bg-slate-900/60 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-800 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-slate-800"
+                  ? "bg-[#0891B2] text-white dark:bg-[#22D3EE] dark:text-slate-950 dark:font-semibold shadow-md"
+                  : "bg-white/80 dark:bg-slate-900/60 text-[#374151] dark:text-[#CBD5E1] border border-gray-200 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:hover:bg-slate-800"
               }`}
             >
               {tab.label} <span className="ml-1.5 text-xs opacity-75">({tab.count})</span>

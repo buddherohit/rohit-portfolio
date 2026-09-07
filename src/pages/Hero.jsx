@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import DecryptText from "../components/DecryptText";
-import GooeyCursor from "../components/GooeyCursor";
 import LocationTimeCard from "../components/LocationTimeCard";
 
 function Hero() {
@@ -9,19 +8,18 @@ function Hero() {
   return (
     <motion.section
       id="hero"
-      className="relative min-h-screen bg-gradient-to-b from-white via-white to-gray-50/30 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900/30 flex items-center justify-between px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 overflow-hidden pt-20 pb-32"
+      className="relative min-h-screen bg-gradient-to-b from-white via-white to-gray-50/30 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-between px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 overflow-hidden pt-20 pb-32"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <GooeyCursor />
 
       {/* Decorative Elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-red-100/30 dark:bg-red-950/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '4s' }} />
-      <div className="absolute bottom-32 left-10 w-96 h-96 bg-yellow-100/20 dark:bg-yellow-950/5 rounded-full blur-3xl -z-10 animate-float" />
+      <div className="absolute top-20 right-10 w-72 h-72 bg-red-100/30 dark:bg-cyan-500/[0.08] rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute bottom-32 left-10 w-96 h-96 bg-yellow-100/20 dark:bg-purple-500/[0.08] rounded-full blur-3xl -z-10 animate-float" />
 
       {/* Smooth transition wave to About section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-slate-950/50 -z-5" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-transparent -z-5" />
 
       {/* Main Content - Left Side */}
       <motion.div
@@ -32,7 +30,7 @@ function Hero() {
       >
         {/* Greeting Badge */}
         <motion.div
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 dark:bg-red-950/20 border border-red-200/50 dark:border-red-900/35 text-red-600 dark:text-red-400 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-200/70 dark:border-cyan-500/25 text-[#0891B2] dark:text-[#22D3EE] text-xs sm:text-sm font-semibold tracking-wider uppercase mb-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -42,17 +40,17 @@ function Hero() {
 
         {/* Main Title (Name) */}
         <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-display text-gray-900 dark:text-slate-100 mb-4 leading-none"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight font-display text-[#111827] dark:text-[#F5F7FA] mb-4 leading-none"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Rohit <span className="bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 bg-clip-text text-transparent dark:from-red-500 dark:via-orange-400 dark:to-yellow-400">Buddhe</span>
+          Rohit <span className="bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 bg-clip-text text-transparent dark:from-[#22D3EE] dark:via-[#A78BFA] dark:to-[#67E8F9]">Buddhe</span>
         </motion.h1>
 
-        {/* Role - Red Color with DecryptText Animation */}
+        {/* Role - Controlled Accent with DecryptText Animation */}
         <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-red-600 dark:text-red-400 mb-6 min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-[#0891B2] dark:text-[#22D3EE] mb-6 min-h-[3rem] sm:min-h-[4rem] md:min-h-[5rem]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -70,7 +68,7 @@ function Hero() {
 
         {/* Description */}
         <motion.p
-          className="text-base sm:text-lg text-gray-600 dark:text-slate-300 mb-6 leading-relaxed max-w-xl"
+          className="text-base sm:text-lg text-[#374151] dark:text-[#CBD5E1] mb-6 leading-relaxed max-w-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
@@ -96,7 +94,7 @@ function Hero() {
                 });
               }
             }}
-            className="inline-block px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg cursor-pointer contact-btn"
+            className="inline-block px-6 py-3 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 dark:font-semibold rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg dark:shadow-[0_0_20px_rgba(34,211,238,0.25)] cursor-pointer contact-btn"
           >
             Contact me!
           </button>

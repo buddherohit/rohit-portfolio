@@ -55,8 +55,8 @@ export default function LocationTimeCard({ compact = false }) {
         className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 shadow-sm"
       >
         {/* Location */}
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400">
-          <MapPin size={13} className="text-red-500" />
+        <div className="flex items-center gap-1.5 text-xs font-medium text-[#6B7280] dark:text-[#94A3B8]">
+          <MapPin size={13} className="text-[#0891B2] dark:text-[#22D3EE]" />
           <span>Nagpur, India</span>
         </div>
 
@@ -64,18 +64,18 @@ export default function LocationTimeCard({ compact = false }) {
 
         {/* Time */}
         <div className="flex items-center gap-1.5 font-mono text-xs">
-          <Clock size={13} className="text-amber-500" />
-          <span className="font-bold text-slate-800 dark:text-slate-200 tabular-nums">{time}</span>
-          <span className="text-slate-500 dark:text-slate-400">{ampm} IST</span>
+          <Clock size={13} className="text-[#0891B2] dark:text-[#22D3EE]" />
+          <span className="font-semibold text-[#111827] dark:text-[#F5F7FA] tabular-nums">{time}</span>
+          <span className="text-[#6B7280] dark:text-[#94A3B8]">{ampm} IST</span>
         </div>
 
         <div className="w-px h-4 bg-slate-300 dark:bg-slate-700" />
 
-        {/* Status */}
-        <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 font-semibold">
+        {/* Status — Lime accent used sparingly */}
+        <div className="flex items-center gap-1.5 text-xs text-[#65A30D] dark:text-[#A3E635] font-semibold">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#65A30D] dark:bg-[#A3E635]" />
           </span>
           Available
         </div>

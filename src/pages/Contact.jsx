@@ -321,7 +321,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center py-20 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-transparent dark:to-transparent flex items-center justify-center py-20 overflow-hidden"
     >
       {/* Optimized Background Pattern */}
       <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025] pointer-events-none">
@@ -376,51 +376,46 @@ export default function Contact() {
               {/* Small Label */}
               <motion.p
                 variants={itemVariants}
-                className="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-widest font-medium"
+                className="text-xs text-[#6B7280] dark:text-[#94A3B8] uppercase tracking-widest font-semibold"
               >
                 Get in touch
               </motion.p>
 
-              {/* Main Heading with gradient text - SMALLER SIZE */}
+              {/* Main Heading — Controlled High Contrast */}
               <motion.div variants={itemVariants} className="space-y-3">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-                  <span className="bg-gradient-to-r from-red-600 via-red-500 to-pink-600 bg-clip-text text-transparent">
-                    Let's Work Together
-                  </span>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-[#111827] dark:text-[#F5F7FA] font-display">
+                  Let&apos;s Work Together
                 </h2>
 
-                {/* Decorative underline - SMALLER */}
+                {/* Decorative underline */}
                 <motion.div
-                  className="w-16 h-1 bg-gradient-to-r from-red-600 to-pink-600 mx-auto rounded-full"
+                  className="w-16 h-1 bg-gradient-to-r from-transparent via-[#0891B2] dark:via-[#22D3EE] to-transparent mx-auto rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: 64 }}
                   transition={{ delay: 0.5, duration: 0.6 }}
                 />
               </motion.div>
 
-              {/* Description - SMALLER */}
+              {/* Description */}
               <motion.p
                 variants={itemVariants}
-                className="text-base sm:text-lg text-gray-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed px-4"
+                className="text-base sm:text-lg text-[#374151] dark:text-[#CBD5E1] max-w-2xl mx-auto leading-relaxed px-4"
               >
-                I'm open for new opportunities – especially ambitious or large projects. However, my inbox is always open. Whether you have a{" "}
-                <span className="text-red-600 dark:text-red-400 font-semibold">question</span> or just want to say{" "}
-                <span className="text-red-600 dark:text-red-400 font-semibold">hi</span>, I'll try my best to get back to you!
+                I&apos;m open for new opportunities – especially ambitious or large projects. However, my inbox is always open. Whether you have a{" "}
+                <span className="text-[#0891B2] dark:text-[#22D3EE] font-semibold">question</span> or just want to say{" "}
+                <span className="text-[#0891B2] dark:text-[#22D3EE] font-semibold">hi</span>, I&apos;ll try my best to get back to you!
               </motion.p>
 
               {/* CTA Button */}
               <motion.div variants={itemVariants}>
                 <motion.button
                   onClick={() => setShowForm(true)}
-                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-gray-900 dark:border-slate-800 bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
+                  className="group relative inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 font-semibold rounded-lg shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all duration-300 overflow-hidden cursor-pointer"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* Background fill on hover */}
-                  <div className="absolute inset-0 bg-gray-900 dark:bg-red-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-
                   {/* Button content */}
-                  <span className="relative z-10 flex items-center gap-2 text-gray-900 dark:text-slate-100 group-hover:text-white transition-colors duration-300">
+                  <span className="relative z-10 flex items-center gap-2">
                     <span className="font-bold">Say Hello</span>
                     <motion.svg
                       className="w-5 h-5"
@@ -594,7 +589,7 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+                      <label htmlFor="email" className="block text-sm font-semibold text-[#111827] dark:text-[#CBD5E1] mb-2">
                         Email Address *
                       </label>
                       <input
@@ -604,20 +599,20 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.email
+                        className={`w-full px-4 py-3 border rounded-lg bg-gray-50 dark:bg-slate-950 text-[#111827] dark:text-[#CBD5E1] placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.email
                           ? 'border-red-500 focus:border-red-500'
-                          : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
+                          : 'border-gray-200 dark:border-slate-800 focus:border-[#0891B2] dark:focus:border-[#22D3EE]'
                           }`}
                         placeholder="Enter your email"
                       />
                       {fieldErrors.email && (
-                        <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.email}</p>
+                        <p className="mt-2 text-xs text-red-500">{fieldErrors.email}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+                    <label htmlFor="subject" className="block text-sm font-semibold text-[#111827] dark:text-[#CBD5E1] mb-2">
                       Subject *
                     </label>
                     <input
@@ -627,27 +622,27 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.subject
+                      className={`w-full px-4 py-3 border rounded-lg bg-gray-50 dark:bg-slate-950 text-[#111827] dark:text-[#CBD5E1] placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all ${fieldErrors.subject
                         ? 'border-red-500 focus:border-red-500'
-                        : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
+                        : 'border-gray-200 dark:border-slate-800 focus:border-[#0891B2] dark:focus:border-[#22D3EE]'
                         }`}
                       placeholder="What's this about?"
                     />
                     {fieldErrors.subject && (
-                      <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.subject}</p>
+                      <p className="mt-2 text-xs text-red-500">{fieldErrors.subject}</p>
                     )}
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
+                      <label htmlFor="message" className="block text-sm font-semibold text-[#111827] dark:text-[#CBD5E1]">
                         Message *
                       </label>
                       <span className={`text-xs ${formData.message.length > 2000
-                        ? 'text-red-650 dark:text-red-450'
+                        ? 'text-red-500'
                         : formData.message.length > 1800
                           ? 'text-yellow-600 dark:text-amber-500'
-                          : 'text-gray-400 dark:text-slate-550'
+                          : 'text-gray-400 dark:text-slate-500'
                         }`}>
                         {formData.message.length}/2000
                       </span>
@@ -660,21 +655,21 @@ export default function Contact() {
                       required
                       rows={5}
                       maxLength={2000}
-                      className={`w-full px-4 py-3 border-2 rounded-lg bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all resize-none ${fieldErrors.message
+                      className={`w-full px-4 py-3 border rounded-lg bg-gray-50 dark:bg-slate-950 text-[#111827] dark:text-[#CBD5E1] placeholder-gray-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all resize-none ${fieldErrors.message
                         ? 'border-red-500 focus:border-red-500'
-                        : 'border-gray-200 dark:border-slate-800 focus:border-red-500 dark:focus:border-red-500'
+                        : 'border-gray-200 dark:border-slate-800 focus:border-[#0891B2] dark:focus:border-[#22D3EE]'
                         }`}
                       placeholder="Tell me about your project or inquiry..."
                     />
                     {fieldErrors.message && (
-                      <p className="mt-2 text-xs text-red-650 dark:text-red-450">{fieldErrors.message}</p>
+                      <p className="mt-2 text-xs text-red-500">{fieldErrors.message}</p>
                     )}
                   </div>
 
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-red-600/30 hover:shadow-xl hover:shadow-red-600/40 overflow-hidden group cursor-pointer contact-btn"
+                    className="relative w-full px-6 py-3 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md dark:shadow-[0_0_20px_rgba(34,211,238,0.25)] overflow-hidden group cursor-pointer contact-btn"
                     whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   >

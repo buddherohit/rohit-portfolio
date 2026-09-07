@@ -55,6 +55,15 @@ export default function ChatAssistant({
   const inputRef = useRef(null);
 
   useEffect(() => {
+    const handleOpenChat = () => {
+      setIsOpen(true);
+      setIsMinimised(false);
+    };
+    window.addEventListener("open-ai-chat", handleOpenChat);
+    return () => window.removeEventListener("open-ai-chat", handleOpenChat);
+  }, []);
+
+  useEffect(() => {
     if (isOpen && !isMinimised) endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen, isMinimised]);
 

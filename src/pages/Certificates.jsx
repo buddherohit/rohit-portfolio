@@ -195,8 +195,8 @@ export default function Certificates() {
               key={tab.value}
               onClick={() => setFilter(tab.value)}
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${filter === tab.value
-                ? 'bg-red-600 text-white shadow-lg'
-                : 'bg-white/80 dark:bg-slate-900/60 text-gray-700 dark:text-slate-350 border border-gray-200 dark:border-slate-800 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-slate-800'
+                ? 'bg-[#0891B2] text-white dark:bg-[#22D3EE] dark:text-slate-950 dark:font-semibold shadow-md'
+                : 'bg-white/80 dark:bg-slate-900/60 text-[#374151] dark:text-[#CBD5E1] border border-gray-200 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:hover:bg-slate-800'
                 }`}
             >
               {tab.label} <span className="ml-1.5 text-xs opacity-75">({tab.count})</span>
@@ -227,27 +227,27 @@ export default function Certificates() {
                 onClick={() => openModal(cert)}
                 className="cursor-pointer group"
               >
-                <div className="h-full rounded-2xl border border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:border-red-200 dark:hover:border-red-900 flex flex-col">
+                <div className="h-full rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 backdrop-blur-md p-6 shadow-sm hover:shadow-xl dark:shadow-none hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-col">
                   {/* Icon & Badge */}
                   <div className="flex items-start justify-between mb-4">
                     <div className={`w-14 h-14 bg-gradient-to-r ${cert.color} rounded-xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                       {cert.icon}
                     </div>
                     <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${cert.category === 'completion'
-                      ? 'bg-green-100 dark:bg-green-950/20 text-green-700 dark:text-green-400'
-                      : 'bg-blue-100 dark:bg-blue-950/20 text-blue-700 dark:text-blue-400'
+                      ? 'bg-lime-50 dark:bg-lime-950/25 text-[#65A30D] dark:text-[#A3E635] border border-lime-200/60 dark:border-lime-900/40'
+                      : 'bg-cyan-50 dark:bg-cyan-950/25 text-[#0891B2] dark:text-[#22D3EE] border border-cyan-200/60 dark:border-cyan-900/40'
                       }`}>
                       {cert.category === 'completion' ? 'Completed' : 'Participated'}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-2 line-clamp-2 min-h-[56px] group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
+                  <h3 className="text-lg font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-2 line-clamp-2 min-h-[56px] group-hover:text-[#0891B2] dark:group-hover:text-[#22D3EE] transition-colors">
                     {cert.title}
                   </h3>
 
                   {/* Issuer */}
-                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-450 mb-3">
+                  <div className="flex items-center gap-2 text-sm text-[#6B7280] dark:text-[#94A3B8] mb-3">
                     <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -255,19 +255,19 @@ export default function Certificates() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-slate-350 line-clamp-3 mb-4 flex-grow">
+                  <p className="text-sm text-[#374151] dark:text-[#CBD5E1] line-clamp-3 mb-4 flex-grow leading-relaxed">
                     {cert.description}
                   </p>
 
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800 mt-auto">
-                    <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-slate-400">
+                    <div className="flex items-center gap-1.5 text-xs text-[#6B7280] dark:text-[#94A3B8]">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                       <span>{cert.date}</span>
                     </div>
-                    <span className="text-xs font-semibold text-red-600 dark:text-red-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    <span className="text-xs font-semibold text-[#0891B2] dark:text-[#22D3EE] flex items-center gap-1 group-hover:gap-2 transition-all">
                       View
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

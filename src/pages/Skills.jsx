@@ -116,12 +116,12 @@ export default function Skills() {
                     viewport={{ once: true, margin: "0px 0px -80px 0px" }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-4 tracking-tight">
-                        Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+                    <h2 className="text-4xl sm:text-5xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-4 tracking-tight">
+                        Technical <span className="text-[#0891B2] dark:text-[#22D3EE]">
                             Expertise
                         </span>
                     </h2>
-                    <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-base sm:text-lg text-[#6B7280] dark:text-[#94A3B8] max-w-2xl mx-auto leading-relaxed">
                         A curated stack of modern technologies I use to build scalable applications.
                     </p>
                 </motion.div>
@@ -140,19 +140,19 @@ export default function Skills() {
                             viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
                             className="h-full"
                         >
-                            <div className="group relative bg-white/80 dark:bg-slate-900/60 backdrop-blur-md rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 flex flex-col h-full overflow-hidden hover:-translate-y-2">
+                            <div className="group relative bg-white dark:bg-slate-900/60 backdrop-blur-md rounded-2xl p-7 sm:p-8 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300 border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] flex flex-col h-full overflow-hidden hover:-translate-y-1.5">
                                 {/* Glass overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-blue-50/30 dark:from-slate-900/50 dark:to-blue-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-blue-50/20 dark:from-slate-900/40 dark:to-cyan-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                                 {/* Card Header */}
                                 <div className="mb-8 relative z-10">
                                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
                                         <Icon className="w-7 h-7 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-450 transition-colors">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-3 group-hover:text-[#0891B2] dark:group-hover:text-[#22D3EE] transition-colors">
                                         {category.title}
                                     </h3>
-                                    <p className="text-gray-500 dark:text-slate-400 leading-relaxed">{category.description}</p>
+                                    <p className="text-sm sm:text-base text-[#6B7280] dark:text-[#94A3B8] leading-relaxed">{category.description}</p>
                                 </div>
 
                                 {/* Skills List */}
@@ -160,7 +160,7 @@ export default function Skills() {
                                     {category.skills.map((skill, skillIdx) => (
                                         <div
                                             key={skillIdx}
-                                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50/80 hover:bg-white dark:bg-slate-950/50 dark:hover:bg-slate-900 border border-gray-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 shadow-sm hover:shadow-md transition-all duration-300 cursor-default group/skill"
+                                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-950/60 dark:hover:bg-slate-900 border border-slate-200/70 dark:border-slate-800 hover:border-slate-300 dark:hover:border-cyan-500/30 shadow-2xs hover:shadow-xs transition-all duration-200 cursor-default group/skill"
                                         >
                                             <img
                                                 src={skill.icon}
@@ -169,7 +169,7 @@ export default function Skills() {
                                                 loading="lazy"
                                                 decoding="async"
                                             />
-                                            <span className="text-sm font-medium text-gray-700 dark:text-slate-300 group-hover/skill:text-gray-900 dark:group-hover/skill:text-slate-100">
+                                            <span className="text-sm font-medium text-[#374151] dark:text-[#CBD5E1] group-hover/skill:text-[#111827] dark:group-hover/skill:text-[#F5F7FA]">
                                                 {skill.name}
                                             </span>
                                         </div>

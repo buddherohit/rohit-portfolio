@@ -4,79 +4,50 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const motionDesign = motion;
 const FramerAnimatePresence = AnimatePresence;
-import { X, Download, Home, User, GraduationCap, Briefcase, Code, FolderGit, Award, Mail, Sun, Moon, BookOpen, Eye, GraduationCap as AcademicCapIcon, Monitor, Rocket, LogIn, LogOut } from "lucide-react";
+import {
+  X,
+  Home,
+  User,
+  GraduationCap,
+  Briefcase,
+  Code,
+  FolderGit,
+  Award,
+  Mail,
+  Sun,
+  Moon,
+  BookOpen,
+  Eye,
+  Monitor,
+  Command,
+} from "lucide-react";
 import ResumeModal from "./ResumeModal";
-import AuthModal from "./AuthModal";
-import { useAuth } from "../context/AuthContext";
 
-export default function Navbar() {
-  const { user, logout } = useAuth();
+export default function Navbar({
+  portfolioMode = "developer",
+  theme = "dark",
+  onToggleMode,
+  onToggleTheme,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "light";
-    }
-    return "light";
-  });
-
-  const [portfolioMode, setPortfolioMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("portfolioMode") || "developer";
-    }
-    return "developer";
-  });
-
+  // Listen for external open-resume-modal custom events
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [theme]);
-
-  // Apply academic class immediately on mount (from saved localStorage)
-  useEffect(() => {
-    const savedMode = localStorage.getItem("portfolioMode");
-    if (savedMode === "academic") {
-      window.document.documentElement.classList.add("academic");
-      window.document.documentElement.classList.remove("dark");
-    }
+    const handleOpenResume = () => setIsResumeOpen(true);
+    window.addEventListener("open-resume-modal", handleOpenResume);
+    return () => window.removeEventListener("open-resume-modal", handleOpenResume);
   }, []);
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (portfolioMode === "academic") {
-      root.classList.add("academic");
-      root.classList.remove("dark");
-      localStorage.setItem("portfolioMode", "academic");
-      localStorage.setItem("theme", "light");
-      setTheme("light");
-    } else {
-      root.classList.remove("academic");
-      localStorage.setItem("portfolioMode", "developer");
-    }
-  }, [portfolioMode]);
-
-  const toggleMode = useCallback(() => {
-    setPortfolioMode((prev) => (prev === "developer" ? "academic" : "developer"));
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  }, []);
+  const toggleMode = onToggleMode;
+  const toggleTheme = onToggleTheme;
 
   // Detect scroll position
   useEffect(() => {
@@ -84,8 +55,8 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Detect active section on scroll (only if on landing/home page)
@@ -100,7 +71,17 @@ export default function Navbar() {
     }
 
     const handleScroll = () => {
-      const sections = ["hero", "about", "education", "experience", "skills", "projects", "achievements", "certificates", "contact"];
+      const sections = [
+        "hero",
+        "about",
+        "education",
+        "experience",
+        "skills",
+        "projects",
+        "achievements",
+        "certificates",
+        "contact",
+      ];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -109,7 +90,10 @@ export default function Navbar() {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
             setActiveSection(section);
             break;
           }
@@ -117,9 +101,9 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
   // Close menu when clicking outside
@@ -135,39 +119,41 @@ export default function Navbar() {
           setIsOpen(false);
         }
       };
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [isOpen]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('nav-menu-open');
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("nav-menu-open");
     } else {
-      document.body.style.overflow = 'unset';
-      document.body.classList.remove('nav-menu-open');
+      document.body.style.overflow = "unset";
+      document.body.classList.remove("nav-menu-open");
     }
     return () => {
-      document.body.style.overflow = 'unset';
-      document.body.classList.remove('nav-menu-open');
+      document.body.style.overflow = "unset";
+      document.body.classList.remove("nav-menu-open");
     };
   }, [isOpen]);
 
-  const navItems = useMemo(() => [
-    { id: "hero", label: "HOME", icon: Home, isRoute: false },
-    { id: "about", label: "ABOUT", icon: User, isRoute: false },
-    { id: "education", label: "EDUCATION", icon: GraduationCap, isRoute: false },
-    { id: "experience", label: "EXPERIENCE", icon: Briefcase, isRoute: false },
-    { id: "skills", label: "SKILLS", icon: Code, isRoute: false },
-    { id: "projects", label: "PROJECTS", icon: FolderGit, isRoute: false },
-    { id: "placement-kit", label: "PLACEMENT KIT", icon: Rocket, isRoute: true, path: "/placement-kit" },
-    { id: "blog", label: "BLOG", icon: BookOpen, isRoute: true, path: "/blog" },
-    { id: "achievements", label: "ACHIEVEMENTS", icon: Award, isRoute: false },
-    { id: "certificates", label: "CERTIFICATES", icon: Award, isRoute: false },
-    { id: "contact", label: "CONTACT", icon: Mail, isRoute: false },
-  ], []);
+  const navItems = useMemo(
+    () => [
+      { id: "hero", label: "HOME", icon: Home, isRoute: false },
+      { id: "about", label: "ABOUT", icon: User, isRoute: false },
+      { id: "education", label: "EDUCATION", icon: GraduationCap, isRoute: false },
+      { id: "experience", label: "EXPERIENCE", icon: Briefcase, isRoute: false },
+      { id: "skills", label: "SKILLS", icon: Code, isRoute: false },
+      { id: "projects", label: "PROJECTS", icon: FolderGit, isRoute: false },
+      { id: "blog", label: "BLOG", icon: BookOpen, isRoute: true, path: "/blog" },
+      { id: "achievements", label: "ACHIEVEMENTS", icon: Award, isRoute: false },
+      { id: "certificates", label: "CERTIFICATES", icon: Award, isRoute: false },
+      { id: "contact", label: "CONTACT", icon: Mail, isRoute: false },
+    ],
+    []
+  );
 
   const handleItemClick = useCallback(() => {
     setIsOpen(false);
@@ -175,14 +161,32 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Floating Right Side Buttons */}
-      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-[102] flex items-center gap-3">
-        {/* Get my Resume Button - Only show when NOT scrolled */}
+      {/* Floating Right Side Action Controls */}
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-[102] flex items-center gap-2.5 sm:gap-3">
+        {/* Command Palette Trigger Button */}
+        <motionDesign.button
+          onClick={() =>
+            window.dispatchEvent(new CustomEvent("open-command-palette"))
+          }
+          className="relative p-2 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-gray-200/80 dark:border-cyan-500/30 text-gray-700 dark:text-cyan-400 hover:bg-gray-100 dark:hover:bg-slate-800/80 transition-all duration-300 shadow-md backdrop-blur-md cursor-pointer flex items-center justify-center group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Open Command Palette"
+          title="Command Palette (Ctrl + K / ⌘K)"
+        >
+          <Command size={18} className="transition-transform group-hover:rotate-12" />
+          {/* Tooltip */}
+          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 border border-slate-700 shadow-md">
+            Commands (Ctrl+K)
+          </span>
+        </motionDesign.button>
+
+        {/* View Resume Button - Only show when NOT scrolled */}
         <FramerAnimatePresence>
           {!isScrolled && (
             <motionDesign.button
               onClick={() => setIsResumeOpen(true)}
-              className="px-4 py-2 border-2 border-red-650 dark:border-amber-500 text-red-750 dark:text-amber-400 rounded-lg font-medium text-sm hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-white dark:bg-slate-900 shadow-md cursor-pointer"
+              className="px-3.5 sm:px-4 py-2 border-2 border-cyan-500/80 dark:border-cyan-400 text-cyan-600 dark:text-cyan-300 rounded-lg font-medium text-xs sm:text-sm hover:bg-cyan-50 dark:hover:bg-cyan-950/40 transition-all duration-300 flex items-center gap-2 whitespace-nowrap bg-white/90 dark:bg-slate-900/90 shadow-md backdrop-blur-md cursor-pointer"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20, transition: { duration: 0.3 } }}
@@ -199,40 +203,50 @@ export default function Navbar() {
         {/* Academic / Developer Mode Toggle */}
         <motionDesign.button
           onClick={toggleMode}
-          className="relative p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center group"
+          className="relative p-2 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-gray-200/80 dark:border-slate-800 hover:bg-gray-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-md backdrop-blur-md cursor-pointer flex items-center justify-center group"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Toggle Academic/Developer mode"
-          title={portfolioMode === "developer" ? "Switch to Academic Mode 📄" : "Switch to Developer Mode 💻"}
+          title={
+            portfolioMode === "developer"
+              ? "Switch to Academic Mode 📄"
+              : "Switch to Developer Mode 💻"
+          }
         >
           {portfolioMode === "developer" ? (
-            <span className="text-base leading-none" role="img" aria-label="Academic mode">📄</span>
+            <span
+              className="text-base leading-none"
+              role="img"
+              aria-label="Academic mode"
+            >
+              📄
+            </span>
           ) : (
             <Monitor size={18} className="text-slate-700" />
           )}
           {/* Tooltip */}
-          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 border border-slate-700 shadow-md">
             {portfolioMode === "developer" ? "Academic Mode" : "Developer Mode"}
           </span>
         </motionDesign.button>
 
-        {/* Dark Mode Toggle Button */}
+        {/* Dark Mode Toggle Button (Active in Developer Mode) */}
         <motionDesign.button
           onClick={toggleTheme}
           disabled={portfolioMode === "academic"}
-          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-red-700 dark:text-amber-400 hover:bg-red-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+          className="p-2 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-gray-200/80 dark:border-slate-800 text-cyan-600 dark:text-cyan-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-md backdrop-blur-md cursor-pointer flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed"
           whileHover={{ scale: portfolioMode === "academic" ? 1 : 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Toggle dark mode"
         >
-          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
         </motionDesign.button>
 
         {/* Hamburger Menu Button */}
         <motionDesign.button
           ref={hamburgerRef}
           onClick={() => setIsOpen(!isOpen)}
-          className="menu-button relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 shadow-md text-red-700 dark:text-amber-500 cursor-pointer"
+          className="menu-button relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors bg-white/90 dark:bg-slate-900/90 border border-transparent dark:border-cyan-500/20 shadow-md text-cyan-600 dark:text-cyan-400 cursor-pointer backdrop-blur-md"
           whileTap={{ scale: 0.9 }}
           aria-label="Toggle menu"
           aria-expanded={isOpen}
@@ -246,7 +260,7 @@ export default function Navbar() {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X size={24} className="text-red-700 dark:text-amber-400" />
+                <X size={22} className="text-cyan-600 dark:text-cyan-400" />
               </motionDesign.div>
             ) : (
               <motionDesign.div
@@ -257,9 +271,9 @@ export default function Navbar() {
                 transition={{ duration: 0.2 }}
                 className="flex flex-col gap-1.5"
               >
-                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-5" />
-                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-4" />
-                <div className="h-0.5 bg-red-700 dark:bg-amber-400 rounded-full w-5" />
+                <div className="h-0.5 bg-cyan-600 dark:bg-cyan-400 rounded-full w-5" />
+                <div className="h-0.5 bg-cyan-600 dark:bg-cyan-400 rounded-full w-4" />
+                <div className="h-0.5 bg-cyan-600 dark:bg-cyan-400 rounded-full w-5" />
               </motionDesign.div>
             )}
           </FramerAnimatePresence>
@@ -276,7 +290,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/10 z-[98]"
+              className="fixed inset-0 bg-black/40 backdrop-blur-xs z-[98]"
             />
 
             {/* Vertical Menu Container */}
@@ -301,7 +315,7 @@ export default function Navbar() {
                       transition: {
                         duration: 0.4,
                         ease: [0.34, 1.56, 0.64, 1],
-                      }
+                      },
                     }}
                     exit={{
                       opacity: 0,
@@ -309,18 +323,16 @@ export default function Navbar() {
                       scale: 0.9,
                       transition: {
                         duration: 0.2,
-                        ease: "easeIn"
-                      }
+                        ease: "easeIn",
+                      },
                     }}
                   >
                     {/* Label - shown on hover */}
-                    <div
-                      className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out"
-                    >
-                      <div className="bg-white dark:bg-slate-800 text-red-650 dark:text-amber-450 text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border border-red-200 dark:border-slate-700">
+                    <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
+                      <div className="bg-white dark:bg-slate-900 text-cyan-600 dark:text-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border border-cyan-200 dark:border-cyan-800">
                         View Resume
                       </div>
-                      <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white dark:border-l-slate-800"></div>
+                      <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white dark:border-l-slate-900"></div>
                     </div>
 
                     <button
@@ -331,19 +343,19 @@ export default function Navbar() {
                       className="block cursor-pointer bg-transparent border-0 p-0"
                     >
                       <motionDesign.div
-                        className="w-11 h-11 rounded-full bg-red-650 dark:bg-amber-500 border-2 border-red-650 dark:border-amber-500 flex items-center justify-center text-white dark:text-slate-950 shadow-md hover:shadow-lg transition-all duration-150"
+                        className="w-11 h-11 rounded-full bg-cyan-600 dark:bg-cyan-500 border-2 border-cyan-500 dark:border-cyan-400 flex items-center justify-center text-white dark:text-slate-950 shadow-md hover:shadow-cyan-500/40 transition-all duration-150"
                         initial={{ scale: 0 }}
                         animate={{
                           scale: 1,
                           transition: {
                             delay: 0.1,
                             duration: 0.3,
-                            ease: [0.34, 1.56, 0.64, 1]
-                          }
+                            ease: [0.34, 1.56, 0.64, 1],
+                          },
                         }}
                         whileHover={{
                           scale: 1.1,
-                          transition: { duration: 0.2 }
+                          transition: { duration: 0.2 },
                         }}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -365,26 +377,31 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: -20, scale: 0.5 }}
                     transition={{
-                      delay: i * 0.06,
-                      duration: 0.4,
+                      delay: i * 0.05,
+                      duration: 0.35,
                       type: "spring",
-                      stiffness: 200
+                      stiffness: 220,
                     }}
                   >
                     {/* Name label - shown on left side */}
-                    <div
-                      className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out"
-                    >
-                      <div className={`text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border ${isActive
-                          ? 'bg-amber-400 text-gray-900 border-amber-500'
-                          : 'bg-white dark:bg-slate-800 text-gray-800 dark:text-slate-100 border-gray-200 dark:border-slate-700'
-                        }`}>
+                    <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
+                      <div
+                        className={`text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border ${
+                          isActive
+                            ? "bg-cyan-400 text-slate-950 border-cyan-400 font-bold"
+                            : "bg-white/95 dark:bg-slate-900/95 text-gray-800 dark:text-slate-100 border-gray-200 dark:border-slate-800 backdrop-blur-md"
+                        }`}
+                      >
                         {item.label}
-                        {item.id === "placement-kit" && user?.placementKitUnlocked && " 👑 PRO"}
                       </div>
                       {/* Arrow pointing to icon */}
-                      <div className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${isActive ? 'border-l-amber-400' : 'border-l-white dark:border-l-slate-800'
-                        }`}></div>
+                      <div
+                        className={`absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] ${
+                          isActive
+                            ? "border-l-cyan-400"
+                            : "border-l-white dark:border-l-slate-900"
+                        }`}
+                      ></div>
                     </div>
 
                     <div
@@ -400,7 +417,8 @@ export default function Navbar() {
                               window.lenis.scrollTo(element, {
                                 offset: -80,
                                 duration: 0.8,
-                                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                                easing: (t) =>
+                                  Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                               });
                             } else if (element) {
                               element.scrollIntoView({ behavior: "smooth" });
@@ -414,92 +432,35 @@ export default function Navbar() {
                     >
                       {/* Circular Icon Button */}
                       <motionDesign.div
-                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 nav-item-btn relative ${isActive
-                            ? 'is-active bg-amber-400 border-amber-500 text-gray-900'
-                            : 'bg-white dark:bg-slate-900 border-red-650 dark:border-amber-500 text-red-650 dark:text-amber-405'
-                          }` }
+                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-cyan-500/30 transition-all duration-150 nav-item-btn relative ${
+                          isActive
+                            ? "is-active bg-cyan-400 border-cyan-400 text-slate-950 shadow-cyan-400/40"
+                            : "bg-white/95 dark:bg-slate-900/95 border-cyan-600/60 dark:border-cyan-500/50 text-cyan-600 dark:text-cyan-300 backdrop-blur-md"
+                        }`}
                         whileHover={{
                           scale: 1.15,
                           rotate: item.isRoute ? 0 : 360,
-                          backgroundColor: isActive ? "#fbbf24" : "#DC2626",
-                          color: isActive ? "#111827" : "#FFFFFF",
+                          backgroundColor: isActive ? "#22d3ee" : "#06b6d4",
+                          color: "#FFFFFF",
                         }}
                         whileTap={{ scale: 0.85 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
                       >
                         <IconComponent size={18} />
-                        {item.id === "placement-kit" && user?.placementKitUnlocked && (
-                          <span className="absolute -top-1 -right-1 text-[8px] bg-gradient-to-tr from-amber-500 to-yellow-400 text-white rounded-full w-4 h-4 flex items-center justify-center border border-white dark:border-slate-950 font-bold shadow-xs">
-                            👑
-                          </span>
-                        )}
                       </motionDesign.div>
                     </div>
                   </motionDesign.div>
                 );
               })}
-
-              {/* Sign In / Register Option inside Menu */}
-              <motionDesign.div
-                className="relative group mb-3 last:mb-0 flex items-center justify-end"
-                initial={{ opacity: 0, x: -20, scale: 0.5 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -20, scale: 0.5 }}
-                transition={{
-                  delay: navItems.length * 0.06,
-                  duration: 0.4,
-                  type: "spring",
-                  stiffness: 200
-                }}
-              >
-                {/* Label - shown on hover on left side */}
-                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 pointer-events-none z-50 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
-                  <div className="text-xs font-semibold px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap border bg-white dark:bg-slate-800 text-gray-800 dark:text-slate-100 border-gray-200 dark:border-slate-700">
-                    {user ? "SIGN OUT" : "SIGN IN / REGISTER"}
-                  </div>
-                  {/* Arrow pointing to icon */}
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white dark:border-l-slate-800"></div>
-                </div>
-
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsOpen(false);
-                    if (user) {
-                      logout();
-                    } else {
-                      setIsAuthModalOpen(true);
-                    }
-                  }}
-                  className="cursor-pointer block"
-                >
-                  {/* Circular Icon Button */}
-                  <motionDesign.div
-                    className="w-11 h-11 rounded-full border-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-150 nav-item-btn bg-white dark:bg-slate-900 border-red-650 dark:border-amber-500 text-red-650 dark:text-amber-400"
-                    whileHover={{
-                      scale: 1.15,
-                      backgroundColor: "#DC2626",
-                      color: "#FFFFFF",
-                    }}
-                    whileTap={{ scale: 0.85 }}
-                    transition={{ duration: 0.15, ease: "easeOut" }}
-                  >
-                    {user ? <LogOut size={18} /> : <LogIn size={18} />}
-                  </motionDesign.div>
-                </div>
-              </motionDesign.div>
             </motionDesign.div>
           </>
         )}
       </FramerAnimatePresence>
 
       {/* Resume Preview Modal */}
-      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
       />
     </>
   );

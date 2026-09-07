@@ -1,13 +1,14 @@
-import React, { Suspense, lazy, useEffect, useRef } from "react";
+import React, { Suspense, lazy, useEffect, useRef, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Github, Instagram, Twitter, Linkedin } from "lucide-react";
 import Lenis from "lenis";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 // Components
 import Navbar from "./components/Navbar";
 import SideElements from "./components/SideElements";
+import SpaceBackground from "./components/SpaceBackground";
+import FloatingGeometry from "./components/FloatingGeometry";
+import CommandPalette from "./components/CommandPalette";
 import { FireBall } from "./components/ui/FireBall";
 
 // Custom LeetCode Icon Component
@@ -32,12 +33,6 @@ const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const BlogList = lazy(() => import("./pages/BlogList"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const AskRohitAI = lazy(() => import("./components/AskRohitAI"));
-const AskPlacementAI = lazy(() => import("./components/AskPlacementAI"));
-const PlacementKit = lazy(() => import("./pages/PlacementKit"));
-const DsaHub = lazy(() => import("./pages/DsaHub"));
-const DevelopmentHub = lazy(() => import("./pages/DevelopmentHub"));
-const InterviewHub = lazy(() => import("./pages/InterviewHub"));
-const CompanyHub = lazy(() => import("./pages/CompanyHub"));
 
 // Helper Scroll Controller for routing & scroll resets
 function ScrollToTopAndSection() {
@@ -47,7 +42,7 @@ function ScrollToTopAndSection() {
     // If we have a state indicating scroll to a homepage section, handle it
     if (pathname === "/" && state?.scrollTo) {
       const id = state.scrollTo;
-      
+
       // Reset state in window history to prevent scrolling again on page refresh
       window.history.replaceState({}, document.title);
 
@@ -77,18 +72,117 @@ function ScrollToTopAndSection() {
 }
 
 function AppContent() {
-  const { user } = useAuth();
   const lenisRef = useRef(null);
-  const location = useLocation();
-  const isPlacementRoute = location.pathname.startsWith("/placement-kit");
+  // Single Source of Truth for Theme & Mode
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      return saved === "dark" ? "dark" : "light";
+    }
+    return "dark";
+  });
+
+  const [portfolioMode, setPortfolioMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("portfolioMode");
+      return saved === "academic" ? "academic" : "developer";
+    }
+    return "developer";
+  });
+
+  // Preserve Developer Mode theme preference when returning from Academic Mode
+  const [developerTheme, setDeveloperTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved =
+        localStorage.getItem("developerTheme") || localStorage.getItem("theme");
+      return saved === "light" ? "light" : "dark";
+    }
+    return "dark";
+  });
+
+  // Centralized single authoritative effect for applying root CSS classes and persistence
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (portfolioMode === "academic") {
+      root.classList.add("academic");
+      root.classList.remove("dark");
+      localStorage.setItem("portfolioMode", "academic");
+      return;
+    }
+
+    root.classList.remove("academic");
+    localStorage.setItem("portfolioMode", "developer");
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme, portfolioMode]);
+
+  // Functional toggle handlers
+  const toggleTheme = useCallback(() => {
+    if (portfolioMode === "academic") return;
+    setTheme((prev) => {
+      const next = prev === "light" ? "dark" : "light";
+      setDeveloperTheme(next);
+      localStorage.setItem("developerTheme", next);
+      return next;
+    });
+  }, [portfolioMode]);
+
+  const toggleMode = useCallback(() => {
+    setPortfolioMode((prev) => {
+      if (prev === "developer") {
+        setTheme("light");
+        return "academic";
+      } else {
+        setTheme(developerTheme);
+        return "developer";
+      }
+    });
+  }, [developerTheme]);
+
+  // Sync with any external custom events (e.g. from tests or integrations)
+  useEffect(() => {
+    const handleExternalMode = (e) => {
+      if (e.detail?.mode) {
+        if (e.detail.mode === "academic") {
+          setPortfolioMode("academic");
+          setTheme("light");
+        } else {
+          setPortfolioMode("developer");
+          setTheme(developerTheme);
+        }
+      }
+    };
+    const handleExternalTheme = (e) => {
+      if (e.detail?.theme) {
+        const next = e.detail.theme === "dark" ? "dark" : "light";
+        setTheme(next);
+        setDeveloperTheme(next);
+        localStorage.setItem("developerTheme", next);
+      }
+    };
+    window.addEventListener("portfolio-mode-changed", handleExternalMode);
+    window.addEventListener("theme-changed", handleExternalTheme);
+    return () => {
+      window.removeEventListener("portfolio-mode-changed", handleExternalMode);
+      window.removeEventListener("theme-changed", handleExternalTheme);
+    };
+  }, [developerTheme]);
+
+  const showCosmic = portfolioMode === "developer" && theme === "dark";
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
     const lenis = new Lenis({
       duration: 0.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
+      direction: "vertical",
+      gestureDirection: "vertical",
       smooth: true,
       mouseMultiplier: 0.8,
       smoothTouch: false,
@@ -99,7 +193,7 @@ function AppContent() {
     });
 
     lenisRef.current = lenis;
-    document.documentElement.classList.add('lenis', 'lenis-smooth');
+    document.documentElement.classList.add("lenis", "lenis-smooth");
 
     let rafId;
     function raf(time) {
@@ -114,7 +208,7 @@ function AppContent() {
       const target = e.target.closest('a[href^="#"]');
       if (target) {
         e.preventDefault();
-        const id = target.getAttribute('href').slice(1);
+        const id = target.getAttribute("href").slice(1);
         const element = document.getElementById(id);
         if (element) {
           lenis.scrollTo(element, {
@@ -126,101 +220,146 @@ function AppContent() {
       }
     };
 
-    document.addEventListener('click', handleAnchorClick);
+    document.addEventListener("click", handleAnchorClick);
 
     // Sync scroll event triggers (for GSAP, reveal transitions, etc.)
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          window.dispatchEvent(new Event('scroll'));
+          window.dispatchEvent(new Event("scroll"));
           ticking = false;
         });
         ticking = true;
       }
     };
-    lenis.on('scroll', handleScroll);
+    lenis.on("scroll", handleScroll);
 
     return () => {
-      lenis.off('scroll', handleScroll);
+      lenis.off("scroll", handleScroll);
       lenis.destroy();
       window.lenis = null;
       cancelAnimationFrame(rafId);
-      document.removeEventListener('click', handleAnchorClick);
-      document.documentElement.classList.remove('lenis', 'lenis-smooth');
+      document.removeEventListener("click", handleAnchorClick);
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
     };
   }, []);
 
   return (
-    <div className="bg-white dark:bg-slate-950 text-gray-800 dark:text-slate-100 min-h-screen flex flex-col relative transition-colors duration-300">
-      {/* FireBall Mouse Effect */}
-      <FireBall
-        particleColors={["#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"]}
-        particleOpacity={0.85}
-        background="transparent"
-        particleRadiusRange={[1, 3]}
-        maxParticles={100}
-        particlesPerBurst={6}
-        maxBurstsPerSecond={15}
-        particleLifeRange={[200, 400]}
-        speedRange={[0.3, 1.2]}
-        drift={0.08}
-        gravity={0.02}
-        decay={0.92}
-        cursorSize={16}
-        cursorOutlineWidth={2}
-        cursorOutlineColor="rgba(59, 130, 246, 0.8)"
-        cursorShadowBlur={8}
-        cursorShadowColor="rgba(59, 130, 246, 0.4)"
-        fullScreen={true}
-        style={{ zIndex: 9999, pointerEvents: "none" }}
-        className="fireball-container pointer-events-none"
+    <div
+      className={`min-h-screen flex flex-col relative transition-colors duration-300 text-gray-800 dark:text-slate-100 ${
+        showCosmic ? "bg-transparent" : "bg-white dark:bg-slate-950"
+      }`}
+    >
+      {/* 1. Continuous Deep Space Cosmic Background Engine (Developer + Dark ONLY) */}
+      {showCosmic && <SpaceBackground />}
+
+      {/* 2. Secondary Orbital Wireframe Geometry (Developer + Dark ONLY) */}
+      {showCosmic && <FloatingGeometry />}
+
+      {/* 3. Cosmic FireBall Mouse Trail & Glow (Developer + Dark ONLY) */}
+      {showCosmic && (
+        <FireBall
+          particleColors={["#06b6d4", "#10b981", "#8b5cf6", "#3b82f6", "#00f5ff", "#a855f7"]}
+          particleOpacity={0.85}
+          background="transparent"
+          particleRadiusRange={[1, 3]}
+          maxParticles={100}
+          particlesPerBurst={6}
+          maxBurstsPerSecond={15}
+          particleLifeRange={[200, 400]}
+          speedRange={[0.3, 1.2]}
+          drift={0.08}
+          gravity={0.02}
+          decay={0.92}
+          cursorSize={16}
+          cursorOutlineWidth={2}
+          cursorOutlineColor="rgba(6, 182, 212, 0.8)"
+          cursorShadowBlur={8}
+          cursorShadowColor="rgba(6, 182, 212, 0.4)"
+          fullScreen={true}
+          style={{ zIndex: 9999, pointerEvents: "none" }}
+          className="fireball-container pointer-events-none"
+        />
+      )}
+
+      {/* 4. Navigation Bar */}
+      <Navbar
+        portfolioMode={portfolioMode}
+        theme={theme}
+        onToggleMode={toggleMode}
+        onToggleTheme={toggleTheme}
       />
 
-      {/* Navbar */}
-      <Navbar />
+      {/* 5. Global Command Palette (Ctrl + K / ⌘K) */}
+      <CommandPalette
+        portfolioMode={portfolioMode}
+        theme={theme}
+        onSelectMode={(mode) => {
+          if (mode === "academic") {
+            setPortfolioMode("academic");
+            setTheme("light");
+          } else {
+            setPortfolioMode("developer");
+            setTheme(developerTheme);
+          }
+        }}
+        onToggleTheme={toggleTheme}
+      />
 
-      {/* Dynamic Scroll & Routing Controller */}
+      {/* 6. Dynamic Scroll & Routing Controller */}
       <ScrollToTopAndSection />
 
-      {/* Side Elements (Social Icons & Email) */}
+      {/* 7. Side Elements (Social Icons & Email) */}
       <SideElements
         email="rohitbuddhe564@gmail.com"
         socialLinks={[
-          { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
-          { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
-          { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
-          { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
-          { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
+          { icon: Github, href: "https://github.com/buddherohit", label: "GitHub" },
+          {
+            icon: Linkedin,
+            href: "https://www.linkedin.com/in/rohit-buddhe-013aa5269/",
+            label: "LinkedIn",
+          },
+          {
+            icon: LeetCodeIcon,
+            href: "https://leetcode.com/u/rohitbuddhe/",
+            label: "LeetCode",
+            isCustom: true,
+          },
+          { icon: Twitter, href: "https://x.com/rohitbuddhe", label: "Twitter" },
+          {
+            icon: Instagram,
+            href: "https://instagram.com/official_rohit_45",
+            label: "Instagram",
+          },
         ]}
         onIconClick={(label) => console.log(`Clicked ${label}`)}
-        onEmailClick={() => window.location.href = 'mailto:rohitbuddhe564@gmail.com'}
+        onEmailClick={() =>
+          (window.location.href = "mailto:rohitbuddhe564@gmail.com")
+        }
       />
 
-      {/* Main Multi-Page Routed Content */}
-      <main className="flex-1 relative">
-        <Suspense fallback={
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="w-12 h-12 border-4 border-red-500 border-t-transparent dark:border-amber-500 dark:border-t-transparent rounded-full animate-spin" />
-          </div>
-        }>
+      {/* 8. Main Multi-Page Routed Content */}
+      <main className="flex-1 relative z-10">
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center min-h-[60vh]">
+              <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent dark:border-cyan-400 dark:border-t-transparent rounded-full animate-spin" />
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
-            <Route path="/placement-kit" element={<PlacementKit />} />
-            <Route path="/placement-kit/dsa" element={<ProtectedRoute><DsaHub /></ProtectedRoute>} />
-            <Route path="/placement-kit/development" element={<ProtectedRoute><DevelopmentHub /></ProtectedRoute>} />
-            <Route path="/placement-kit/interview" element={<ProtectedRoute><InterviewHub /></ProtectedRoute>} />
-            <Route path="/placement-kit/company" element={<ProtectedRoute><CompanyHub /></ProtectedRoute>} />
           </Routes>
         </Suspense>
       </main>
 
-      {/* 🤖 Chat Assistants — Floating Widgets (lazy loaded) */}
+      {/* 9. Local AI Assistant Widget (lazy loaded) */}
       <Suspense fallback={null}>
-        {isPlacementRoute ? (user && user.placementKitUnlocked ? <AskPlacementAI /> : null) : <AskRohitAI />}
+        <AskRohitAI />
       </Suspense>
     </div>
   );
@@ -228,11 +367,9 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
