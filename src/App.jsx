@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useRef, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Github, Instagram, Twitter, Linkedin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 
 // Components
@@ -9,6 +10,7 @@ import SideElements from "./components/SideElements";
 import SpaceBackground from "./components/SpaceBackground";
 import FloatingGeometry from "./components/FloatingGeometry";
 import CommandPalette from "./components/CommandPalette";
+import LoadingScreen from "./components/LoadingScreen";
 import { FireBall } from "./components/ui/FireBall";
 
 // Custom LeetCode Icon Component
@@ -73,6 +75,25 @@ function ScrollToTopAndSection() {
 
 function AppContent() {
   const lenisRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRevealing, setIsRevealing] = useState(false);
+  const [isRevealComplete, setIsRevealComplete] = useState(false);
+  const isFirstMount = useRef(true);
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
+
+  const handleReveal = useCallback(() => {
+    setIsRevealing(true);
+  }, []);
+
+  const handleComplete = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   // Single Source of Truth for Theme & Mode
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
@@ -251,6 +272,18 @@ function AppContent() {
         showCosmic ? "bg-transparent" : "bg-white dark:bg-slate-950"
       }`}
     >
+      {/* 0. Full-screen Cinematic Rocket Launch Loader */}
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadingScreen
+            portfolioMode={portfolioMode}
+            theme={theme}
+            onReveal={handleReveal}
+            onComplete={handleComplete}
+          />
+        )}
+      </AnimatePresence>
+
       {/* 1. Continuous Deep Space Cosmic Background Engine (Developer + Dark ONLY) */}
       {showCosmic && <SpaceBackground />}
 
@@ -283,84 +316,136 @@ function AppContent() {
         />
       )}
 
-      {/* 4. Navigation Bar */}
-      <Navbar
-        portfolioMode={portfolioMode}
-        theme={theme}
-        onToggleMode={toggleMode}
-        onToggleTheme={toggleTheme}
-      />
-
-      {/* 5. Global Command Palette (Ctrl + K / ⌘K) */}
-      <CommandPalette
-        portfolioMode={portfolioMode}
-        theme={theme}
-        onSelectMode={(mode) => {
-          if (mode === "academic") {
-            setPortfolioMode("academic");
-            setTheme("light");
-          } else {
-            setPortfolioMode("developer");
-            setTheme(developerTheme);
-          }
-        }}
-        onToggleTheme={toggleTheme}
-      />
-
-      {/* 6. Dynamic Scroll & Routing Controller */}
-      <ScrollToTopAndSection />
-
-      {/* 7. Side Elements (Social Icons & Email) */}
-      <SideElements
-        email="rohitbuddhe564@gmail.com"
-        socialLinks={[
-          { icon: Github, href: "https://github.com/buddherohit", label: "GitHub" },
-          {
-            icon: Linkedin,
-            href: "https://www.linkedin.com/in/rohit-buddhe-013aa5269/",
-            label: "LinkedIn",
-          },
-          {
-            icon: LeetCodeIcon,
-            href: "https://leetcode.com/u/rohitbuddhe/",
-            label: "LeetCode",
-            isCustom: true,
-          },
-          { icon: Twitter, href: "https://x.com/rohitbuddhe", label: "Twitter" },
-          {
-            icon: Instagram,
-            href: "https://instagram.com/official_rohit_45",
-            label: "Instagram",
-          },
-        ]}
-        onIconClick={(label) => console.log(`Clicked ${label}`)}
-        onEmailClick={() =>
-          (window.location.href = "mailto:rohitbuddhe564@gmail.com")
+      {/* Portfolio Content Layer (Cinematic Blur-to-Sharp Reveal) */}
+      <motion.div
+        className="flex-1 flex flex-col relative z-10 w-full"
+        initial={
+          isFirstMount.current
+            ? {
+                opacity: 0,
+                filter: prefersReducedMotion
+                  ? "none"
+                  : portfolioMode === "academic"
+                  ? "blur(3px)"
+                  : isMobile
+                  ? "blur(6px)"
+                  : "blur(12px)",
+                scale: prefersReducedMotion
+                  ? 1
+                  : portfolioMode === "academic"
+                  ? 1.008
+                  : isMobile
+                  ? 1.015
+                  : 1.03,
+              }
+            : false
         }
-      />
+        animate={
+          isRevealing
+            ? {
+                opacity: 1,
+                filter: "blur(0px)",
+                scale: 1,
+              }
+            : undefined
+        }
+        transition={{
+          duration: prefersReducedMotion
+            ? 0.4
+            : portfolioMode === "academic"
+            ? 0.6
+            : 0.9,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        onAnimationComplete={() => {
+          setIsRevealComplete(true);
+          isFirstMount.current = false;
+        }}
+        style={
+          isRevealComplete
+            ? { filter: "none", transform: "none" }
+            : undefined
+        }
+      >
+        {/* 4. Navigation Bar */}
+        <Navbar
+          portfolioMode={portfolioMode}
+          theme={theme}
+          onToggleMode={toggleMode}
+          onToggleTheme={toggleTheme}
+        />
 
-      {/* 8. Main Multi-Page Routed Content */}
-      <main className="flex-1 relative z-10">
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center min-h-[60vh]">
-              <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent dark:border-cyan-400 dark:border-t-transparent rounded-full animate-spin" />
-            </div>
+        {/* 5. Global Command Palette (Ctrl + K / ⌘K) */}
+        <CommandPalette
+          portfolioMode={portfolioMode}
+          theme={theme}
+          onSelectMode={(mode) => {
+            if (mode === "academic") {
+              setPortfolioMode("academic");
+              setTheme("light");
+            } else {
+              setPortfolioMode("developer");
+              setTheme(developerTheme);
+            }
+          }}
+          onToggleTheme={toggleTheme}
+        />
+
+        {/* 6. Dynamic Scroll & Routing Controller */}
+        <ScrollToTopAndSection />
+
+        {/* 7. Side Elements (Social Icons & Email) */}
+        <SideElements
+          email="rohitbuddhe564@gmail.com"
+          socialLinks={[
+            { icon: Github, href: "https://github.com/buddherohit", label: "GitHub" },
+            {
+              icon: Linkedin,
+              href: "https://www.linkedin.com/in/rohit-buddhe-013aa5269/",
+              label: "LinkedIn",
+            },
+            {
+              icon: LeetCodeIcon,
+              href: "https://leetcode.com/u/rohitbuddhe/",
+              label: "LeetCode",
+              isCustom: true,
+            },
+            { icon: Twitter, href: "https://x.com/rohitbuddhe", label: "Twitter" },
+            {
+              icon: Instagram,
+              href: "https://instagram.com/official_rohit_45",
+              label: "Instagram",
+            },
+          ]}
+          onIconClick={(label) => console.log(`Clicked ${label}`)}
+          onEmailClick={() =>
+            (window.location.href = "mailto:rohitbuddhe564@gmail.com")
           }
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/blog/:slug" element={<BlogDetail />} />
-          </Routes>
-        </Suspense>
-      </main>
+        />
 
-      {/* 9. Local AI Assistant Widget (lazy loaded) */}
-      <Suspense fallback={null}>
-        <AskRohitAI />
-      </Suspense>
+        {/* 8. Main Multi-Page Routed Content */}
+        <main className="flex-1 relative z-10">
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center min-h-[60vh]">
+                <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent dark:border-cyan-400 dark:border-t-transparent rounded-full animate-spin" />
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects/:slug" element={<ProjectDetail />} />
+              <Route path="/blog" element={<BlogList />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+            </Routes>
+          </Suspense>
+        </main>
+
+        {/* 9. Local AI Assistant Widget (lazy loaded) */}
+        <Suspense fallback={null}>
+          <AskRohitAI />
+        </Suspense>
+      </motion.div>
     </div>
   );
 }
