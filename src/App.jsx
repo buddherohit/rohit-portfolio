@@ -9,12 +9,10 @@ import Navbar from "./components/Navbar";
 import SideElements from "./components/SideElements";
 import SpaceBackground from "./components/SpaceBackground";
 import FloatingGeometry from "./components/FloatingGeometry";
-import CommandPalette from "./components/CommandPalette";
 import LoadingScreen from "./components/LoadingScreen";
-import { FireBall } from "./components/ui/FireBall";
 
 // Custom LeetCode Icon Component
-const LeetCodeIcon = ({ size = 20, strokeWidth = 2 }) => (
+const LeetCodeIcon = ({ size = 20 }) => (
   <svg
     width={size}
     height={size}
@@ -30,6 +28,7 @@ const LeetCodeIcon = ({ size = 20, strokeWidth = 2 }) => (
 );
 
 // Lazy-loaded Pages & Components
+const CommandPalette = lazy(() => import("./components/CommandPalette"));
 const Home = lazy(() => import("./pages/Home"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const BlogList = lazy(() => import("./pages/BlogList"));
@@ -57,7 +56,9 @@ function ScrollToTopAndSection() {
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         } else if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          const yOffset = -80;
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
         }
       }, 150);
     } else {
@@ -85,6 +86,9 @@ function AppContent() {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isMobile =
     typeof window !== "undefined" && window.innerWidth < 768;
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
 
   const handleReveal = useCallback(() => {
     setIsRevealing(true);
@@ -197,8 +201,18 @@ function AppContent() {
 
   const showCosmic = portfolioMode === "developer" && theme === "dark";
 
-  // Initialize Lenis smooth scroll
+  // Initialize Lenis smooth scroll exclusively on desktop / fine-pointer devices
   useEffect(() => {
+    const isTouch =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+
+    if (isTouch) {
+      window.lenis = null;
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 0.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -224,25 +238,6 @@ function AppContent() {
     rafId = requestAnimationFrame(raf);
     window.lenis = lenis;
 
-    // Handle standard internal anchor clicks inside the page
-    const handleAnchorClick = (e) => {
-      const target = e.target.closest('a[href^="#"]');
-      if (target) {
-        e.preventDefault();
-        const id = target.getAttribute("href").slice(1);
-        const element = document.getElementById(id);
-        if (element) {
-          lenis.scrollTo(element, {
-            offset: -80,
-            duration: 0.8,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        }
-      }
-    };
-
-    document.addEventListener("click", handleAnchorClick);
-
     // Sync scroll event triggers (for GSAP, reveal transitions, etc.)
     let ticking = false;
     const handleScroll = () => {
@@ -261,9 +256,38 @@ function AppContent() {
       lenis.destroy();
       window.lenis = null;
       cancelAnimationFrame(rafId);
-      document.removeEventListener("click", handleAnchorClick);
       document.documentElement.classList.remove("lenis", "lenis-smooth");
     };
+  }, []);
+
+  // Universal internal anchor click handler with navbar offset compensation for both mobile & desktop
+  useEffect(() => {
+    const handleAnchorClick = (e) => {
+      const target = e.target.closest('a[href^="#"]');
+      if (target) {
+        const href = target.getAttribute("href");
+        if (!href || href === "#") return;
+        const id = href.slice(1);
+        const element = document.getElementById(id);
+        if (element) {
+          e.preventDefault();
+          if (window.lenis) {
+            window.lenis.scrollTo(element, {
+              offset: -80,
+              duration: 0.8,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
+          } else {
+            const yOffset = -80;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
   }, []);
 
   return (
@@ -290,71 +314,47 @@ function AppContent() {
       {/* 2. Secondary Orbital Wireframe Geometry (Developer + Dark ONLY) */}
       {showCosmic && <FloatingGeometry />}
 
-      {/* 3. Cosmic FireBall Mouse Trail & Glow (Developer + Dark ONLY) */}
-      {showCosmic && (
-        <FireBall
-          particleColors={["#06b6d4", "#10b981", "#8b5cf6", "#3b82f6", "#00f5ff", "#a855f7"]}
-          particleOpacity={0.85}
-          background="transparent"
-          particleRadiusRange={[1, 3]}
-          maxParticles={100}
-          particlesPerBurst={6}
-          maxBurstsPerSecond={15}
-          particleLifeRange={[200, 400]}
-          speedRange={[0.3, 1.2]}
-          drift={0.08}
-          gravity={0.02}
-          decay={0.92}
-          cursorSize={16}
-          cursorOutlineWidth={2}
-          cursorOutlineColor="rgba(6, 182, 212, 0.8)"
-          cursorShadowBlur={8}
-          cursorShadowColor="rgba(6, 182, 212, 0.4)"
-          fullScreen={true}
-          style={{ zIndex: 9999, pointerEvents: "none" }}
-          className="fireball-container pointer-events-none"
-        />
-      )}
-
-      {/* Portfolio Content Layer (Cinematic Blur-to-Sharp Reveal) */}
+      {/* Portfolio Content Layer (Optimized Blur-to-Sharp Reveal for Desktop, Instant Opacity for Mobile) */}
       <motion.div
         className="flex-1 flex flex-col relative z-10 w-full"
         initial={
           isFirstMount.current
-            ? {
-                opacity: 0,
-                filter: prefersReducedMotion
-                  ? "none"
-                  : portfolioMode === "academic"
-                  ? "blur(3px)"
-                  : isMobile
-                  ? "blur(6px)"
-                  : "blur(12px)",
-                scale: prefersReducedMotion
-                  ? 1
-                  : portfolioMode === "academic"
-                  ? 1.008
-                  : isMobile
-                  ? 1.015
-                  : 1.03,
-              }
+            ? isTouchDevice || isMobile
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  filter: prefersReducedMotion
+                    ? "none"
+                    : portfolioMode === "academic"
+                    ? "blur(3px)"
+                    : "blur(12px)",
+                  scale: prefersReducedMotion
+                    ? 1
+                    : portfolioMode === "academic"
+                    ? 1.008
+                    : 1.03,
+                }
             : false
         }
         animate={
           isRevealing
-            ? {
-                opacity: 1,
-                filter: "blur(0px)",
-                scale: 1,
-              }
+            ? isTouchDevice || isMobile
+              ? { opacity: 1 }
+              : {
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  scale: 1,
+                }
             : undefined
         }
         transition={{
-          duration: prefersReducedMotion
+          duration: isTouchDevice || isMobile
+            ? 0.35
+            : prefersReducedMotion
             ? 0.4
             : portfolioMode === "academic"
             ? 0.6
-            : 0.9,
+            : 0.85,
           ease: [0.22, 1, 0.36, 1],
         }}
         onAnimationComplete={() => {
@@ -362,7 +362,7 @@ function AppContent() {
           isFirstMount.current = false;
         }}
         style={
-          isRevealComplete
+          isRevealComplete || isTouchDevice || isMobile
             ? { filter: "none", transform: "none" }
             : undefined
         }
@@ -376,20 +376,22 @@ function AppContent() {
         />
 
         {/* 5. Global Command Palette (Ctrl + K / ⌘K) */}
-        <CommandPalette
-          portfolioMode={portfolioMode}
-          theme={theme}
-          onSelectMode={(mode) => {
-            if (mode === "academic") {
-              setPortfolioMode("academic");
-              setTheme("light");
-            } else {
-              setPortfolioMode("developer");
-              setTheme(developerTheme);
-            }
-          }}
-          onToggleTheme={toggleTheme}
-        />
+        <Suspense fallback={null}>
+          <CommandPalette
+            portfolioMode={portfolioMode}
+            theme={theme}
+            onSelectMode={(mode) => {
+              if (mode === "academic") {
+                setPortfolioMode("academic");
+                setTheme("light");
+              } else {
+                setPortfolioMode("developer");
+                setTheme(developerTheme);
+              }
+            }}
+            onToggleTheme={toggleTheme}
+          />
+        </Suspense>
 
         {/* 6. Dynamic Scroll & Routing Controller */}
         <ScrollToTopAndSection />

@@ -21,7 +21,7 @@ import {
   Monitor,
   Command,
 } from "lucide-react";
-import ResumeModal from "./ResumeModal";
+const ResumeModal = React.lazy(() => import("./ResumeModal"));
 
 export default function Navbar({
   portfolioMode = "developer",
@@ -49,61 +49,58 @@ export default function Navbar({
   const toggleMode = onToggleMode;
   const toggleTheme = onToggleTheme;
 
-  // Detect scroll position
+  // Combined, rAF-throttled scroll handler for header state & active section tracking
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
+    let ticking = false;
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const sections = [
+      "hero",
+      "about",
+      "education",
+      "experience",
+      "skills",
+      "projects",
+      "achievements",
+      "certificates",
+      "contact",
+    ];
 
-  // Detect active section on scroll (only if on landing/home page)
-  useEffect(() => {
-    if (location.pathname !== "/") {
-      if (location.pathname.startsWith("/blog")) {
-        setActiveSection("blog");
-      } else if (location.pathname.startsWith("/projects/")) {
-        setActiveSection("projects");
-      }
-      return;
-    }
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      const shouldBeScrolled = scrollY > 80;
+      setIsScrolled((prev) => (prev !== shouldBeScrolled ? shouldBeScrolled : prev));
 
-    const handleScroll = () => {
-      const sections = [
-        "hero",
-        "about",
-        "education",
-        "experience",
-        "skills",
-        "projects",
-        "achievements",
-        "certificates",
-        "contact",
-      ];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
+      if (location.pathname === "/") {
+        const scrollPosition = scrollY + 220;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el && scrollPosition >= el.offsetTop) {
+            setActiveSection((prev) => (prev !== sections[i] ? sections[i] : prev));
             break;
           }
         }
+      } else if (location.pathname.startsWith("/blog")) {
+        setActiveSection((prev) => (prev !== "blog" ? "blog" : prev));
+      } else if (location.pathname.startsWith("/projects/")) {
+        setActiveSection((prev) => (prev !== "projects" ? "projects" : prev));
+      }
+
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollState);
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateScrollState();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [location.pathname]);
 
   // Close menu when clicking outside
@@ -457,11 +454,15 @@ export default function Navbar({
         )}
       </FramerAnimatePresence>
 
-      {/* Resume Preview Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
+      {/* Resume Preview Modal (Lazy-loaded with react-pdf) */}
+      {isResumeOpen && (
+        <React.Suspense fallback={null}>
+          <ResumeModal
+            isOpen={isResumeOpen}
+            onClose={() => setIsResumeOpen(false)}
+          />
+        </React.Suspense>
+      )}
     </>
   );
 }

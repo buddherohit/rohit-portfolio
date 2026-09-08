@@ -1,9 +1,56 @@
 import React from "react";
 
 export default function FloatingGeometry() {
+  const isMobile =
+    typeof window !== "undefined" &&
+    (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
+
+  if (isMobile) {
+    return (
+      <div
+        className="fixed inset-0 pointer-events-none z-[1] overflow-hidden select-none block md:hidden"
+        aria-hidden="true"
+        style={{ opacity: 0.10 }}
+      >
+        {/* Lightweight Mobile Orbital Ring (Pure GPU CSS transform, zero JS overhead) */}
+        <div className="absolute top-[14%] right-[-8%] w-44 h-44 pointer-events-none">
+          <svg
+            viewBox="0 0 200 200"
+            className="w-full h-full animate-spin-slower text-cyan-400/40"
+            style={{ animationDuration: "70s" }}
+          >
+            {/* Delicate Tilted Orbital Ellipse */}
+            <ellipse
+              cx="100"
+              cy="100"
+              rx="76"
+              ry="32"
+              transform="rotate(-22 100 100)"
+              className="stroke-cyan-400/50 fill-none"
+              strokeWidth="0.9"
+              strokeDasharray="4 6"
+            />
+            {/* Concentric Subtle Inner Ring */}
+            <circle
+              cx="100"
+              cy="100"
+              r="44"
+              className="stroke-purple-400/40 fill-none"
+              strokeWidth="0.7"
+              strokeDasharray="2 5"
+            />
+            {/* 2 Subtle Orbital Nodes */}
+            <circle cx="100" cy="24" r="2.2" className="fill-cyan-300" />
+            <circle cx="152" cy="122" r="1.8" className="fill-purple-300" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-[1] overflow-hidden select-none"
+      className="fixed inset-0 pointer-events-none z-[1] overflow-hidden select-none hidden md:block"
       aria-hidden="true"
       style={{ opacity: 0.16 }}
     >

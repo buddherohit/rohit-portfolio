@@ -92,6 +92,10 @@ function Hero() {
                   duration: 0.8,
                   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 });
+              } else if (element) {
+                const yOffset = -80;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
               }
             }}
             className="inline-block px-6 py-3 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 dark:font-semibold rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg dark:shadow-[0_0_20px_rgba(34,211,238,0.25)] cursor-pointer contact-btn"

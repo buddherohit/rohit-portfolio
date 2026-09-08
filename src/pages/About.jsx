@@ -176,16 +176,18 @@ export default function About() {
                   {/* Red Glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-300 rounded-3xl blur-xl opacity-20 dark:opacity-10 animate-pulse" />
 
-                  {/* Floating Ring */}
+                  {/* Floating Ring - Animated on desktop, static accent on mobile */}
                   <motion.div
                     className="absolute inset-0 border-2 border-red-400 dark:border-red-500 rounded-3xl"
-                    animate={{ rotate: 360 }}
+                    animate={typeof window !== "undefined" && window.innerWidth >= 768 ? { rotate: 360 } : undefined}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   />
 
                   <img
                     src={profileImg}
                     alt="Rohit Buddhe"
+                    loading="lazy"
+                    decoding="async"
                     className="relative w-full h-full object-cover rounded-3xl shadow-lg"
                   />
 

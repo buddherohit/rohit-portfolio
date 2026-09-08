@@ -426,29 +426,38 @@ html.academic div.pointer-events-none {
 }
 
 /* =============================================
-   GLOBAL BASE STYLES
+   GLOBAL BASE STYLES & NATIVE CURSOR
    ============================================= */
 
-/* Hide default cursor only in Developer + Dark (cosmic) mode where FireBall is active */
-html.dark:not(.academic) * {
-  cursor: none !important;
-}
-
-/* Normal cursor for Light mode and Academic mode */
-html:not(.dark) *,
-html.academic * {
+/* Standard natural OS/browser cursor across all themes, modes and devices */
+html,
+body,
+#root {
   cursor: auto;
 }
 
-html:not(.dark) a,
-html:not(.dark) button,
-html:not(.dark) [role="button"],
-html:not(.dark) input[type="submit"],
-html:not(.dark) .cursor-pointer {
-  cursor: pointer !important;
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select,
+.cursor-pointer {
+  cursor: pointer;
 }
 
-/* Lenis smooth scroll optimization */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  cursor: text;
+}
+
+.custom-cursor {
+  display: none !important;
+}
+
+/* Lenis smooth scroll optimization (Desktop only) */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -471,12 +480,13 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Prevent horizontal scrollbars across the app */
+/* Fluid native touch scrolling without horizontal spill */
 html,
 body {
   overflow-x: hidden;
   width: 100%;
-  overscroll-behavior: none;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Optimize rendering performance */
@@ -485,27 +495,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Advanced GPU acceleration */
-.will-change-transform {
-  will-change: transform;
-}
-
-/* Optimize section rendering with hardware acceleration */
-section,
-main > div {
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
+/* Targeted layer containment for scroll performance */
+section {
+  contain: content;
 }
 
 /* Optimize images and media */
 img,
 video {
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
@@ -534,11 +531,33 @@ video {
   will-change: transform, opacity;
 }
 
-/* Button and interactive optimizations */
-button,
-a {
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
+/* =============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS (< 768px)
+   ============================================= */
+@media (max-width: 767px) {
+  /* Disable expensive real-time backdrop-filter blurs on repeating content cards during scroll */
+  .card-cosmic,
+  .backdrop-blur-md,
+  .backdrop-blur-sm,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Provide crisp, high-contrast semi-opaque background for cards without GPU blur cost */
+  .dark .card-cosmic,
+  .dark [class*="bg-slate-900/60"],
+  .dark [class*="bg-slate-900/70"],
+  .dark [class*="bg-slate-900/80"] {
+    background-color: rgba(15, 23, 42, 0.92) !important;
+  }
+
+  /* Keep native touch scrolling silky and responsive */
+  html,
+  body {
+    touch-action: pan-y;
+  }
 }
 
 /* Optimize motion divs */
@@ -605,6 +624,35 @@ a {
 
 .animate-glow {
   animation: glow 3.2s ease-in-out infinite;
+}
+
+/* Subtle GPU-composited keyframes for lightweight mobile cosmic mode */
+@keyframes cosmic-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(4px, -6px, 0);
+  }
+}
+
+.animate-cosmic-drift {
+  animation: cosmic-drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes nebula-breathe {
+  0%, 100% {
+    opacity: 0.07;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.10;
+    transform: scale(1.05);
+  }
+}
+
+.animate-nebula-breathe {
+  animation: nebula-breathe 16s ease-in-out infinite alternate;
 }
 
 /* Hide horizontal scrollbar for custom tickers */

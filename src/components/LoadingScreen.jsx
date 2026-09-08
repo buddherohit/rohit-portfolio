@@ -33,6 +33,10 @@ export default function LoadingScreen({
   const triggerReveal = () => {
     if (revealedRef.current) return;
     revealedRef.current = true;
+    document.body.style.overflow = ""; // Immediately release scroll lock for instant touch response
+    if (window.lenis) {
+      window.lenis.start();
+    }
     onRevealRef.current?.();
   };
 
@@ -113,38 +117,39 @@ export default function LoadingScreen({
       };
     }
 
-    // Developer Mode (Dark & Light) Rocket Launch Sequence
+    // Developer Mode (Dark & Light) Rocket Launch Sequence (Slightly snappier on mobile)
+    const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
     const t1 = setTimeout(() => {
       setPhase("countdown");
       setCountdown(3);
-    }, 500);
+    }, isMobileDevice ? 380 : 500);
 
     const t2 = setTimeout(() => {
       setCountdown(2);
-    }, 1000);
+    }, isMobileDevice ? 760 : 1000);
 
     const t3 = setTimeout(() => {
       setCountdown(1);
-    }, 1500);
+    }, isMobileDevice ? 1140 : 1500);
 
     const t4 = setTimeout(() => {
       setPhase("launch");
       setCountdown(null);
-    }, 2000);
+    }, isMobileDevice ? 1520 : 2000);
 
     const t5 = setTimeout(() => {
       setPhase("flying");
-    }, 2400);
+    }, isMobileDevice ? 1820 : 2400);
 
     // Overlapping reveal: starts as rocket is ascending into upper screen
     const t6 = setTimeout(() => {
       setPhase("complete");
       triggerReveal();
-    }, 2750);
+    }, isMobileDevice ? 2100 : 2750);
 
     const t7 = setTimeout(() => {
       triggerComplete();
-    }, 3350);
+    }, isMobileDevice ? 2600 : 3350);
 
     return () => {
       clearTimeout(t1);
@@ -170,16 +175,19 @@ export default function LoadingScreen({
     }));
   }, [isCosmic]);
 
-  // Rocket smoke puffs for launch phase
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  // Rocket smoke puffs for launch phase (reduced on mobile for buttery smooth liftoff)
   const smokeParticles = useMemo(() => {
-    return Array.from({ length: 12 }, (_, i) => ({
+    const count = isMobile ? 4 : 12;
+    return Array.from({ length: count }, (_, i) => ({
       id: i,
       xOffset: (i % 2 === 0 ? 1 : -1) * ((i * 4) % 18 + 4),
       delay: i * 0.04,
       scale: 0.6 + (i % 3) * 0.4,
       yDrift: 20 + i * 8,
     }));
-  }, []);
+  }, [isMobile]);
 
   return (
     <motion.div

@@ -151,6 +151,8 @@ function ProjectCard({
             <img
               src={image}
               alt={title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-[280px] object-cover hover:scale-105 transition duration-500"
             />
           ) : (
