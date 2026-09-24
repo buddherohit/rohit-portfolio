@@ -73,7 +73,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpur, with a strong passion for software development and problem solving. Skilled in Java, and Data Structures &amp; Algorithms, I focus on building scalable and efficient applications. I have developed projects including Women Safety System, Student Learning Platform, and Smart Hostel Management System. I am continuously learning modern technologies and seeking opportunities to contribute to impactful software solutions.
+          Computer Engineering student at Yeshwantrao Chavan College of Engineering, Nagpur, with a strong passion for software development and problem solving. Skilled in Java, and Data Structures &amp; Algorithms, I focus on building scalable and efficient applications. I have developed projects including VibeCode Editor, MSBTE Diploma Job Portal, and AI Touchless Computer Control. I am continuously learning modern technologies and seeking opportunities to contribute to impactful software solutions.
         </motion.p>
 
         {/* CTA Row — Contact Button + Live Location Card */}

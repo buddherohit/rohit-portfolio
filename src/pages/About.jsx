@@ -23,7 +23,7 @@ export default function About() {
     {
       title: "Software Development",
       icon: Layers,
-      copy: "Developing real-world applications including Women Safety System, Student Learning Platform and Smart Hostel Management."
+      copy: "Developing real-world applications including VibeCode Editor, MSBTE Diploma Job Portal and AI Touchless Computer Control."
     },
     {
       title: "Web Development",
@@ -101,8 +101,8 @@ export default function About() {
 
               <p>
                 Currently working as Software Development Intern at Cognifyz Technologies Pvt Ltd 
-                and building projects like Women Safety System, Student Learning Platform and 
-                Smart Hostel Management System.
+                and building projects like VibeCode Editor, MSBTE Diploma Job Portal and 
+                DiplomaGPT.
               </p>
 
             </div>

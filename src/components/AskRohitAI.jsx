@@ -10,7 +10,11 @@ const KB = [
   },
   {
     keys: ["projects", "show projects", "what projects", "built", "made", "portfolio projects", "work"],
-    answer: "Rohit's key projects:\n\n• DiplomaGPT — RAG-powered AI tutor for MSBTE exam prep (1,800+ active users)\n• MSBTE Job Portal — Career platform for 100k+ diploma students (5,000+ users)\n• AI Touchless Computer Control — Hand gesture OS control via OpenCV\n• Credex AI Audit — Financial anomaly detection with LangChain\n• Women Safety App — Android SOS + live GPS tracking\n• Smart Hostel Management System — Full-stack hostel ops platform\n\nEach project has a detailed case study — click 'View Projects' on the homepage."
+    answer: "Rohit's key projects:\n\n• VibeCode Editor — Next-Gen Cloud IDE & AI-Powered Full-Stack Coding Playground (WebContainers + Next.js 15)\n• DiplomaGPT — RAG-powered AI tutor for MSBTE exam prep (1,800+ active users)\n• MSBTE Job Portal — Career platform for 100k+ diploma students (5,000+ users)\n• AI Touchless Computer Control — Hand gesture OS control via OpenCV\n• Credex AI Audit — Financial anomaly detection with LangChain\n• Women Safety App — Android SOS + live GPS tracking\n\nEach project has a detailed case study — click 'View Projects' on the homepage."
+  },
+  {
+    keys: ["vibecode", "vibecode editor", "cloud ide", "ide", "webcontainers", "code editor"],
+    answer: "VibeCode Editor is Rohit's state-of-the-art in-browser Full-Stack Cloud IDE and AI coding playground.\n\nStack: Next.js 15 · React 19 · TypeScript · Tailwind CSS v4 · WebContainers · Monaco Editor · Google Gemini AI · Prisma · MongoDB Atlas\n\nFeatures:\n• In-Browser Node.js Runtime via WebContainers (run npm scripts, live servers & multi-port previews)\n• Google Gemini AI Copilot (inline code autocompletions & interactive chat sidepanel)\n• 1-Click Full-Stack Templates (React, Next.js, Express, Hono, Vue, Angular)\n• Pro-Grade Monaco Editor & WebGL xterm.js Terminal\n\nLive Demo: vibe-code-editor-vert.vercel.app\nGitHub: github.com/buddherohit/VibeCodeEditor"
   },
   {
     keys: ["diplomagpt", "diploma gpt", "rag", "msbte gpt", "ai tutor"],

@@ -88,9 +88,9 @@ export default function Achievements() {
       icon: Award,
       color: "from-orange-500 to-red-500",
       highlights: [
-        "Women Safety System",
-        "Student Learning Platform",
-        "Smart Hostel Management"
+        "VibeCode Editor",
+        "MSBTE Diploma Job Portal",
+        "DiplomaGPT"
       ],
       skills: ["Java", "Python", "DSA"]
     },

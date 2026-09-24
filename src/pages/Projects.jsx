@@ -3,13 +3,33 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
 
 // Import project images
+import vibeCodeEditorImg from "../assets/projects/vibeCodeEditor.png";
 import msbteJobPortalImg from "../assets/projects/msbteJobPortal.png";
 import touchlessComputerImg from "../assets/projects/touchlessComputer.png";
 import credexAuditImg from "../assets/projects/credexAudit.png";
 import womenSafetyImg from "../assets/projects/womenSafety.png";
-import studentPlatformImg from "../assets/projects/studentPlatform.png";
+import diplomaGPTImg from "../assets/projects/diplomaGPT.png";
 
 const projectsData = [
+  {
+    image: vibeCodeEditorImg,
+    category: "Cloud IDE & AI",
+    title: "VibeCode Editor",
+    description:
+      "A next-generation in-browser Full-Stack Cloud IDE and AI coding playground powered by Next.js 15, WebContainers, Monaco Editor, and Google Gemini AI. Scaffold, edit, run full Node.js servers, and debug with real-time AI assistance.",
+    tags: [
+      "Next.js 15",
+      "WebContainers",
+      "Monaco Editor",
+      "Gemini AI",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
+    href: "https://github.com/buddherohit/VibeCodeEditor",
+    demoUrl: "https://vibe-code-editor-vert.vercel.app/",
+    slug: "vibecode-editor"
+  },
+
   {
     image: msbteJobPortalImg,
     category: "EdTech & Career",
@@ -83,25 +103,7 @@ const projectsData = [
   },
 
   {
-    image: studentPlatformImg,
-    category: "EdTech Platform",
-    title: "Student Learning Platform",
-    description:
-      "A digital learning platform providing study materials, tutorials, learning modules, progress tracking, and interactive educational resources for students.",
-    tags: [
-      "React",
-      "Node.js",
-      "MongoDB",
-      "JavaScript",
-      "EdTech",
-    ],
-    href: "https://github.com/buddherohit",
-    demoUrl: "#",
-    slug: "student-platform"
-  },
-
-  {
-    image: null,
+    image: diplomaGPTImg,
     category: "Generative AI & LLMs",
     title: "DiplomaGPT",
     description:
@@ -125,15 +127,15 @@ export default function Projects() {
 
   const filterTabs = useMemo(() => [
     { label: "All", value: "all", count: projectsData.length },
-    { label: "AI & GenAI", value: "ai", count: projectsData.filter(p => ["AI & Computer Vision", "Generative AI & LLMs"].includes(p.category)).length },
-    { label: "Web & Full Stack", value: "web", count: projectsData.filter(p => ["EdTech & Career", "AI & FinTech", "EdTech Platform"].includes(p.category)).length },
+    { label: "AI & GenAI", value: "ai", count: projectsData.filter(p => ["Cloud IDE & AI", "AI & Computer Vision", "Generative AI & LLMs"].includes(p.category)).length },
+    { label: "Web & Full Stack", value: "web", count: projectsData.filter(p => ["Cloud IDE & AI", "EdTech & Career", "AI & FinTech"].includes(p.category)).length },
     { label: "Mobile / Java", value: "mobile", count: projectsData.filter(p => p.category === "Safety & Emergency").length }
   ], []);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "all") return projectsData;
-    if (activeFilter === "ai") return projectsData.filter(p => ["AI & Computer Vision", "Generative AI & LLMs"].includes(p.category));
-    if (activeFilter === "web") return projectsData.filter(p => ["EdTech & Career", "AI & FinTech", "EdTech Platform"].includes(p.category));
+    if (activeFilter === "ai") return projectsData.filter(p => ["Cloud IDE & AI", "AI & Computer Vision", "Generative AI & LLMs"].includes(p.category));
+    if (activeFilter === "web") return projectsData.filter(p => ["Cloud IDE & AI", "EdTech & Career", "AI & FinTech"].includes(p.category));
     if (activeFilter === "mobile") return projectsData.filter(p => p.category === "Safety & Emergency");
     return projectsData;
   }, [activeFilter]);

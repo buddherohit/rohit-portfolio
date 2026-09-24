@@ -1,6 +1,66 @@
 // src/data/projectData.js
 
 export const projectsDetails = {
+  "vibecode-editor": {
+    title: "VibeCode Editor",
+    slug: "vibecode-editor",
+    category: "Cloud IDE & AI",
+    tagline: "Next-Generation Cloud IDE & AI-Powered Full-Stack Coding Playground",
+    description: "A state-of-the-art, in-browser Full-Stack Cloud IDE built with Next.js 15, WebContainers, Monaco Editor, and Google Gemini AI. It enables developers to scaffold, edit, run, debug, and preview modern full-stack web applications entirely inside the browser without setting up any local environment.",
+    techStack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS v4", "WebContainers", "Monaco Editor", "xterm.js", "Gemini AI", "Prisma", "MongoDB Atlas", "NextAuth.js", "Vercel"],
+    githubUrl: "https://github.com/buddherohit/VibeCodeEditor",
+    demoUrl: "https://vibe-code-editor-vert.vercel.app/",
+    image: "/src/assets/projects/vibeCodeEditor.png",
+    
+    problem: "Setting up local developer environments across multiple frameworks (Node, React, Next.js, Express, Vue) is time-consuming, prone to dependency conflicts, and resource-heavy. Developers and learners lack a zero-setup, instant full-stack sandbox with integrated terminal and real-time AI copiloting.",
+    solution: "We engineered an in-browser cloud IDE powered by WebContainers to execute real Node.js processes directly in browser threads. Integrated Monaco Editor, xterm.js terminal with WebGL acceleration, Google Gemini AI code copilot for inline completions & sidepanel debugging, and 1-click full-stack templates with persistent MongoDB/Prisma storage.",
+    
+    features: [
+      { title: "In-Browser Node.js Runtime", description: "Execute real Node.js processes, run dev servers (npm run dev), build tools, and scripts inside WebContainers with multi-port live preview." },
+      { title: "Gemini-Powered AI Copilot", description: "Real-time inline autocompletions (Ctrl+Space) and interactive AI Chat sidepanel for code explanation, feature generation, and bug fixing." },
+      { title: "1-Click Full-Stack Templates", description: "Instant scaffolding for React (Vite+TS), Next.js App Router, Express.js REST API, Hono Edge API, Vue.js, and Angular." },
+      { title: "Pro Monaco Editor & xterm.js Shell", description: "VS Code-grade syntax highlighting, intelligent IntelliSense, full file tree manager, and embedded WebGL accelerated interactive terminal." }
+    ],
+    
+    architecture: {
+      frontend: "Next.js 15 (App Router) + React 19, TypeScript, Tailwind CSS v4 with Radix UI Primitives and Lucide Icons.",
+      backend: "Serverless Next.js API routes with NextAuth.js v5 (Google/GitHub OAuth 2.0) and Google Gemini 2.5 Flash SDK.",
+      database: "MongoDB Atlas with Prisma ORM v6 for persistent playground projects, starred items, and user chat histories.",
+      deployment: "Deployed on Vercel with Cross-Origin Isolation (COOP/COEP) headers enabled for WebContainer multi-threading."
+    },
+    
+    databaseDesign: {
+      entities: [
+        { name: "User", fields: ["id", "name", "email", "image", "accounts", "playgrounds", "createdAt"] },
+        { name: "Playground", fields: ["id", "userId", "title", "template", "files (JSON)", "isStarred", "updatedAt"] },
+        { name: "ChatHistory", fields: ["id", "playgroundId", "messages [{role, content, timestamp}]"] }
+      ],
+      description: "Normalized relational document schema structured with Prisma Client mapping Users to their custom Playgrounds and AI interaction histories."
+    },
+    
+    challenges: [
+      {
+        title: "Cross-Origin Isolation for WebContainers",
+        approach: "WebContainers require SharedArrayBuffer, which is blocked by default browser security policies without specific HTTP headers.",
+        solution: "Configured COOP (same-origin) and COEP (require-corp) security headers across Next.js middleware and Vercel routing configurations to enable multi-threaded WASM execution."
+      },
+      {
+        title: "Real-time AI Autocomplete Latency & Context",
+        approach: "Sending the entire project file tree on each keystroke caused API throttling and response lags exceeding 2 seconds.",
+        solution: "Implemented debounced keystroke listeners, localized cursor window context chunking, and streamed Gemini 2.5 Flash responses, reducing latency to <300ms."
+      }
+    ],
+    
+    metrics: [
+      { label: "Runtime Boot Time", value: "<1.2s" },
+      { label: "Framework Templates", value: "6+" },
+      { label: "AI Suggestions Latency", value: "<300ms" },
+      { label: "Terminal Framerate", value: "60 FPS" }
+    ],
+    
+    learnings: "Mastered WebContainer browser virtualization, cross-origin security isolation, Monaco editor AST integrations, and low-latency LLM streaming for developer tooling."
+  },
+
   "msbte-job-portal": {
     title: "MSBTE Diploma Job Portal",
     slug: "msbte-job-portal",
@@ -236,66 +296,6 @@ export const projectsDetails = {
     ],
     
     learnings: "Understood the complexities of native mobile operating systems, low-power background services, and real-time database syncing during safety critical conditions."
-  },
-
-  "student-platform": {
-    title: "Student Learning Platform",
-    slug: "student-platform",
-    category: "EdTech Platform",
-    tagline: "Collaborative hub providing academic modules, material distribution, and grade checkers",
-    description: "A digital learning platform providing study materials, tutorials, learning modules, progress tracking, and interactive educational resources for students.",
-    techStack: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Cloudinary", "JWT Auth"],
-    githubUrl: "https://github.com/buddherohit",
-    demoUrl: "#",
-    image: "/src/assets/projects/studentPlatform.png",
-    
-    problem: "Students frequently waste time hunting for scattered syllabus PDFs, model answer keys, and teacher notes across unorganized chats, while teachers struggle to push resource materials cleanly.",
-    solution: "Designed a centralized student portal. Teachers upload cataloged folders (Notes, PYQs, Solutions) for classes. Students access materials, track completed modules on their profile, and check academic progress in real-time.",
-    
-    features: [
-      { title: "Categorized Resource Drive", description: "Search and download study materials structured by Semesters, Branches, and Units." },
-      { title: "Progress Dashboard Tracker", description: "Tick off completed study chapters, visualizing readiness for exams via progress circles." },
-      { title: "Instant Notification Banner", description: "Receive instant updates when new study files or announcement notices are posted by admin." },
-      { title: "Interactive Doubt Board", description: "Students ask questions under specific modules and receive answers from classmates or teachers." }
-    ],
-    
-    architecture: {
-      frontend: "React client with rich responsive components and local state sync using Context API.",
-      backend: "Node.js + Express API server, implementing secure file parsing, JWT session verification, and file download routes.",
-      database: "MongoDB for data storage; Cloudinary API for storing educational PDFs, images, and files.",
-      deployment: "Hosted on Render with automatic staging and live database backups."
-    },
-    
-    databaseDesign: {
-      entities: [
-        { name: "Courses", fields: ["_id", "subjectName", "subjectCode", "semester", "branch"] },
-        { name: "Materials", fields: ["_id", "courseId", "title", "fileUrl", "fileType", "uploadedBy", "downloadsCount"] },
-        { name: "DoubtThreads", fields: ["_id", "courseId", "studentId", "questionText", "replies [{studentId, replyText, date}]"] }
-      ],
-      description: "Relational document modeling with material references nested inside courses to provide fast query navigation."
-    },
-    
-    challenges: [
-      {
-        title: "Uploading large PDF notes sheets",
-        approach: "Direct file uploads to the Node server clogged network threads, timing out on larger files.",
-        solution: "Implemented pre-signed URLs via Cloudinary SDK, allowing the frontend to upload files directly to Cloudinary safely without backend blocking."
-      },
-      {
-        title: "Unauthorized download access",
-        approach: "Direct cloud links could be shared outside the student network, wasting bandwidth.",
-        solution: "Routed all downloads through a JWT-validated backend controller that issues temporary secure download session keys."
-      }
-    ],
-    
-    metrics: [
-      { label: "Active Student Registrations", value: "2,200+" },
-      { label: "Uploaded Notes PDFs", value: "850+" },
-      { label: "Daily File Downloads", value: "400+" },
-      { label: "Server Uptime Record", value: "99.9%" }
-    ],
-    
-    learnings: "Familiarized myself with secure file validation systems, cloud asset management (Cloudinary), and structuring complex hierarchy collections in MongoDB."
   },
 
   "diplomagpt": {

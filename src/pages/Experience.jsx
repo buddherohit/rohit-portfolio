@@ -112,9 +112,9 @@ location: "Nagpur",
 description:
 "Developed multiple real-world software projects.",
 highlights: [
-"Women Safety System",
-"Student Learning Platform",
-"Smart Hostel Management System",
+"VibeCode Editor",
+"MSBTE Diploma Job Portal",
+"AI Touchless Computer Control",
 "Hands-on development experience"
 ],
 skills: ["Java", "Python", "DSA", "Web Development"],
