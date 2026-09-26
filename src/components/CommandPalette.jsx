@@ -345,7 +345,7 @@ export default function CommandPalette({
         keywords: ["leetcode", "dsa", "coding", "problem solving"],
         action: () => {
           setIsOpen(false);
-          window.open("https://leetcode.com/u/rohitbuddhe/", "_blank", "noopener,noreferrer");
+          window.open("#/", "_blank", "noopener,noreferrer");
         },
       },
       {
