@@ -336,7 +336,7 @@ export default function CommandPalette({
           );
         },
       },
-      {
+      /* {
         id: "soc-leetcode",
         category: "Social Links",
         label: "Open LeetCode",
@@ -347,7 +347,7 @@ export default function CommandPalette({
           setIsOpen(false);
           window.open("#/", "_blank", "noopener,noreferrer");
         },
-      },
+      }, */
       {
         id: "soc-twitter",
         category: "Social Links",

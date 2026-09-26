@@ -406,12 +406,12 @@ function AppContent() {
               href: "https://www.linkedin.com/in/rohit-buddhe-013aa5269/",
               label: "LinkedIn",
             },
-            {
+            /* {
               icon: LeetCodeIcon,
               href: "https://leetcode.com/u/rohitbuddhe/",
               label: "LeetCode",
               isCustom: true,
-            },
+            }, */
             { icon: Twitter, href: "https://x.com/rohitbuddhe", label: "Twitter" },
             {
               icon: Instagram,

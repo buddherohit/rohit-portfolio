@@ -32,7 +32,7 @@ const LeetCodeIcon = ({ size = 20 }) => (
 const socialLinks = [
   { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
-  { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
+  // { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
   { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
   { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
 ];
