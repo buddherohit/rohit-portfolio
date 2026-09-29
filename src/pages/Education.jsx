@@ -85,74 +85,74 @@ export default function Education() {
         viewport={{ once: true, amount: 0.05, margin: "0px 0px -100px 0px" }}
       >
         {/* Vertical Line */}
-        <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-slate-800" />
+        <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-white/10" />
 
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-6 sm:space-y-8">
           {EDUCATION_DATA.map((edu, index) => {
             const Icon = edu.icon;
             return (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="relative pl-12 sm:pl-24"
+                className="relative pl-10 sm:pl-20"
               >
-                {/* Timeline Dot */}
-                <div className="absolute left-1.5 sm:left-[26px] top-6 z-20">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white dark:bg-slate-950 border-4 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-md timeline-dot" />
+                {/* Timeline Dot (Sleek & refined) */}
+                <div className="absolute left-2.5 sm:left-[27px] top-6 z-20">
+                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 bg-white dark:bg-black border-2 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-[0_0_8px_rgba(34,211,238,0.5)] timeline-dot" />
                 </div>
 
-                {/* Content Card */}
+                {/* Content Card (Matching 'Available for Opportunities' Glass Style) */}
                 <div
-                  className="group relative bg-white dark:bg-slate-900/60 backdrop-blur-md rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300 border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] hover:-translate-y-1"
+                  className="group relative bg-white/70 dark:bg-white/[0.04] backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-200/80 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/25 dark:hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1"
                   style={{ willChange: "transform" }}
                 >
                   <div className="relative z-10">
                     {/* Top Row: Icon + Title */}
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                      <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                        <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                    <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 mb-3.5">
+                      <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center text-white shadow-md shrink-0`}>
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
 
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display transition-colors">
+                          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-display transition-colors">
                             {edu.degree}
                           </h3>
-                          <span className="px-3 py-1 text-xs font-semibold text-[#0891B2] dark:text-[#22D3EE] bg-cyan-50 dark:bg-cyan-950/30 rounded-full border border-cyan-200/70 dark:border-cyan-500/20">
+                          <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-mono font-medium text-gray-700 dark:text-white/80 bg-gray-100/80 dark:bg-white/5 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm">
                             {edu.year}
                           </span>
                         </div>
-                        <div className="text-sm sm:text-base font-medium text-[#374151] dark:text-[#CBD5E1] mb-1">
+                        <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           {edu.major}
                         </div>
-                        <div className="text-sm text-[#6B7280] dark:text-[#94A3B8] flex items-center gap-1.5">
-                          <span className="font-semibold text-[#111827] dark:text-[#F5F7FA]">{edu.shortInst}</span>
-                          <span className="w-1 h-1 bg-gray-300 dark:bg-slate-700 rounded-full" />
+                        <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                          <span className="font-semibold text-gray-800 dark:text-gray-200">{edu.shortInst}</span>
+                          <span className="w-1 h-1 bg-gray-300 dark:bg-white/20 rounded-full" />
                           <span className="hidden sm:inline">{edu.institution}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Location & Description */}
-                    <div className="mb-5 pl-0 sm:pl-[72px]">
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#6B7280] dark:text-[#94A3B8] mb-3">
+                    <div className="mb-4 pl-0 sm:pl-[60px]">
+                      <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-2.5">
                         <MapPin className="w-3.5 h-3.5 text-[#0891B2] dark:text-[#22D3EE]" />
                         {edu.location}
                       </div>
-                      <p className="text-sm text-[#374151] dark:text-[#CBD5E1] leading-relaxed mb-4">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         {edu.description}
                       </p>
 
-                      {/* Progress Bar */}
-                      <div className="bg-slate-50 dark:bg-slate-950/40 rounded-xl p-3 border border-slate-200/80 dark:border-slate-800">
-                        <div className="flex items-center justify-between text-xs font-medium text-[#6B7280] dark:text-[#94A3B8] mb-2">
-                          <span className="flex items-center gap-1.5">
+                      {/* Progress Bar Container */}
+                      <div className="bg-gray-50/60 dark:bg-white/[0.03] rounded-xl p-3 border border-gray-200/80 dark:border-white/10 backdrop-blur-sm">
+                        <div className="flex items-center justify-between text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
+                          <span className="flex items-center gap-1.5 text-[11px] sm:text-xs">
                             <TrendingUp className="w-3.5 h-3.5 text-[#0891B2] dark:text-[#22D3EE]" />
                             Status: <span className={edu.progress === 100 ? "text-[#65A30D] dark:text-[#A3E635] font-semibold" : "text-[#0891B2] dark:text-[#22D3EE] font-semibold"}>{edu.status}</span>
                           </span>
-                          <span className="font-mono">{edu.progress}%</span>
+                          <span className="font-mono text-[11px] sm:text-xs">{edu.progress}%</span>
                         </div>
-                        <div className="h-1.5 w-full bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden progress-bar-track">
+                        <div className="h-1.5 w-full bg-gray-200/80 dark:bg-white/10 rounded-full overflow-hidden progress-bar-track">
                           <motion.div
                             className={`h-full rounded-full bg-gradient-to-r progress-bar-fill ${edu.color}`}
                             initial={{ width: 0 }}

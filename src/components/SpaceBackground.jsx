@@ -111,18 +111,13 @@ export default function SpaceBackground() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Deep Space Base Background Fill
-      const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
-      bgGrad.addColorStop(0, "#030712");
-      bgGrad.addColorStop(0.4, "#040916");
-      bgGrad.addColorStop(0.75, "#050815");
-      bgGrad.addColorStop(1, "#020512");
-      ctx.fillStyle = bgGrad;
+      // Deep Space Base Background Fill - Pure Black (Hynts aesthetic)
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       // A. SUBTLE PERSPECTIVE / SCI-FI GRID (Desktop only)
       if (!isMob) {
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.035)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.02)";
         ctx.lineWidth = 0.5;
         const gridSize = 80;
         ctx.beginPath();
@@ -137,38 +132,28 @@ export default function SpaceBackground() {
         ctx.stroke();
       }
 
-      // B. FAINT ATMOSPHERIC NEBULA LAYERS (Desktop canvas; Mobile uses zero-CPU GPU CSS gradient)
+      // B. FAINT ATMOSPHERIC NEBULA ACCENTS (Soft, non-invasive glows on pure black)
       if (!isMob) {
-        // Nebula 1: Top-Right Soft Purple Atmospheric Wash
+        // Nebula 1: Top-Right Soft Purple
         const neb1X = width * 0.82 + Math.sin(time * 0.3) * 15;
         const neb1Y = height * 0.20 + Math.cos(time * 0.25) * 12;
         const neb1Radius = Math.min(width, height) * 0.35;
         const neb1 = ctx.createRadialGradient(neb1X, neb1Y, 0, neb1X, neb1Y, neb1Radius);
-        neb1.addColorStop(0, "rgba(139, 92, 246, 0.09)");
-        neb1.addColorStop(0.5, "rgba(109, 40, 217, 0.03)");
-        neb1.addColorStop(1, "rgba(139, 92, 246, 0)");
+        neb1.addColorStop(0, "rgba(139, 92, 246, 0.04)");
+        neb1.addColorStop(0.6, "rgba(109, 40, 217, 0.01)");
+        neb1.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = neb1;
         ctx.fillRect(0, 0, width, height);
 
-        // Nebula 2 & 3
+        // Nebula 2: Subtle Cyan Accent
         const neb2X = width * 0.14 + Math.cos(time * 0.25) * 15;
         const neb2Y = height * 0.55 + Math.sin(time * 0.3) * 15;
-        const neb2Radius = Math.min(width, height) * 0.36;
+        const neb2Radius = Math.min(width, height) * 0.32;
         const neb2 = ctx.createRadialGradient(neb2X, neb2Y, 0, neb2X, neb2Y, neb2Radius);
-        neb2.addColorStop(0, "rgba(6, 182, 212, 0.07)");
-        neb2.addColorStop(0.5, "rgba(14, 116, 144, 0.02)");
-        neb2.addColorStop(1, "rgba(6, 182, 212, 0)");
+        neb2.addColorStop(0, "rgba(6, 182, 212, 0.03)");
+        neb2.addColorStop(0.6, "rgba(14, 116, 144, 0.01)");
+        neb2.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = neb2;
-        ctx.fillRect(0, 0, width, height);
-
-        const neb3X = width * 0.72 + Math.sin(time * 0.2) * 18;
-        const neb3Y = height * 0.85 + Math.cos(time * 0.22) * 15;
-        const neb3Radius = Math.min(width, height) * 0.30;
-        const neb3 = ctx.createRadialGradient(neb3X, neb3Y, 0, neb3X, neb3Y, neb3Radius);
-        neb3.addColorStop(0, "rgba(59, 130, 246, 0.06)");
-        neb3.addColorStop(0.6, "rgba(30, 58, 138, 0.02)");
-        neb3.addColorStop(1, "rgba(59, 130, 246, 0)");
-        ctx.fillStyle = neb3;
         ctx.fillRect(0, 0, width, height);
       }
 
@@ -506,7 +491,7 @@ export default function SpaceBackground() {
           className="absolute inset-0 pointer-events-none animate-nebula-breathe"
           style={{
             background:
-              "radial-gradient(ellipse 70% 45% at 80% 18%, rgba(139, 92, 246, 0.55), transparent 70%), radial-gradient(ellipse 60% 40% at 20% 75%, rgba(6, 182, 212, 0.45), transparent 70%)",
+              "radial-gradient(ellipse 70% 45% at 80% 18%, rgba(139, 92, 246, 0.08), transparent 70%), radial-gradient(ellipse 60% 40% at 20% 75%, rgba(6, 182, 212, 0.06), transparent 70%)",
           }}
         />
       )}

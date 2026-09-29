@@ -157,41 +157,41 @@ export default function Projects() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="mb-12">
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-widest text-[#0891B2] dark:text-[#22D3EE] uppercase bg-cyan-50 dark:bg-cyan-950/30 rounded-full border border-cyan-200/60 dark:border-cyan-500/20">
+        <motion.div className="mb-8 sm:mb-10">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-3 text-[11px] font-mono tracking-wider text-gray-700 dark:text-white/80 uppercase bg-gray-50/50 dark:bg-white/5 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm">
             Portfolio • Work • Projects
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white font-display tracking-tight mb-2.5">
             My Projects
           </h2>
 
-          <p className="text-base sm:text-lg text-[#374151] dark:text-[#CBD5E1] max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
             Here are some of my projects showcasing my skills in AI,
             Computer Vision, Full Stack Development, Problem Solving,
             and Real-World Software Applications.
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-3 mb-12">
+        {/* Filter Tabs (Compact & Sleek) */}
+        <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-8 sm:mb-10">
           {filterTabs.map((tab) => (
             <button
               key={tab.value}
               onClick={() => setActiveFilter(tab.value)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
+              className={`px-3.5 py-1.5 sm:px-4.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 activeFilter === tab.value
-                  ? "bg-[#0891B2] text-white dark:bg-[#22D3EE] dark:text-slate-950 dark:font-semibold shadow-md"
-                  : "bg-white/80 dark:bg-slate-900/60 text-[#374151] dark:text-[#CBD5E1] border border-gray-200 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/30 hover:bg-cyan-50/50 dark:hover:bg-slate-800"
+                  ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+                  : "bg-white/70 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-200/80 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:bg-gray-100/60 dark:hover:bg-white/10 backdrop-blur-sm"
               }`}
             >
-              {tab.label} <span className="ml-1.5 text-xs opacity-75">({tab.count})</span>
+              {tab.label} <span className="ml-1 text-[11px] opacity-75 font-mono">({tab.count})</span>
             </button>
           ))}
         </div>
 
-        {/* Projects Timeline Grid */}
-        <motion.div className="space-y-12" layout>
+        {/* Projects Grid (Compact Mobile Spacing) */}
+        <motion.div className="space-y-5 sm:space-y-7" layout>
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <motion.div

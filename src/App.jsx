@@ -361,7 +361,7 @@ function AppContent() {
   return (
     <div
       className={`min-h-screen flex flex-col relative transition-colors duration-300 text-gray-800 dark:text-slate-100 ${
-        showCosmic ? "bg-transparent" : "bg-white dark:bg-slate-950"
+        showCosmic ? "bg-transparent" : "bg-white dark:bg-black"
       }`}
     >
       {/* 0. Full-screen Cinematic Rocket Launch Loader */}

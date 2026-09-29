@@ -182,7 +182,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-32 pb-20 md:pb-28 bg-white dark:bg-black text-black dark:text-white overflow-hidden min-h-[650px] flex items-center justify-center">
+    <section className="relative pt-32 pb-20 md:pb-28 bg-white dark:bg-transparent text-black dark:text-white overflow-hidden min-h-[650px] flex items-center justify-center">
       {/* ── BACKGROUND ORBITS & GLOW (EXACT HYNTS TRANSLATION SPEC) ── */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 translate-y-[280px] md:translate-y-[520px]">
         {/* Violet / Cyan Centre Glow */}
@@ -293,9 +293,9 @@ export default function Hero() {
           building production-ready full-stack software, scalable microservices, and AI-driven platforms with clean architecture.
         </motion.p>
 
-        {/* CTA (Hynts exact button specification) */}
+        {/* CTA (Mobile-optimized, sleek Hynts buttons) */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-5"
+          className="flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-5 px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -303,16 +303,16 @@ export default function Hero() {
           {/* Primary Button */}
           <button
             onClick={() => scrollToSection("contact")}
-            className="group inline-flex items-center justify-center gap-3 bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-300 hover:scale-[1.02] active:scale-98 shadow-[0_8px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.15)] cursor-pointer"
+            className="group inline-flex items-center justify-center gap-2 bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white px-4.5 py-2.5 sm:px-6 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 hover:scale-[1.02] active:scale-98 shadow-sm cursor-pointer whitespace-nowrap"
           >
             <span>Contact me!</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
 
           {/* Secondary Button */}
           <button
             onClick={() => scrollToSection("projects")}
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-gray-300 dark:border-white/20 bg-gray-50/50 dark:bg-white/5 backdrop-blur-md text-gray-800 dark:text-white font-semibold text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5.5 sm:py-3 rounded-full border border-gray-300/80 dark:border-white/15 bg-white/50 dark:bg-white/5 backdrop-blur-md text-gray-800 dark:text-white font-semibold text-xs sm:text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap"
           >
             <span>Explore Projects</span>
           </button>

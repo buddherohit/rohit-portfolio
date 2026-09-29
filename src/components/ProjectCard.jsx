@@ -64,55 +64,55 @@ function ProjectCard({
 
   return (
     <motion.div
-      className="rounded-3xl border border-slate-200/90 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 backdrop-blur-md p-8 shadow-sm hover:shadow-xl dark:shadow-none dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(6,182,212,0.12)] transition-all duration-300 hover:-translate-y-1"
+      className="rounded-2xl border border-gray-200/80 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] backdrop-blur-md p-4 sm:p-6 lg:p-7 shadow-sm hover:border-gray-300 dark:hover:border-white/25 dark:hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
       variants={cardVariants}
     >
-      <div className={`grid lg:grid-cols-[1.3fr_1fr] gap-8 items-center ${!isEven ? 'lg:grid-cols-[1fr_1.3fr]' : ''}`}>
+      <div className={`grid lg:grid-cols-[1.3fr_1fr] gap-5 sm:gap-6 lg:gap-8 items-center ${!isEven ? 'lg:grid-cols-[1fr_1.3fr]' : ''}`}>
 
         {/* Content */}
         <motion.div
-          className={`space-y-6 ${!isEven ? 'lg:order-2' : ''}`}
+          className={`space-y-3 sm:space-y-4 ${!isEven ? 'lg:order-2' : ''}`}
           variants={contentVariants}
         >
 
-          {/* Category / Metadata — Muted gray */}
+          {/* Category / Metadata Pill */}
           {category && (
-            <span className="inline-block text-xs font-semibold tracking-wider text-[#6B7280] dark:text-[#94A3B8] uppercase">
+            <span className="inline-block px-2.5 py-0.5 text-[10px] sm:text-xs font-mono font-medium tracking-wider text-gray-600 dark:text-white/70 bg-gray-100/80 dark:bg-white/5 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm uppercase">
               {category}
             </span>
           )}
 
-          {/* Title — Strong, high contrast */}
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display">
+          {/* Title — Clean, proportional */}
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight">
             {title}
           </h3>
 
-          {/* Description — Soft readable gray */}
-          <p className="text-[#374151] dark:text-[#CBD5E1] leading-relaxed text-sm sm:text-base">
+          {/* Description — Soft readable text */}
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
             {description}
           </p>
 
-          {/* Technology tags — Small accent colors */}
-          <div className="flex flex-wrap gap-2">
+          {/* Technology tags — Sleek pill tags */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 text-xs font-medium bg-slate-100 dark:bg-cyan-950/30 text-[#0891B2] dark:text-[#22D3EE] rounded-md border border-slate-200/80 dark:border-cyan-500/25 transition"
+                className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-mono font-medium bg-gray-100/70 dark:bg-white/5 text-gray-700 dark:text-white/80 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Buttons — CTA: Primary cyan/blue accent */}
-          <div className="flex flex-wrap gap-3 pt-2">
+          {/* Buttons — Compact, mobile-friendly */}
+          <div className="flex flex-wrap gap-2 sm:gap-2.5 pt-1">
             {slug && (
               <button
                 onClick={() => navigate(`/projects/${slug}`)}
-                className="px-4 py-2 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 rounded-lg transition-all duration-300 shadow-sm cursor-pointer font-semibold text-sm"
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-black dark:bg-white text-white dark:text-black rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 hover:scale-[1.02] active:scale-98 shadow-sm cursor-pointer whitespace-nowrap"
               >
                 Case Study
               </button>
@@ -123,7 +123,7 @@ function ProjectCard({
                 href={demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 rounded-lg transition shadow-sm cursor-pointer text-sm font-semibold"
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#0891B2] hover:bg-[#0e7490] text-white dark:bg-[#22D3EE] dark:hover:bg-[#67E8F9] dark:text-slate-950 rounded-full font-semibold text-xs sm:text-sm transition shadow-sm cursor-pointer whitespace-nowrap"
               >
                 Live Demo
               </a>
@@ -133,7 +133,7 @@ function ProjectCard({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 border border-gray-300 dark:border-slate-700 text-[#374151] dark:text-[#CBD5E1] rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer text-sm font-medium"
+              className="px-3.5 py-1.5 sm:px-4 sm:py-2 border border-gray-300/80 dark:border-white/15 bg-white/50 dark:bg-white/5 backdrop-blur-md text-gray-800 dark:text-white font-semibold text-xs sm:text-sm hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition cursor-pointer whitespace-nowrap"
             >
               GitHub
             </a>
@@ -144,7 +144,7 @@ function ProjectCard({
 
         {/* Image */}
         <motion.div
-          className={`relative rounded-2xl overflow-hidden shadow-lg ${!isEven ? 'lg:order-1' : ''}`}
+          className={`relative rounded-xl overflow-hidden border border-gray-200/60 dark:border-white/10 shadow-md ${!isEven ? 'lg:order-1' : ''}`}
           variants={imageVariants}
         >
           {image ? (
@@ -153,11 +153,11 @@ function ProjectCard({
               alt={title}
               loading="lazy"
               decoding="async"
-              className="w-full h-[280px] object-cover hover:scale-105 transition duration-500"
+              className="w-full h-[180px] sm:h-[220px] lg:h-[250px] object-cover hover:scale-105 transition duration-500"
             />
           ) : (
-            <div className="h-[280px] bg-gradient-to-br from-red-100 to-gray-100 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center">
-              <span className="text-6xl">🚀</span>
+            <div className="h-[180px] sm:h-[220px] lg:h-[250px] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/5 dark:to-white/[0.02] flex items-center justify-center">
+              <span className="text-5xl">🚀</span>
             </div>
           )}
         </motion.div>

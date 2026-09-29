@@ -41,6 +41,11 @@ html.dark:not(.academic) {
   --color-border: rgba(255, 255, 255, 0.08);
   --color-card-bg: rgba(15, 23, 42, 0.60);
   --color-card-border: rgba(255, 255, 255, 0.09);
+  background-color: #000000 !important;
+}
+
+html.dark:not(.academic) body {
+  background-color: #000000 !important;
 }
 
 html.academic {

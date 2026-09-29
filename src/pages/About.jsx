@@ -108,35 +108,35 @@ export default function About() {
             </div>
 
             {/* Skills Timeline */}
-            <div className="relative border-l-2 border-gray-200 dark:border-slate-800 space-y-10 pl-8">
+            <div className="relative border-l-2 border-gray-200 dark:border-white/10 space-y-6 sm:space-y-8 pl-6 sm:pl-8">
 
               {pillars.map((pillar, index) => (
 
                 <motion.div
                   key={pillar.title}
                   className="relative group"
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
 
-                  {/* Timeline Dot */}
-                  <div className="absolute -left-[38px] top-8 w-6 h-6 bg-white dark:bg-slate-950 border-4 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-md timeline-dot" />
+                  {/* Timeline Dot (Sleek & refined) */}
+                  <div className="absolute -left-[32px] sm:-left-[40px] top-5 sm:top-6 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-white dark:bg-black border-2 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-[0_0_8px_rgba(34,211,238,0.5)] timeline-dot" />
 
-                  {/* Card */}
+                  {/* Card (Matching 'Available for Opportunities' Glass Style) */}
                   <motion.div
-                    className="bg-white dark:bg-slate-900/60 backdrop-blur-md p-8 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 shadow-sm hover:shadow-xl dark:shadow-none hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] transition-all duration-300 cursor-pointer"
-                    whileHover={{ y: -6, scale: 1.01 }}
+                    className="bg-white/70 dark:bg-white/[0.04] backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-gray-200/80 dark:border-white/10 shadow-sm hover:border-gray-300 dark:hover:border-white/25 dark:hover:bg-white/[0.07] transition-all duration-300 cursor-pointer"
+                    whileHover={{ y: -4, scale: 1.01 }}
                   >
 
-                    {/* Heading - Strong, high contrast */}
-                    <h4 className="text-xl sm:text-2xl font-bold text-[#111827] dark:text-[#F5F7FA] group-hover:text-[#0891B2] dark:group-hover:text-[#22D3EE] transition duration-300 mb-3 font-display">
+                    {/* Heading - Clean, proportional */}
+                    <h4 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#0891B2] dark:group-hover:text-[#22D3EE] transition duration-300 mb-1.5 font-display tracking-tight">
                       {pillar.title}
                     </h4>
 
-                    {/* Description - Soft readable gray */}
-                    <p className="text-[#374151] dark:text-[#CBD5E1] leading-relaxed text-base">
+                    {/* Description - Soft readable text */}
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-xs sm:text-sm">
                       {pillar.copy}
                     </p>
 
@@ -158,20 +158,20 @@ export default function About() {
 
             <div className="relative w-full max-w-md">
 
-              {/* Floating Red Glow */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-200 dark:bg-red-950/20 rounded-full blur-3xl opacity-40 animate-pulse" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200 dark:bg-blue-950/15 rounded-full blur-3xl opacity-30 animate-pulse" />
+              {/* Subtle Ambient Glow */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-200/30 dark:bg-red-500/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-cyan-200/30 dark:bg-cyan-500/10 rounded-full blur-3xl opacity-20 animate-pulse" />
 
               <motion.div
-                className="relative flex flex-col items-center text-center bg-white dark:bg-slate-900/70 backdrop-blur-md rounded-3xl p-10 border border-slate-200/90 dark:border-slate-800/80 shadow-sm hover:shadow-xl dark:shadow-none dark:hover:border-cyan-500/30 transition duration-300"
-                whileHover={{ y: -8 }}
-                initial={{ opacity: 0, y: 40 }}
+                className="relative flex flex-col items-center text-center bg-white/70 dark:bg-white/[0.04] backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-gray-200/80 dark:border-white/10 shadow-sm hover:border-gray-300 dark:hover:border-white/20 transition duration-300"
+                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
 
                 {/* Profile Image */}
-                <div className="relative w-48 h-48 mb-6">
+                <div className="relative w-40 h-40 sm:w-44 sm:h-44 mb-5">
 
                   {/* Red Glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-300 rounded-3xl blur-xl opacity-20 dark:opacity-10 animate-pulse" />
@@ -195,42 +195,42 @@ export default function About() {
 
                 {/* Name */}
                 <motion.h3 
-                  className="text-2xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-1"
-                  whileHover={{ scale: 1.05 }}
+                  className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white font-display mb-1"
+                  whileHover={{ scale: 1.03 }}
                 >
                   Rohit Buddhe
                 </motion.h3>
 
                 {/* Title */}
-                <p className="text-[#6B7280] dark:text-[#94A3B8] font-medium mb-6 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 font-medium mb-5 text-xs sm:text-sm">
                   Software Developer
                 </p>
 
                 {/* Info Cards */}
-                <div className="grid grid-cols-2 gap-4 w-full">
+                <div className="grid grid-cols-2 gap-3.5 w-full">
 
                   <motion.div
-                    className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition"
-                    whileHover={{ scale: 1.05 }}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-gray-50/60 dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/10 backdrop-blur-sm hover:border-gray-300 dark:hover:border-white/20 transition"
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <p className="text-xs uppercase text-[#6B7280] dark:text-[#94A3B8] font-semibold">
+                    <p className="text-[10px] uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wider mb-0.5">
                       Focus
                     </p>
 
-                    <p className="text-base sm:text-lg font-bold text-[#111827] dark:text-[#F5F7FA]">
+                    <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-white font-display">
                       Java + DSA
                     </p>
                   </motion.div>
 
                   <motion.div
-                    className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition"
-                    whileHover={{ scale: 1.05 }}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-gray-50/60 dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/10 backdrop-blur-sm hover:border-gray-300 dark:hover:border-white/20 transition"
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <p className="text-xs uppercase text-[#6B7280] dark:text-[#94A3B8] font-semibold">
+                    <p className="text-[10px] uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wider mb-0.5">
                       Location
                     </p>
 
-                    <p className="text-base sm:text-lg font-bold text-[#111827] dark:text-[#F5F7FA]">
+                    <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-white font-display">
                       Nagpur
                     </p>
                   </motion.div>

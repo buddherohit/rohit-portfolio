@@ -159,52 +159,52 @@ viewport={{ once: true }}
 >
 
         {/* Vertical Line */}
-        <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-slate-800 timeline-line" />
+        <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-white/10 timeline-line" />
 
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-6 sm:space-y-8">
           {EXPERIENCE_DATA.map((exp, index) => {
             const Icon = exp.icon;
             return (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="relative pl-12 sm:pl-24"
+                className="relative pl-10 sm:pl-20"
               >
-                {/* Timeline Dot */}
-                <div className="absolute left-1.5 sm:left-[26px] top-6 z-20">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white dark:bg-slate-950 border-4 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-md timeline-dot" />
+                {/* Timeline Dot (Sleek & refined) */}
+                <div className="absolute left-2.5 sm:left-[27px] top-6 z-20">
+                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 bg-white dark:bg-black border-2 border-[#0891B2] dark:border-[#22D3EE] rounded-full shadow-[0_0_8px_rgba(34,211,238,0.5)] timeline-dot" />
                 </div>
 
-                {/* Content Card */}
+                {/* Content Card (Matching 'Available for Opportunities' Glass Style) */}
                 <div
-                  className="group relative bg-white dark:bg-slate-900/60 backdrop-blur-md rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300 border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] hover:-translate-y-1"
+                  className="group relative bg-white/70 dark:bg-white/[0.04] backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-200/80 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/25 dark:hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1"
                   style={{ willChange: "transform" }}
                 >
                   <div className="relative z-10">
                     {/* Top Row: Icon + Title */}
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                      <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                        <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                    <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 mb-3.5">
+                      <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center text-white shadow-md shrink-0`}>
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
 
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display transition-colors">
+                          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-display transition-colors">
                             {exp.title}
                           </h3>
                           <div className="flex items-center gap-2">
-                            <span className="px-3 py-1 text-xs font-semibold text-[#0891B2] dark:text-[#22D3EE] bg-cyan-50 dark:bg-cyan-950/30 rounded-full border border-cyan-200/70 dark:border-cyan-500/20">
+                            <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-mono font-medium text-gray-700 dark:text-white/80 bg-gray-100/80 dark:bg-white/5 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm">
                               {exp.period}
                             </span>
-                            <span className="text-xs text-[#6B7280] dark:text-[#94A3B8] font-medium hidden sm:inline-block">
+                            <span className="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 font-medium hidden sm:inline-block">
                               ({exp.duration})
                             </span>
                           </div>
                         </div>
-                        <div className="text-sm sm:text-base font-medium text-[#374151] dark:text-[#CBD5E1] mb-1">
+                        <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-0.5">
                           {exp.company}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#6B7280] dark:text-[#94A3B8]">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
                           <MapPin className="w-3.5 h-3.5 text-[#0891B2] dark:text-[#22D3EE]" />
                           {exp.location}
                         </div>
@@ -212,27 +212,27 @@ viewport={{ once: true }}
                     </div>
 
                     {/* Description & Highlights */}
-                    <div className="mb-5 pl-0 sm:pl-[72px]">
-                      <p className="text-sm text-[#374151] dark:text-[#CBD5E1] leading-relaxed mb-4">
+                    <div className="mb-2 pl-0 sm:pl-[60px]">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
                         {exp.description}
                       </p>
 
-                      <div className="grid sm:grid-cols-2 gap-3 mb-5">
+                      <div className="grid sm:grid-cols-2 gap-2 mb-3.5">
                         {exp.highlights.map((highlight, idx) => (
                           <div key={idx} className="flex items-start gap-2">
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#0891B2] dark:bg-[#22D3EE] shrink-0" />
-                            <span className="text-sm text-[#374151] dark:text-[#CBD5E1]">
+                            <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                               {highlight}
                             </span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2">
                         {exp.skills.map((skill, i) => (
                           <span
                             key={i}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-[#0891B2] dark:text-[#22D3EE] bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-800 transition-all duration-300"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] sm:text-xs font-mono text-gray-700 dark:text-white/80 bg-gray-100/60 dark:bg-white/5 rounded-full border border-gray-200/80 dark:border-white/10 backdrop-blur-sm transition-all duration-300"
                           >
                             <CheckCircle2 className="w-3 h-3 text-[#0891B2] dark:text-[#22D3EE]" />
                             {skill}
