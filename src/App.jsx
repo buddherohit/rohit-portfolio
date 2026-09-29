@@ -177,9 +177,19 @@ function AppContent() {
       return;
     }
 
-    // Get click coordinates (or fallback to top-right corner where toggle is)
-    const x = event?.clientX ?? window.innerWidth - 40;
-    const y = event?.clientY ?? 40;
+    // Dynamic origin coordinates:
+    // 1. White to Black (Light -> Dark): Top-right button position downwards
+    // 2. Black to White (Dark -> Light): Opposite bottom-left corner upwards
+    let x, y;
+    if (nextTheme === "dark") {
+      x = event?.clientX ?? window.innerWidth - 40;
+      y = event?.clientY ?? 40;
+    } else {
+      // Opposite corner (Bottom-Left)
+      x = 0;
+      y = window.innerHeight;
+    }
+
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
