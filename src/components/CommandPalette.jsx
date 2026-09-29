@@ -252,15 +252,6 @@ export default function CommandPalette({
         action: () => scrollToSection("achievements"),
       },
       {
-        id: "nav-certificates",
-        category: "Navigation",
-        label: "Certificates",
-        description: "Verified tech credentials",
-        icon: FileBadge,
-        keywords: ["certificates", "certifications", "licenses", "gfg", "google"],
-        action: () => scrollToSection("certificates"),
-      },
-      {
         id: "nav-contact",
         category: "Navigation",
         label: "Contact Me",
@@ -352,12 +343,12 @@ export default function CommandPalette({
         id: "soc-twitter",
         category: "Social Links",
         label: "Open Twitter / X",
-        description: "x.com/rohitbuddhe",
+        description: "x.com/Rohit_Buddhee",
         icon: Twitter,
         keywords: ["twitter", "x", "social"],
         action: () => {
           setIsOpen(false);
-          window.open("https://x.com/rohitbuddhe", "_blank", "noopener,noreferrer");
+          window.open("https://x.com/Rohit_Buddhee", "_blank", "noopener,noreferrer");
         },
       },
       {

@@ -11,7 +11,6 @@ const Experience = lazy(() => import("./Experience"));
 const Skills = lazy(() => import("./Skills"));
 const Projects = lazy(() => import("./Projects"));
 const Achievements = lazy(() => import("./Achievements"));
-const Certificates = lazy(() => import("./Certificates"));
 const Contact = lazy(() => import("./Contact"));
 
 const LeetCodeIcon = ({ size = 20 }) => (
@@ -33,7 +32,7 @@ const socialLinks = [
   { icon: Github, href: 'https://github.com/buddherohit', label: 'GitHub' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/rohit-buddhe-013aa5269/', label: 'LinkedIn' },
   // { icon: LeetCodeIcon, href: 'https://leetcode.com/u/rohitbuddhe/', label: 'LeetCode', isCustom: true },
-  { icon: Twitter, href: 'https://x.com/rohitbuddhe', label: 'Twitter' },
+  { icon: Twitter, href: 'https://x.com/Rohit_Buddhee', label: 'Twitter' },
   { icon: Instagram, href: 'https://instagram.com/official_rohit_45', label: 'Instagram' },
 ];
 
@@ -87,12 +86,6 @@ export default function Home() {
         </Suspense>
       </div>
 
-      {/* Certificates Section */}
-      <div id="certificates">
-        <Suspense fallback={<div className="max-w-6xl mx-auto px-4 sm:px-6 py-12"><div className="h-40 animate-pulse rounded-2xl bg-gray-100/50 dark:bg-slate-900/50" /></div>}>
-          <Certificates />
-        </Suspense>
-      </div>
 
       {/* Contact Section */}
       <div id="contact">

@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect, useRef, useState, useCallback } from "react";
+import { flushSync } from "react-dom";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Github, Instagram, Twitter, Linkedin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -147,16 +148,73 @@ function AppContent() {
     localStorage.setItem("theme", theme);
   }, [theme, portfolioMode]);
 
-  // Functional toggle handlers
-  const toggleTheme = useCallback(() => {
+  // Functional toggle handlers with buttery smooth circular View Transition
+  const toggleTheme = useCallback((event) => {
     if (portfolioMode === "academic") return;
-    setTheme((prev) => {
-      const next = prev === "light" ? "dark" : "light";
-      setDeveloperTheme(next);
-      localStorage.setItem("developerTheme", next);
-      return next;
+
+    const nextTheme = theme === "light" ? "dark" : "light";
+
+    const executeThemeChange = () => {
+      // Synchronously sync html element class for razor-sharp View Transition snapshot
+      if (nextTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      setTheme(nextTheme);
+      setDeveloperTheme(nextTheme);
+      localStorage.setItem("developerTheme", nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    };
+
+    // Fallback if View Transitions API is not supported or user prefers reduced motion
+    if (
+      typeof document === "undefined" ||
+      !document.startViewTransition ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      executeThemeChange();
+      return;
+    }
+
+    // Get click coordinates (or fallback to top-right corner where toggle is)
+    const x = event?.clientX ?? window.innerWidth - 40;
+    const y = event?.clientY ?? 40;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.documentElement.classList.add("theme-transitioning");
+
+    const transition = document.startViewTransition(() => {
+      flushSync(() => {
+        executeThemeChange();
+      });
     });
-  }, [portfolioMode]);
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+
+      const anim = document.documentElement.animate(
+        {
+          clipPath: clipPath,
+        },
+        {
+          duration: 650,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
+
+      anim.finished.finally(() => {
+        document.documentElement.classList.remove("theme-transitioning");
+      });
+    });
+  }, [portfolioMode, theme]);
 
   const toggleMode = useCallback(() => {
     setPortfolioMode((prev) => {
@@ -412,7 +470,7 @@ function AppContent() {
               label: "LeetCode",
               isCustom: true,
             }, */
-            { icon: Twitter, href: "https://x.com/rohitbuddhe", label: "Twitter" },
+            { icon: Twitter, href: "https://x.com/Rohit_Buddhee", label: "Twitter" },
             {
               icon: Instagram,
               href: "https://instagram.com/official_rohit_45",

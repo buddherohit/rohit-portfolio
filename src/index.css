@@ -723,36 +723,81 @@ video {
   }
 }
 
-/* Lightweight marquee for Skills ticker */
-@keyframes marquee-x {
+/* Circular View Transition for Theme Switch (Ripple Effect) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 99999;
+}
+
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
+}
+
+/* Horizontal Movement Tech Stack Marquee (pratikrai.dev style) */
+@keyframes marquee-left {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-.marquee {
-  overflow: hidden;
-  width: 100%;
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.marquee__track {
+.animate-marquee-left {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marquee-x 30s linear infinite;
+  animation: marquee-left 34s linear infinite;
 }
 
-.marquee.paused .marquee__track {
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-right 34s linear infinite;
+}
+
+/* Row-specific pause: only the hovered row pauses! */
+.marquee-row:hover .animate-marquee-left,
+.marquee-row:hover .animate-marquee-right {
   animation-play-state: paused;
 }
 
+@media (max-width: 640px) {
+  .animate-marquee-left {
+    animation-duration: 24s;
+  }
+  .animate-marquee-right {
+    animation-duration: 24s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee__track {
+  .animate-marquee-left,
+  .animate-marquee-right {
     animation: none;
-    transform: translateX(0);
+    transform: none;
   }
 }
 

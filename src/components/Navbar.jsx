@@ -61,7 +61,6 @@ export default function Navbar({
       "skills",
       "projects",
       "achievements",
-      "certificates",
       "contact",
     ];
 
@@ -146,7 +145,6 @@ export default function Navbar({
       { id: "projects", label: "PROJECTS", icon: FolderGit, isRoute: false },
       { id: "blog", label: "BLOG", icon: BookOpen, isRoute: true, path: "/blog" },
       { id: "achievements", label: "ACHIEVEMENTS", icon: Award, isRoute: false },
-      { id: "certificates", label: "CERTIFICATES", icon: Award, isRoute: false },
       { id: "contact", label: "CONTACT", icon: Mail, isRoute: false },
     ],
     []
@@ -197,8 +195,8 @@ export default function Navbar({
           )}
         </FramerAnimatePresence>
 
-        {/* Academic / Developer Mode Toggle */}
-        <motionDesign.button
+        {/* Academic / Developer Mode Toggle (Temporarily disabled) */}
+        {/* <motionDesign.button
           onClick={toggleMode}
           className="relative p-2 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-gray-200/80 dark:border-slate-800 hover:bg-gray-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-md backdrop-blur-md cursor-pointer flex items-center justify-center group"
           whileHover={{ scale: 1.05 }}
@@ -221,11 +219,10 @@ export default function Navbar({
           ) : (
             <Monitor size={18} className="text-slate-700" />
           )}
-          {/* Tooltip */}
           <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold px-2 py-1 rounded-md bg-slate-900 text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 border border-slate-700 shadow-md">
             {portfolioMode === "developer" ? "Academic Mode" : "Developer Mode"}
           </span>
-        </motionDesign.button>
+        </motionDesign.button> */}
 
         {/* Dark Mode Toggle Button (Active in Developer Mode) */}
         <motionDesign.button

@@ -1,185 +1,251 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Code2, Rocket, Wrench } from "lucide-react";
+import { Sparkles, Terminal } from "lucide-react";
 
 export default function Skills() {
-    // Memoized skill categories
-    const SKILLS_CATEGORIES = useMemo(
-        () => [
-            {
-                title: "Programming Languages",
-                description:
-                    "Core languages I use for problem-solving and development.",
-                icon: Code2,
-                color: "from-blue-500 to-cyan-500",
-                skills: [
-                    { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-                    { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-                    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-                    { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-                    { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
-                    { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuresqldatabase/azuresqldatabase-original.svg" },
-                ],
-            },
-            {
-                title: "Dev Skills & Frameworks",
-                description:
-                    "Modern frameworks and technologies for building full-stack applications.",
-                icon: Rocket,
-                color: "from-emerald-500 to-teal-500",
-                skills: [
-                    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-                    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-                    { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
-                    { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-                    { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-                    { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-                    { name: "REST API", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
-                    { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-                ],
-            },
-            {
-                title: "Tools & Databases",
-                description:
-                    "Essential tools and database systems for efficient development workflows.",
-                icon: Wrench,
-                color: "from-orange-500 to-red-500",
-                skills: [
-                    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-                    { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-                    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-                    { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-                    { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-                    { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
-                    { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-                    { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
-                    { name: "npm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" },
-                    { name: "Postman", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
-                ],
-            },
-        ],
-        []
-    );
+  // Row 1: Languages & Core Engineering
+  const row1 = useMemo(
+    () => [
+      {
+        name: "Java",
+        category: "Language · OOP",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      },
+      {
+        name: "Python",
+        category: "AI · Scripting",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      },
+      {
+        name: "C++",
+        category: "DSA · Systems",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+      },
+      {
+        name: "JavaScript",
+        category: "Full Stack",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      },
+      {
+        name: "TypeScript",
+        category: "Typed JS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      },
+      {
+        name: "C",
+        category: "Low-Level",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+      },
+      {
+        name: "SQL",
+        category: "Relational DB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuresqldatabase/azuresqldatabase-original.svg",
+      },
+      {
+        name: "HTML5",
+        category: "Web Markup",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      },
+      {
+        name: "CSS3",
+        category: "Modern Styling",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      },
+    ],
+    []
+  );
 
-    // Directional spring animation variants
-    const getCardVariants = useMemo(
-        () => (index) => {
-            const xOffset = 50;
-            const yOffset = 50;
-            let initial = {};
-            if (index === 0) initial = { opacity: 0, x: -xOffset }; // left card
-            else if (index === 1) initial = { opacity: 0, y: yOffset }; // center card
-            else initial = { opacity: 0, x: xOffset }; // right card
+  // Row 2: Frameworks, Web & AI
+  const row2 = useMemo(
+    () => [
+      {
+        name: "React",
+        category: "UI Library",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "Next.js 15",
+        category: "Full Stack",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      },
+      {
+        name: "Node.js",
+        category: "Runtime",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        name: "Express.js",
+        category: "Backend API",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        category: "CSS Framework",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "OpenCV",
+        category: "Computer Vision",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
+      },
+      {
+        name: "Gemini AI",
+        category: "LLM · GenAI",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg",
+      },
+      {
+        name: "MediaPipe",
+        category: "Vision & Gesture",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      },
+      {
+        name: "Monaco Editor",
+        category: "Code Engine",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+      },
+    ],
+    []
+  );
 
-            return {
-                hidden: initial,
-                show: {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    transition: {
-                        type: "spring",
-                        stiffness: 40,
-                        damping: 15,
-                        mass: 1,
-                        delay: index * 0.1, // Reduced delay for snappier feel
-                    },
-                },
-            };
-        },
-        []
-    );
+  // Row 3: Databases, Cloud & DevOps
+  const row3 = useMemo(
+    () => [
+      {
+        name: "Docker",
+        category: "Containers",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+      },
+      {
+        name: "PostgreSQL",
+        category: "Relational DB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+      },
+      {
+        name: "MongoDB",
+        category: "NoSQL DB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        name: "MySQL",
+        category: "SQL Database",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+      },
+      {
+        name: "Git",
+        category: "Version Control",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      },
+      {
+        name: "GitHub",
+        category: "Collaboration",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      },
+      {
+        name: "Linux",
+        category: "Environment",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+      },
+      {
+        name: "Vite",
+        category: "Build Tool",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+      },
+      {
+        name: "Postman",
+        category: "API Testing",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+      },
+      {
+        name: "Firebase",
+        category: "Cloud Backend",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      },
+    ],
+    []
+  );
 
-    return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 relative overflow-hidden">
-            {/* Background blobs - Optimized with CSS only animation */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-                <div
-                    className="absolute top-20 left-20 w-72 h-72 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob"
-                    style={{ willChange: "transform" }}
-                />
-                <div
-                    className="absolute top-20 right-20 w-72 h-72 bg-purple-100/30 dark:bg-purple-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob animation-delay-2000"
-                    style={{ willChange: "transform" }}
-                />
-                <div
-                    className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-100/30 dark:bg-pink-900/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-normal animate-blob animation-delay-4000"
-                    style={{ willChange: "transform" }}
-                />
-            </div>
+  const TechChip = ({ item }) => (
+    <div className="inline-flex items-center gap-3 px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-white/85 dark:bg-slate-900/75 border border-slate-200/90 dark:border-slate-800/80 backdrop-blur-md shadow-xs hover:shadow-lg dark:hover:shadow-[0_0_22px_rgba(34,211,238,0.18)] hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:bg-slate-50/90 dark:hover:bg-slate-800/90 transition-all duration-300 group cursor-default select-none shrink-0 mx-2">
+      <div className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center shrink-0">
+        <img
+          src={item.icon}
+          alt={item.name}
+          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div className="flex flex-col text-left">
+        <span className="text-sm sm:text-base font-semibold text-[#111827] dark:text-[#F5F7FA] tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">
+          {item.name}
+        </span>
+        <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#6B7280] dark:text-[#94A3B8] leading-tight mt-0.5">
+          {item.category}
+        </span>
+      </div>
+    </div>
+  );
 
-            {/* Header */}
-            <div className="text-center mb-16 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "0px 0px -80px 0px" }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                    <h2 className="text-4xl sm:text-5xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-4 tracking-tight">
-                        Technical <span className="text-[#0891B2] dark:text-[#22D3EE]">
-                            Expertise
-                        </span>
-                    </h2>
-                    <p className="text-base sm:text-lg text-[#6B7280] dark:text-[#94A3B8] max-w-2xl mx-auto leading-relaxed">
-                        A curated stack of modern technologies I use to build scalable applications.
-                    </p>
-                </motion.div>
-            </div>
+  return (
+    <section className="relative isolate py-10 sm:py-14 overflow-hidden">
+      {/* Subtle Ambient Background Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-cyan-200/20 dark:bg-cyan-900/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-purple-200/20 dark:bg-purple-900/10 rounded-full blur-3xl" />
+      </div>
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-                {SKILLS_CATEGORIES.map((category, idx) => {
-                    const Icon = category.icon;
-                    return (
-                        <motion.div
-                            key={idx}
-                            variants={getCardVariants(idx)}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
-                            className="h-full"
-                        >
-                            <div className="group relative bg-white dark:bg-slate-900/60 backdrop-blur-md rounded-2xl p-7 sm:p-8 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300 border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] flex flex-col h-full overflow-hidden hover:-translate-y-1.5">
-                                {/* Glass overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-blue-50/20 dark:from-slate-900/40 dark:to-cyan-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                                {/* Card Header */}
-                                <div className="mb-8 relative z-10">
-                                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                                        <Icon className="w-7 h-7 text-white" />
-                                    </div>
-                                    <h3 className="text-xl sm:text-2xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-3 group-hover:text-[#0891B2] dark:group-hover:text-[#22D3EE] transition-colors">
-                                        {category.title}
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-[#6B7280] dark:text-[#94A3B8] leading-relaxed">{category.description}</p>
-                                </div>
-
-                                {/* Skills List */}
-                                <div className="flex flex-wrap gap-3 mt-auto relative z-10">
-                                    {category.skills.map((skill, skillIdx) => (
-                                        <div
-                                            key={skillIdx}
-                                            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-950/60 dark:hover:bg-slate-900 border border-slate-200/70 dark:border-slate-800 hover:border-slate-300 dark:hover:border-cyan-500/30 shadow-2xs hover:shadow-xs transition-all duration-200 cursor-default group/skill"
-                                        >
-                                            <img
-                                                src={skill.icon}
-                                                alt={skill.name}
-                                                className="w-5 h-5 object-contain group-hover/skill:scale-110 transition-transform"
-                                                loading="lazy"
-                                                decoding="async"
-                                            />
-                                            <span className="text-sm font-medium text-[#374151] dark:text-[#CBD5E1] group-hover/skill:text-[#111827] dark:group-hover/skill:text-[#F5F7FA]">
-                                                {skill.name}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    );
-                })}
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Short, Professional Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-slate-200/80 dark:border-slate-800/80">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0891B2] dark:text-[#22D3EE] font-semibold">
+              Tech Stack
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mt-1">
+              Technologies &amp; Tools
+            </h2>
+          </div>
+          <span className="text-xs sm:text-sm font-mono text-[#6B7280] dark:text-[#94A3B8]">
+            Core • Full-Stack • Cloud &amp; AI
+          </span>
         </div>
-    );
+
+        {/* Multi-Row Infinite Horizontal Marquee Ticker */}
+        <div className="space-y-4 sm:space-y-5 relative [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          {/* Track 1: Languages & Core (Moves Left - Only this row pauses on hover) */}
+          <div className="overflow-hidden py-1 marquee-row">
+            <div className="animate-marquee-left">
+              {[...row1, ...row1].map((item, idx) => (
+                <TechChip key={`row1-${idx}`} item={item} />
+              ))}
+            </div>
+          </div>
+
+          {/* Track 2: Frameworks & AI (Moves Right - Only this row pauses on hover) */}
+          <div className="overflow-hidden py-1 marquee-row">
+            <div className="animate-marquee-right">
+              {[...row2, ...row2].map((item, idx) => (
+                <TechChip key={`row2-${idx}`} item={item} />
+              ))}
+            </div>
+          </div>
+
+          {/* Track 3: DevOps, DBs & Cloud (Moves Left - Only this row pauses on hover) */}
+          <div className="overflow-hidden py-1 marquee-row">
+            <div className="animate-marquee-left">
+              {[...row3, ...row3].map((item, idx) => (
+                <TechChip key={`row3-${idx}`} item={item} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Minimal Footer Hint */}
+        <div className="mt-6 text-center text-xs text-[#94A3B8] dark:text-[#64748B] flex items-center justify-center gap-2 font-mono">
+          <Terminal className="w-3.5 h-3.5 text-cyan-500" />
+          <span>Hover on any row to pause</span>
+        </div>
+      </div>
+    </section>
+  );
 }
