@@ -829,6 +829,32 @@ html.theme-transitioning *::after {
   animation-delay: 4s;
 }
 
+/* =============================================
+   HERO CONCENTRIC ORBITS & REVOLVING ICONS (HYNTS SPEC)
+   ============================================= */
+@keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  to {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+  }
+}
+
+.animate-orbit {
+  animation: orbit calc(var(--duration) * 1s) linear infinite;
+}
+
+.animate-orbit:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit {
+    animation: none !important;
+  }
+}
+
 /* Hide/shift Rohit AI elements and side elements when navigation menu is open to prevent overlapping */
 body.nav-menu-open .contact-btn,
 body.nav-menu-open .ask-rohit-ai-chat,
