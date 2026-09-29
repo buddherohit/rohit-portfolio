@@ -1,198 +1,311 @@
-import React, { useMemo } from "react";
-import { motion } from "framer-motion";
-import { Trophy, Award, Medal, Star } from "lucide-react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import {
+  Trophy,
+  ShieldCheck,
+  Sparkles,
+  Terminal,
+  Brain,
+  Award,
+  ArrowUpRight,
+} from "lucide-react";
 
 export default function Achievements() {
+  const ACHIEVEMENTS_DATA = useMemo(
+    () => [
+      {
+        id: "jpmorgan-hackathon",
+        icon: Trophy,
+        category: "Hackathon",
+        title: "JPMorgan Chase Hackathon",
+        badge: "Sprint Finalist • Prototyping",
+        summary:
+          "Collaborated in a high-velocity agile sprint building rapid full-stack software prototypes within 24 hours.",
+        details:
+          "Architected modular services, integrated mock APIs under strict sprint deadlines, and pitched to industry mentors.",
+        tags: ["Agile Sprint", "Java", "Prototyping", "Team Lead"],
+        accent: "#f59e0b", // Gold / Amber
+        linkLabel: "View Experience",
+        linkHref: "#experience",
+      },
+      {
+        id: "oracle-ai-certified",
+        icon: ShieldCheck,
+        category: "Enterprise AI",
+        title: "Oracle Cloud OCI AI Certified",
+        badge: "Oracle Certified • Enterprise ML",
+        summary:
+          "Official enterprise certification covering deep learning, NLP, computer vision, and GenAI on Oracle Cloud.",
+        details:
+          "Validated enterprise AI architecture, model deployment, OCI AI services, and production ML lifecycle management.",
+        tags: ["Oracle Cloud", "OCI AI", "Deep Learning", "GenAI"],
+        accent: "#ea580c", // Orange / Vermilion
+        linkLabel: "View Certificate",
+        linkHref: "/certifications/Oracle AI Foundation.pdf",
+      },
+      {
+        id: "google-genai-certified",
+        icon: Sparkles,
+        category: "Generative AI",
+        title: "Google Cloud GenAI Specialist",
+        badge: "Google Cloud Certified • 2025",
+        summary:
+          "Professional credential demonstrating proficiency in Large Language Models (LLMs) and Google Cloud AI.",
+        details:
+          "Validated mastery of attention architectures, prompt tuning, responsible AI development, and cloud model serving.",
+        tags: ["Google Cloud", "LLMs", "Generative Models", "AI Ethics"],
+        accent: "#0284c7", // Sky Blue
+        linkLabel: "View Certificate",
+        linkHref: "/certifications/Google AI.pdf",
+      },
+      {
+        id: "gfg-java-certified",
+        icon: Terminal,
+        category: "Programming",
+        title: "GeeksforGeeks Java Certified",
+        badge: "GFG Verified • OOP & Logic",
+        summary:
+          "Comprehensive certification validating object-oriented design, Collections framework, and robust algorithms.",
+        details:
+          "Demonstrated deep proficiency in Java class architecture, multi-threading patterns, memory safety, and clean code.",
+        tags: ["Java", "OOP", "Collections", "Design Patterns"],
+        accent: "#10b981", // Emerald
+        linkLabel: "View Certificate",
+        linkHref: "/certifications/Java GFG.pdf",
+      },
+      {
+        id: "ibm-ml-vision",
+        icon: Brain,
+        category: "Machine Learning",
+        title: "IBM Machine Learning Specialist",
+        badge: "Coursera & IBM • Certified",
+        summary:
+          "Rigorous certification covering regression, classification, clustering, and OpenCV image processing pipelines.",
+        details:
+          "Built Scikit-Learn pipelines, tuned hyper-parameters with cross-validation, and trained convolutional networks.",
+        tags: ["Python", "Scikit-Learn", "Computer Vision", "OpenCV"],
+        accent: "#8b5cf6", // Purple
+        linkLabel: "View Certificate",
+        linkHref: "/certifications/Machine learning IBM.pdf",
+      },
+      {
+        id: "aws-cloud-ai",
+        icon: Award,
+        category: "Cloud Architecture",
+        title: "AWS Cloud & AI Essentials",
+        badge: "Amazon Web Services • Cloud 2025",
+        summary:
+          "Foundational certification covering AWS cloud infrastructure, security models, and Amazon Q AI tooling.",
+        details:
+          "Validated understanding of highly available cloud systems, serverless components, identity access, and AI workflows.",
+        tags: ["AWS Cloud", "Amazon Q", "Cloud Security", "Infrastructure"],
+        accent: "#f59e0b", // Amber / Gold
+        linkLabel: "View Certificate",
+        linkHref: "/certifications/AWS.pdf",
+      },
+    ],
+    []
+  );
 
-  const containerVariants = useMemo(() => ({
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    },
-  }), []);
+  const [activeId, setActiveId] = useState(ACHIEVEMENTS_DATA[0].id);
+  const [interacting, setInteracting] = useState(false);
 
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    },
-  }), []);
+  // Smooth idle rotation
+  useEffect(() => {
+    if (interacting) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
 
-  const ACHIEVEMENTS_DATA = [
-    {
-      title: "Software Development Intern",
-      organization: "Cognifyz Technologies Pvt Ltd",
-      location: "Nagpur, Maharashtra",
-      description: "Currently working as Software Development Intern gaining real-world development experience.",
-      icon: Trophy,
-      color: "from-red-500 to-pink-500",
-      highlights: [
-        "Worked on real-world development projects",
-        "Improved coding & problem solving skills",
-        "Learned industry best practices"
-      ],
-      skills: ["Java", "Web Development", "Git"]
-    },
-    {
-      title: "GeeksforGeeks Java Certification",
-      organization: "GeeksforGeeks",
-      location: "Online",
-      description: "Completed Java Programming Certification from GeeksforGeeks.",
-      icon: Award,
-      color: "from-green-500 to-emerald-500",
-      highlights: [
-        "Core Java Concepts",
-        "OOP Concepts",
-        "Collections Framework",
-        "Problem Solving"
-      ],
-      skills: ["Java", "OOP", "DSA"]
-    },
-    {
-      title: "Oracle AI Foundation Certification",
-      organization: "Oracle",
-      location: "Online",
-      description: "Completed Oracle AI Foundation certification covering AI fundamentals.",
-      icon: Medal,
-      color: "from-blue-500 to-cyan-500",
-      highlights: [
-        "AI Fundamentals",
-        "Machine Learning Basics",
-        "AI Applications",
-        "Data & Models"
-      ],
-      skills: ["AI", "Machine Learning", "Oracle"]
-    },
-    {
-      title: "Hackathon Participant",
-      organization: "JPMorgan Chase Hackathon",
-      location: "India",
-      description: "Participated in hackathon and built innovative solutions.",
-      icon: Trophy,
-      color: "from-purple-500 to-pink-500",
-      highlights: [
-        "Team collaboration",
-        "Built prototype solution",
-        "Improved problem solving"
-      ],
-      skills: ["Teamwork", "Java", "Problem Solving"]
-    },
-    {
-      title: "Project Development",
-      organization: "Academic Projects",
-      location: "Nagpur",
-      description: "Developed multiple real-world applications.",
-      icon: Award,
-      color: "from-orange-500 to-red-500",
-      highlights: [
-        "VibeCode Editor",
-        "MSBTE Diploma Job Portal",
-        "DiplomaGPT"
-      ],
-      skills: ["Java", "Python", "DSA"]
-    },
-    {
-      title: "DSA & Problem Solving",
-      organization: "Practice & Learning",
-      location: "Online",
-      description: "Continuously improving problem solving skills.",
-      icon: Medal,
-      color: "from-indigo-500 to-purple-500",
-      highlights: [
-        "Practicing coding problems",
-        "Improving algorithms",
-        "Learning advanced concepts"
-      ],
-      skills: ["DSA", "Java", "Algorithms"]
-    }
-  ];
+    const timer = setInterval(() => {
+      setActiveId((prev) => {
+        const idx = ACHIEVEMENTS_DATA.findIndex((item) => item.id === prev);
+        const nextIdx = (idx + 1) % ACHIEVEMENTS_DATA.length;
+        return ACHIEVEMENTS_DATA[nextIdx].id;
+      });
+    }, 3400);
+
+    return () => clearInterval(timer);
+  }, [interacting, ACHIEVEMENTS_DATA]);
+
+  const handleSelect = useCallback((id) => {
+    setActiveId(id);
+  }, []);
 
   return (
     <section
       id="achievements"
-      className="relative bg-gradient-to-b from-white via-gray-50 to-white dark:from-transparent dark:via-transparent dark:to-transparent py-20"
+      className="relative isolate py-10 sm:py-14 overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="w-14 h-14 bg-gradient-to-br from-[#0891B2] to-cyan-600 dark:from-[#22D3EE] dark:to-[#0891B2] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-cyan-500/20">
-            <Trophy className="w-7 h-7 text-white dark:text-slate-950" />
+      {/* Subtle Ambient Background Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-cyan-200/10 dark:bg-cyan-900/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-purple-200/10 dark:bg-purple-900/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Section Header: clean, compact, proportional */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-1.5 mb-6 sm:mb-8 pb-3 border-b border-slate-200/80 dark:border-slate-800/80">
+          <div>
+            <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[#0891B2] dark:text-[#22D3EE] font-semibold">
+              Milestones &amp; Honors
+            </span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-display text-[#111827] dark:text-[#F5F7FA] mt-0.5 tracking-tight">
+              Achievements &amp; Credentials
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display">
-            Achievements
-          </h2>
-          <p className="text-[#6B7280] dark:text-[#94A3B8] mt-2 text-sm sm:text-base">
-            Milestones and accomplishments in my journey
-          </p>
+          <span className="text-[11px] sm:text-xs font-mono text-[#6B7280] dark:text-[#94A3B8]">
+            Hackathons • Enterprise AI • Verified Credentials
+          </span>
         </div>
 
-        {/* Timeline */}
-        <div className="relative space-y-8">
-          {/* Vertical Line */}
-          <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-slate-800 hidden sm:block" />
-
-          {ACHIEVEMENTS_DATA.map((item, index) => {
+        {/* Compact, Ultra-Professional Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {ACHIEVEMENTS_DATA.map((item) => {
             const Icon = item.icon;
+            const active = item.id === activeId;
+
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative sm:pl-16"
+              <div
+                key={item.id}
+                onPointerEnter={(e) => {
+                  if (e.pointerType === "mouse") {
+                    setInteracting(true);
+                    handleSelect(item.id);
+                  }
+                }}
+                onPointerLeave={(e) => {
+                  if (e.pointerType === "mouse") {
+                    setInteracting(false);
+                  }
+                }}
+                onClick={() => handleSelect(item.id)}
+                style={{
+                  "--card-accent": item.accent,
+                }}
+                className={`group relative flex min-h-[200px] sm:min-h-[220px] flex-col justify-between rounded-2xl border p-4 sm:p-5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer backdrop-blur-md overflow-hidden ${
+                  active
+                    ? "-translate-y-0.5 bg-white/95 dark:bg-slate-900/90 border-[color-mix(in_srgb,var(--card-accent)_45%,transparent)] shadow-[0_12px_28px_-14px_color-mix(in_srgb,var(--card-accent)_30%,transparent)]"
+                    : "bg-white/70 dark:bg-slate-900/50 border-slate-200/80 dark:border-slate-800/70 shadow-xs hover:border-slate-300 dark:hover:border-slate-700"
+                }`}
               >
-                {/* Timeline dot */}
-                <div className="absolute left-[20px] top-6 w-3 h-3 bg-[#0891B2] dark:bg-[#22D3EE] rounded-full ring-4 ring-white dark:ring-slate-950 shadow transition-all duration-300 hidden sm:block" />
+                {/* Luminous Radial Ambient Aura when Active */}
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out -z-10 ${
+                    active ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{
+                    background: `radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--card-accent) 14%, transparent), transparent 60%)`,
+                  }}
+                />
 
-                {/* Card */}
-                <div className="bg-white dark:bg-slate-900/60 backdrop-blur-md p-6 rounded-2xl shadow-sm hover:shadow-xl dark:shadow-none border border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/40 dark:hover:shadow-[0_0_25px_rgba(34,211,238,0.12)] hover:-translate-y-1 transition-all duration-300">
-                  <div className="flex flex-col sm:flex-row gap-5">
-                    <div className={`shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-md`}>
-                      <Icon className="w-7 h-7" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-[#111827] dark:text-[#F5F7FA] font-display mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-[#0891B2] dark:text-[#22D3EE] font-medium text-sm mb-1">
-                        {item.organization}
-                      </p>
-                      <p className="text-[#6B7280] dark:text-[#94A3B8] text-xs mb-3">
-                        {item.location}
-                      </p>
-                      <p className="text-[#374151] dark:text-[#CBD5E1] mb-4 leading-relaxed text-sm">
-                        {item.description}
-                      </p>
+                {/* Top Section: Icon, Category Pill, Title & Summary */}
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span
+                      className={`flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-lg border transition-all duration-300 ${
+                        active
+                          ? "border-[color-mix(in_srgb,var(--card-accent)_45%,transparent)] bg-[color-mix(in_srgb,var(--card-accent)_14%,white)] dark:bg-[color-mix(in_srgb,var(--card-accent)_16%,#0a0a0a)] text-[var(--card-accent)] scale-105"
+                          : "border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 text-slate-600 dark:text-slate-400"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </span>
 
-                      {/* Highlights */}
-                      <ul className="grid sm:grid-cols-2 gap-2 mb-4">
-                        {item.highlights.map((point, idx) => (
-                          <li key={idx} className="text-sm text-[#374151] dark:text-[#CBD5E1] flex items-start gap-2">
-                            <span className="text-[#0891B2] dark:text-[#22D3EE] mt-0.5">•</span>
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
+                    <span
+                      className={`font-mono text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full border transition-colors duration-200 ${
+                        active
+                          ? "border-[color-mix(in_srgb,var(--card-accent)_35%,transparent)] bg-[color-mix(in_srgb,var(--card-accent)_10%,transparent)] text-[var(--card-accent)]"
+                          : "border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/40 text-slate-500 dark:text-slate-400"
+                      }`}
+                    >
+                      {item.category}
+                    </span>
+                  </div>
 
-                      {/* Skills */}
-                      <div className="flex flex-wrap gap-2">
-                        {item.skills.map((skill, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-1 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-medium text-[#0891B2] dark:text-[#22D3EE] rounded-md shadow-xs"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                  {/* Title & Badge */}
+                  <h3
+                    className={`text-sm sm:text-base font-bold font-display tracking-tight leading-snug transition-colors duration-200 ${
+                      active
+                        ? "text-[#111827] dark:text-[#F5F7FA]"
+                        : "text-[#111827]/90 dark:text-[#F5F7FA]/80"
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-0.5 text-[11px] font-mono font-medium text-[var(--card-accent)]">
+                    {item.badge}
+                  </p>
+
+                  {/* Description: Compact and responsive */}
+                  <div className="mt-2 text-xs sm:text-[13px] leading-relaxed text-[#4B5563] dark:text-[#94A3B8]">
+                    {active ? (
+                      <p className="text-[#374151] dark:text-[#CBD5E1] transition-opacity duration-200 line-clamp-3">
+                        {item.details}
+                      </p>
+                    ) : (
+                      <p className="line-clamp-2 transition-opacity duration-200">
+                        {item.summary}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Tech Tags: clean pills revealed when active */}
+                  <div
+                    className={`flex flex-wrap gap-1 transition-all duration-200 ${
+                      active
+                        ? "opacity-100 mt-2.5 max-h-12"
+                        : "opacity-0 max-h-0 overflow-hidden pointer-events-none mt-0"
+                    }`}
+                  >
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-mono font-medium bg-[color-mix(in_srgb,var(--card-accent)_10%,transparent)] text-[#111827] dark:text-[#F5F7FA] border border-[color-mix(in_srgb,var(--card-accent)_20%,transparent)]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
+
+                {/* Footer Link & Indicator */}
+                <div className="mt-3.5 pt-2.5 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60">
+                  <a
+                    href={item.linkHref}
+                    target={item.linkHref.startsWith("http") || item.linkHref.endsWith(".pdf") || item.linkHref.endsWith(".jpg") ? "_blank" : undefined}
+                    rel={item.linkHref.startsWith("http") || item.linkHref.endsWith(".pdf") || item.linkHref.endsWith(".jpg") ? "noopener noreferrer" : undefined}
+                    onClick={(e) => e.stopPropagation()}
+                    className={`inline-flex items-center gap-1.5 self-start font-mono text-[11px] uppercase tracking-wider font-semibold transition-colors duration-200 ${
+                      active
+                        ? "text-[var(--card-accent)] hover:opacity-80"
+                        : "text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200"
+                    }`}
+                  >
+                    <span>{item.linkLabel}</span>
+                    <ArrowUpRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+
+                  {/* Active Indicator Dot */}
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                      active
+                        ? "bg-[var(--card-accent)] shadow-[0_0_8px_var(--card-accent)] scale-125"
+                        : "bg-slate-300 dark:bg-slate-700 scale-75"
+                    }`}
+                  />
+                </div>
+
+                {/* Subtle Bottom Accent Indicator */}
+                <div
+                  className={`absolute inset-x-0 bottom-0 h-0.5 bg-[var(--card-accent)] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left ${
+                    active ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
+              </div>
             );
           })}
         </div>
