@@ -69,7 +69,7 @@ export default function Education() {
           "DBMS",
           "AI/ML",
         ],
-        accent: "#0891B2", // Cyan / Electric Blue
+        accent: "#0891B2", // Cyan / Electric Blue hergla
         linkLabel: "View Institution",
         linkHref: "https://www.ycce.edu",
       },
