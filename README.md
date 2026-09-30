@@ -4,7 +4,6 @@ A modern, responsive, and high-performance developer portfolio built using **Rea
 This portfolio showcases my **projects, skills, experience, achievements, and certifications**.
 
 ---
-
 # 🌐 Live Website
 
 [![Portfolio Live](https://img.shields.io/badge/Live%20Portfolio-rohitbuddhe.vercel.app-0891B2?style=for-the-badge&logo=vercel&logoColor=white)](https://rohitbuddhe.vercel.app)
@@ -14,7 +13,6 @@ This portfolio showcases my **projects, skills, experience, achievements, and ce
 📦 **Repository:** [https://github.com/buddherohit/rohit-portfolio](https://github.com/buddherohit/rohit-portfolio)
 
 ---
-
 # 👨‍💻 About Me
 
 Hi, I'm **Rohit Buddhe**  
